@@ -1,0 +1,19 @@
+npx create-vite frontend --template react
+cd frontend
+npm install
+npm install axios react-router-dom
+
+// Cai dat alias
+npm install path
+* Cau hinh vite.config.js
+    resolve: {
+        alias: {
+            "~": path.resolve(__dirname, "src"),
+        },
+    },
+
+// Cai dat scss
+npm install sass
+npm i classnames
+npm install normalize.css
+

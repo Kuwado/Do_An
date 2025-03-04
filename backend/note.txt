@@ -1,0 +1,4 @@
+mkdir backend && cd backend
+npm init -y
+npm install express mongodb mongoose dotenv cors jsonwebtoken bcryptjs
+npm install nodemon --save-dev // Reload server tự động khi code thay đổi
