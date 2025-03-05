@@ -6,12 +6,12 @@ import UserHeader from '../components/Header/UserHeader';
 const cx = classNames.bind(styles);
 
 const UserDefault = ({ children }) => {
-  return (
-    <div className={cx('user-default-layout')}>
-      <UserHeader />
-      <div className={cx('content')}>{children}</div>
-    </div>
-  );
+    return (
+        <div className={cx('user-default-layout')}>
+            <UserHeader />
+            <div className={cx('content')}>{children}</div>
+        </div>
+    );
 };
 
 export default UserDefault;
