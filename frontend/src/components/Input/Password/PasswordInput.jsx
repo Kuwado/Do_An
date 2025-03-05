@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 const PasswordInput = ({
     password,
-    setPassword,
+    setPassword = () => {},
     width = '100%',
     id = 'id',
     label = 'Mật khẩu',
