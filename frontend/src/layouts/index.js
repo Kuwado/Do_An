@@ -1,17 +1,17 @@
 import UserDefault from './user/Default/UserDefault';
 
 const layouts = {
-  admin: {
-    // default: AdminLayout,
-  },
+    admin: {
+        // default: AdminLayout,
+    },
 
-  user: {
-    default: UserDefault,
-  },
+    user: {
+        default: UserDefault,
+    },
 
-  other: {
-    // noHeader: NoHeaderLayout,
-  },
+    other: {
+        // noHeader: NoHeaderLayout,
+    },
 };
 
 export default layouts;
