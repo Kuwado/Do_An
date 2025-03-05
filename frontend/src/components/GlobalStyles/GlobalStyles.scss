@@ -18,3 +18,12 @@ body {
     color: var(--text-primary);
     font-size: var(--font-size);
 }
+
+button,
+input,
+[tabindex] {
+    border: none;
+    outline: none;
+    // line-height: var(--line-height);
+    font-size: var(--font-size);
+}
