@@ -1,5 +1,6 @@
 @use 'ColorStyles' as *;
 @use 'SizeStyles' as *;
+@use 'FontStyles' as *;
 
 @import 'normalize.css';
 
@@ -15,8 +16,10 @@ html {
 }
 
 body {
-    color: var(--text-primary);
+    color: var(--primary-text);
     font-size: var(--font-size);
+    font-family: 'OpenSans', sans-serif;
+    background-color: var(--primary-background);
 }
 
 button,
@@ -26,4 +29,9 @@ input,
     outline: none;
     // line-height: var(--line-height);
     font-size: var(--font-size);
+}
+
+a {
+    color: var(--primary-text);
+    text-decoration: none;
 }
