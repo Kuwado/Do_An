@@ -1,6 +1,66 @@
 .user-header {
-  width: 100%;
-  height: var(--header-height);
-  background-color: antiquewhite;
-  position: fixed;
+    position: fixed;
+    width: 100%;
+    height: var(--header-height);
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
+    // transition: background-color 0.05s;
+
+    &.scrolled {
+        background-color: var(--primary);
+        box-shadow: rgba(3, 18, 26, 0.2) 0px 1px 2px;
+    }
+}
+
+.header-content {
+    width: var(--content-width);
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    gap: 10px;
+}
+
+/* Left */
+.logo {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 24px;
+    color: var(--secondary);
+}
+
+.header-item-list {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.header-left .header-item {
+    height: calc(100% - 14px);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 10px;
+    font-weight: bold;
+
+    &:hover {
+        background-color: var(--primary-hover);
+    }
+
+    &.active {
+        color: var(--secondary);
+        border: 1px solid var(--secondary);
+    }
+}
+
+/* Right */
+.header-right {
+    align-items: center;
 }

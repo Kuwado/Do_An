@@ -1,0 +1,97 @@
+.button {
+    font-size: var(--font-size);
+    color: var(--primary-text);
+    border: 1px solid transparent;
+    cursor: pointer;
+    user-select: none;
+    @extend .medium;
+
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    &.curved {
+        border-radius: 999px;
+    }
+}
+
+// Type
+.primary {
+    background-color: var(--primary);
+    color: var(--primary-text);
+
+    &:hover,
+    &.active {
+        background-color: var(--primary-hover);
+    }
+}
+
+.secondary {
+    background-color: var(--secondary);
+    color: var(--secondary-text);
+
+    &:hover,
+    &.active {
+        background-color: var(--secondary-hover);
+    }
+}
+
+.primaryBorder {
+    @extend .primary;
+    border-color: var(--primary-text);
+
+    &:hover,
+    &.active {
+        border-color: var(--text-secondary);
+    }
+}
+
+.secondaryBorder {
+    @extend .secondary;
+    border-color: var(--secondary-text);
+
+    &:hover,
+    &.active {
+        border-color: var(--text-primary);
+    }
+}
+
+.secondaryOutline {
+    background-color: transparent;
+    color: var(--secondary);
+    border-color: var(--secondary);
+
+    &:hover,
+    &.active {
+        background-color: var(--primary-hover);
+    }
+}
+
+.transparent {
+    background-color: transparent;
+}
+
+// Size
+.medium {
+    padding: 8px;
+    border-radius: 10px;
+    border-width: 2px;
+}
+
+.small {
+    padding: 6px;
+    border-radius: 8px;
+    border-width: 1px;
+}
+
+.large {
+    padding: 10px;
+    border-radius: 15px;
+    font-size: calc(var(--font-size) + 2px);
+    border-width: 2px;
+}
+
+.no-click {
+    pointer-events: none;
+}

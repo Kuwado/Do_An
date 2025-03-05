@@ -1,36 +1,17 @@
 :root {
-  --primary-r: 80;
-  --primary-g: 200;
-  --primary-b: 237;
-  --primary: rgb(var(--primary-r), var(--primary-g), var(--primary-b));
-  --primary-25: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.25);
-  --primary-50: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.5);
-  --primary-75: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.75);
+    --primary: white;
+    --primary-background: #fafafa;
+    --primary-text: black;
+    --primary-hover: #ddd;
+    --secondary: #0194f3;
+    // --secondary-background: #fafafa;
+    --secondary-text: white;
+    --secondary-hover: #017acc;
+    --footer-background: #1c2930;
+    --footer-text: white;
 
-  --secondary-r: 27;
-  --secondary-g: 51;
-  --secondary-b: 127;
-  --secondary: rgb(var(--secondary-r), var(--secondary-g), var(--secondary-b));
-  --secondary-25: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.25);
-  --secondary-50: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.5);
-  --secondary-75: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.75);
-
-  --text-primary: var(--secondary);
-  --text-primary-50: rgba(0, 0, 0, 0.5);
-  --text-secondary: white;
-  --text-secondary-50: rgba(255, 255, 255, 0.5);
-  --text-hightlight: var(--secondary);
-  --background: white;
-
-  --hover-color: #fafafa;
-  --error-color: #ea4c89;
-  --text-error: white;
-
-  //shadow
-  --shadow: 5px 5px 10px var(--text-primary-50);
-  --shadow-menu: rgba(var(--secondary-r) var(--secondary-g) var(--secondary-b) / 12%) 0px 2px 12px;
-  --shadow-circle: 3px 3px 3px var(--text-primary-50);
-
-  --hover-item: var(--secondary-25);
-  --active-item: var(--secondary-75);
+    //shadow
+    --shadow: 5px 5px 10px var(--text-primary-50);
+    --shadow-menu: rgba(var(--secondary-r) var(--secondary-g) var(--secondary-b) / 12%) 0px 2px 12px;
+    --shadow-circle: 3px 3px 3px var(--text-primary-50);
 }

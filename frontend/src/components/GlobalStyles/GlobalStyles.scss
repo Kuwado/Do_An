@@ -1,20 +1,37 @@
 @use 'ColorStyles' as *;
 @use 'SizeStyles' as *;
+@use 'FontStyles' as *;
 
 @import 'normalize.css';
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-  // => 1rem = 10px
-  font-size: 62.5%;
+    // => 1rem = 10px
+    font-size: 62.5%;
 }
 
 body {
-  color: var(--text-primary);
-  font-size: var(--font-size);
+    color: var(--primary-text);
+    font-size: var(--font-size);
+    font-family: 'OpenSans', sans-serif;
+    background-color: var(--primary-background);
+}
+
+button,
+input,
+[tabindex] {
+    border: none;
+    outline: none;
+    // line-height: var(--line-height);
+    font-size: var(--font-size);
+}
+
+a {
+    color: var(--primary-text);
+    text-decoration: none;
 }

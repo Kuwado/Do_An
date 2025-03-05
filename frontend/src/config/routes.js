@@ -1,12 +1,18 @@
 const routes = {
-  admin: {},
+    admin: {},
 
-  user: {
-    home: '/',
-    about: '/about',
-  },
+    user: {
+        home: '/',
+        about: '/about',
+        hotels: '/hotels',
+        vouchers: '/vouchers',
+        login: '/login',
+        register: '/register',
+    },
 
-  other: {},
+    other: {
+        test: '/test',
+    },
 };
 
 export default routes;
