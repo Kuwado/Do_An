@@ -1,7 +1,10 @@
 :root {
-    --primary-r: 80;
-    --primary-g: 200;
-    --primary-b: 237;
+    // --primary-r: 27;
+    // --primary-g: 160;
+    // --primary-b: 226;
+    --primary-r: 27;
+    --primary-g: 58;
+    --primary-b: 87;
     --primary: rgb(var(--primary-r), var(--primary-g), var(--primary-b));
     --primary-25: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.25);
     --primary-50: rgba(var(--primary-r), var(--primary-g), var(--primary-b), 0.5);
@@ -14,6 +17,8 @@
     --secondary-25: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.25);
     --secondary-50: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.5);
     --secondary-75: rgba(var(--secondary-r), var(--secondary-g), var(--secondary-b), 0.75);
+
+    --cl-required: red;
 
     --text-primary: var(--secondary);
     --text-primary-50: rgba(0, 0, 0, 0.5);
