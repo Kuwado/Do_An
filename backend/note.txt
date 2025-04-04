@@ -1,4 +1,20 @@
 mkdir backend && cd backend
 npm init -y
-npm install express mongodb mongoose dotenv cors jsonwebtoken bcryptjs
-npm install nodemon --save-dev // Reload server tự động khi code thay đổi
+npm install express
+npm install sequelize mysql2
+npm install --save-dev sequelize-cli
+npm install dotenv
+# Hot reload
+npm install nodemon
+
+# Mã hóa mk
+npm install bcrypt
+
+# Xác thực
+npm install jsonwebtoken
+
+# Log http request
+npm install morgan
+
+# Cors
+npm install cors

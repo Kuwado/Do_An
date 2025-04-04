@@ -1,23 +1,32 @@
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import mongoose from "mongoose";
+import dotenv from 'dotenv';
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+
+import sequelize from './config/db.js';
+import authRoute from './routes/AuthRoute.js';
 
 dotenv.config();
 const app = express();
+const PORT = process.env.PORT;
 
-// Middleware
-app.use(cors());
 app.use(express.json());
+app.use(morgan('combined'));
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error(err));
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Kết nối database thành công');
+    })
+    .catch((err) => {
+        console.error('Không thể kết nối đến database:', err);
+    });
 
-app.get("/", (req, res) => {
-  res.send("API is running...");
+// Routes
+app.use('/api/auth', authRoute);
+
+app.listen(PORT, () => {
+    console.log(`Server đang chạy tại http://localhost:${PORT}`);
 });
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
