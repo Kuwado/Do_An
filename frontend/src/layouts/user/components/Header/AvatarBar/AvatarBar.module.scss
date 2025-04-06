@@ -70,6 +70,8 @@
     max-width: 300px;
     display: flex;
     padding: 12px;
+    background-color: transparent;
+    cursor: pointer;
 
     &:hover {
         background-color: var(--primary-hover);

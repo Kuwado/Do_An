@@ -75,9 +75,9 @@ const Button = ({
 
     return (
         <Comp className={classes} {...props} style={{ width: width }}>
-            {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
-            <span className={cx('content', { center: contentCenter })}>{children}</span>
-            {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}{' '}
+            {leftIcon && <div className={cx('icon')}>{leftIcon}</div>}
+            <div className={cx('content', { center: contentCenter })}>{children}</div>
+            {rightIcon && <div className={cx('icon')}>{rightIcon}</div>}{' '}
         </Comp>
     );
 };
