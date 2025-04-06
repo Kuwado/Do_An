@@ -19,12 +19,16 @@ export const loginUserService = async (username, password) => {
         throw new Error('Mật khẩu không đúng');
     }
 
-    const token = jwt.sign(
-        { id: user.id, username: user.username },
-        JWT_SECRET,
-        { expiresIn: '7d' },
-    );
-    return { message: 'Đăng nhập thành công', token };
+    const payload = {
+        id: user.id,
+        username: user.username,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        avatar: user.avatar,
+    };
+
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
+    return { message: 'Đăng nhập thành công', token, user: payload };
 };
 
 // Hàm đăng nhập cho Staff
@@ -41,7 +45,13 @@ export const loginStaffService = async (username, password) => {
     }
 
     const token = jwt.sign(
-        { id: staff.id, username: staff.username, role: staff.role },
+        {
+            id: staff.id,
+            username: staff.username,
+            role: staff.role,
+            first_name: staff.first_name,
+            last_name: staff.last_name,
+        },
         JWT_SECRET,
         { expiresIn: '7d' },
     );

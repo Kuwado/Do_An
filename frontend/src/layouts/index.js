@@ -1,4 +1,5 @@
 import UserDefault from './user/Default/UserDefault';
+import FullScreen from './other/FullScreen/FullScreen';
 
 const layouts = {
     admin: {
@@ -10,7 +11,7 @@ const layouts = {
     },
 
     other: {
-        // noHeader: NoHeaderLayout,
+        fullScreen: FullScreen,
     },
 };
 

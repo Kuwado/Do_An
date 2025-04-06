@@ -1,3 +1,3 @@
-import DefaultInput from './DefaultInput';
+import Input from './DefaultInput';
 
-export default DefaultInput;
+export default Input;

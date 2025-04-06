@@ -8,6 +8,7 @@ const routes = {
         vouchers: '/vouchers',
         login: '/login',
         register: '/register',
+        forgotPassword: '/forgot-password',
     },
 
     other: {

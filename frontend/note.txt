@@ -2,6 +2,7 @@ npx create-vite frontend --template react
 cd frontend
 npm install
 npm install axios react-router-dom
+npm install axios
 
 // Cai dat alias
 npm install path

@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -14,14 +16,22 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './AvatarBar.module.scss';
+import config from '@/config';
 import images from '@/assets/images';
-import { Link } from 'react-router-dom';
+import { logoutUser } from '@/services/AuthService';
 
 const cx = classNames.bind(styles);
 
 const AvatarBar = () => {
+    const navigate = useNavigate();
     const [show, setShow] = useState(false);
     const avatarRef = useRef(null);
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    const handleLogout = () => {
+        logoutUser();
+        navigate(config.routes.user.login);
+    };
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -47,8 +57,10 @@ const AvatarBar = () => {
             </div>
             <div className={cx('body')}>
                 <div className={cx('body-header')}>
-                    <img src={images.avatar} alt="avatar" />
-                    <span className={cx('user-name')}>Việt Hoàn</span>
+                    <img src={user.avatar ?? images.avatar} alt="avatar" />
+                    <span className={cx('user-name')}>
+                        {user.first_name} {user.last_name}
+                    </span>
                 </div>
 
                 <Link to="/" className={cx('avatar-item')}>
@@ -86,12 +98,12 @@ const AvatarBar = () => {
                     <span className={cx('item-title')}>Phiếu giảm giá của tôi</span>
                 </Link>
 
-                <Link to="/" className={cx('avatar-item')}>
+                <button className={cx('avatar-item')} onClick={handleLogout}>
                     <div className={cx('item-icon')}>
                         <FontAwesomeIcon icon={faArrowRightFromBracket} />
                     </div>
                     <span className={cx('item-title')}>Đăng xuất</span>
-                </Link>
+                </button>
             </div>
         </div>
     );

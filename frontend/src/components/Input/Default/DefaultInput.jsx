@@ -4,7 +4,7 @@ import styles from './DefaultInput.module.scss';
 
 const cx = classNames.bind(styles);
 
-const DefaultInput = ({
+const Input = ({
     value,
     setValue,
     label = '',
@@ -33,4 +33,4 @@ const DefaultInput = ({
     );
 };
 
-export default DefaultInput;
+export default Input;
