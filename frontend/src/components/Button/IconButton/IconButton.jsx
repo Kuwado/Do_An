@@ -16,13 +16,11 @@ const IconButton = ({
     transparent = false,
     disabled = false,
     noClick = false,
-    // border type, default = cat canh
-    curved = false,
     // size, defult = medium
     small = false,
     large = false,
     active,
-    icon,
+    children,
     className,
     onClick,
     ...passProps
@@ -60,7 +58,6 @@ const IconButton = ({
         transparent,
         disabled,
         'no-click': noClick,
-        curved,
         small,
         large,
         active,
@@ -68,7 +65,7 @@ const IconButton = ({
 
     return (
         <Comp className={classes} {...props}>
-            {icon}
+            {children}
         </Comp>
     );
 };

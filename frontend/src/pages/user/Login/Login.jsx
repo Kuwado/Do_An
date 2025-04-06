@@ -11,7 +11,7 @@ import config from '@/config';
 import { Input } from '@components/Input';
 import { PasswordInput } from '@components/Input';
 import { Button } from '@components/Button';
-import { loginUser } from '@/services/AuthService';
+import { loginUser, logoutUser } from '@/services/AuthService';
 
 const cx = classNames.bind(styles);
 
@@ -22,9 +22,8 @@ const Login = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        console.log(username);
-        console.log(password);
-    }, [username, password]);
+        logoutUser();
+    }, []);
 
     const handleLogin = async () => {
         const res = await loginUser(username, password);
