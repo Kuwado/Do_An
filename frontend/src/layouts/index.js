@@ -1,9 +1,10 @@
 import UserDefault from './user/Default/UserDefault';
+import AdminDefault from './admin/Default/AdminDefault';
 import FullScreen from './other/FullScreen/FullScreen';
 
 const layouts = {
     admin: {
-        // default: AdminLayout,
+        default: AdminDefault,
     },
 
     user: {

@@ -28,3 +28,8 @@ export const logoutUser = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('next');
 };
+
+export const logoutAdmin = () => {
+    localStorage.removeItem('admin');
+    localStorage.removeItem('token');
+};

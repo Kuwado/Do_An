@@ -1,6 +1,4 @@
 const routes = {
-    admin: {},
-
     user: {
         home: '/',
         about: '/about',
@@ -9,6 +7,15 @@ const routes = {
         login: '/login',
         register: '/register',
         forgotPassword: '/forgot-password',
+    },
+
+    staff: {
+        dashboard: '/staff',
+    },
+
+    admin: {
+        dashboard: '/admin',
+        login: '/admin/login',
     },
 
     other: {

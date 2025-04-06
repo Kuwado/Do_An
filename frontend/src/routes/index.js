@@ -7,6 +7,9 @@ const publicRoutes = [
     { path: config.routes.user.home, element: pages.user.home },
     { path: config.routes.user.about, element: pages.user.about },
     { path: config.routes.other.test, element: pages.other.test },
+
+    { path: config.routes.admin.dashboard, element: pages.admin.dashboard, layout: layouts.admin.default },
+    { path: config.routes.staff.dashboard, element: pages.staff.dashboard, layout: layouts.admin.default },
 ];
 
 const privateRoutes = [];

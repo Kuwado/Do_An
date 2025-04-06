@@ -98,12 +98,12 @@ const AvatarBar = () => {
                     <span className={cx('item-title')}>Phiếu giảm giá của tôi</span>
                 </Link>
 
-                <button className={cx('avatar-item')} onClick={handleLogout}>
+                <Link to={config.routes.user.login} className={cx('avatar-item')}>
                     <div className={cx('item-icon')}>
                         <FontAwesomeIcon icon={faArrowRightFromBracket} />
                     </div>
                     <span className={cx('item-title')}>Đăng xuất</span>
-                </button>
+                </Link>
             </div>
         </div>
     );

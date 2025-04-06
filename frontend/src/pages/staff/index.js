@@ -1,7 +1,7 @@
 import Dashboard from './Dashboard';
 
-const admin = {
+const staff = {
     dashboard: Dashboard,
 };
 
-export default admin;
+export default staff;

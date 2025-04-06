@@ -1,18 +1,17 @@
-.button {
+.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: var(--font-size);
     color: var(--primary-text);
     border: 1px solid transparent;
     cursor: pointer;
     user-select: none;
+    border-radius: 50%;
     @extend .medium;
-
     &.disabled {
         opacity: 0.5;
         pointer-events: none;
-    }
-
-    &.curved {
-        border-radius: 999px;
     }
 }
 
@@ -74,20 +73,20 @@
 
 // Size
 .medium {
-    padding: 8px;
-    border-radius: 10px;
+    width: 30px;
+    height: 30px;
     border-width: 2px;
 }
 
 .small {
-    padding: 6px;
-    border-radius: 8px;
+    width: 25px;
+    height: 25px;
     border-width: 1px;
 }
 
 .large {
-    padding: 10px;
-    border-radius: 15px;
+    width: 40px;
+    height: 40px;
     font-size: calc(var(--font-size) + 2px);
     border-width: 2px;
 }
