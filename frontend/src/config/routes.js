@@ -16,6 +16,7 @@ const routes = {
     admin: {
         dashboard: '/admin',
         login: '/admin/login',
+        login2: '/admin/login/second-step',
     },
 
     other: {

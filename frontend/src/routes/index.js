@@ -10,6 +10,8 @@ const publicRoutes = [
 
     { path: config.routes.admin.dashboard, element: pages.admin.dashboard, layout: layouts.admin.default },
     { path: config.routes.staff.dashboard, element: pages.staff.dashboard, layout: layouts.admin.default },
+    { path: config.routes.admin.login, element: pages.admin.login, layout: layouts.other.fullScreen },
+    { path: config.routes.admin.login2, element: pages.admin.login, layout: layouts.other.fullScreen },
 ];
 
 const privateRoutes = [];

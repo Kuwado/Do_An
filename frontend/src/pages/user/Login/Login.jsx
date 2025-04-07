@@ -53,7 +53,7 @@ const Login = () => {
                             required
                         />
 
-                        <PasswordInput password={password} setPassword={setPassword} />
+                        <PasswordInput password={password} setPassword={setPassword} required />
 
                         {error && <div className={cx('error')}>{error}</div>}
 
