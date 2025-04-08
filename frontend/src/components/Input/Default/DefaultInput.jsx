@@ -4,6 +4,8 @@ import styles from './DefaultInput.module.scss';
 
 const cx = classNames.bind(styles);
 
+const fn = () => {};
+
 const Input = ({
     value,
     setValue,
@@ -16,14 +18,27 @@ const Input = ({
     small = false,
     medium = false,
     large = false,
+    autoComplete = 'off',
+    className,
+    onFocus,
+    onBlur,
 }) => {
     const handleChangeValue = (e) => {
         setValue(e.target.value);
     };
 
     return (
-        <div className={cx('default-input', { small, medium, large })} style={{ width: width }}>
-            <input id={`default-input-${id}`} type={type} value={value} onChange={handleChangeValue} placeholder=" " />
+        <div className={cx('default-input', { small, medium, large, [className]: className })} style={{ width: width }}>
+            <input
+                id={`default-input-${id}`}
+                type={type}
+                value={value}
+                onChange={handleChangeValue}
+                placeholder=" "
+                autoComplete={autoComplete}
+                onFocus={onFocus}
+                onBlur={onBlur}
+            />
             <label htmlFor={`default-input-${id}`}>
                 {label}
                 {required && <span className={cx('required-note')}>*</span>}

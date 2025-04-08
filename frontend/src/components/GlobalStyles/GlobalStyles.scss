@@ -1,6 +1,7 @@
-@use 'ColorStyles' as *;
-@use 'SizeStyles' as *;
-@use 'FontStyles' as *;
+@use 'Design/ColorStyles' as *;
+@use 'Design/SizeStyles' as *;
+@use 'Design/FontStyles' as *;
+@use 'Custom/ReactMultiCarousel.scss' as *;
 
 @import 'normalize.css';
 

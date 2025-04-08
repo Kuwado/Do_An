@@ -1,0 +1,25 @@
+.search-bar {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    padding-bottom: 20px;
+    background-color: var(--primary);
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 999px;
+}
+
+.time {
+    display: flex;
+    gap: 10px;
+}
+
+.quantity,
+.people {
+    width: 180px;
+}
+
+.btn-container {
+    margin-top: 10px;
+}

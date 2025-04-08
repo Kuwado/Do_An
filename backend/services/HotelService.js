@@ -100,6 +100,10 @@ export const getHotelsService = async ({
     city = '',
     amenity = false,
     room = false,
+    page = 1,
+    limit = 10,
+    sortPrice = '',
+    sortRating = '',
 }) => {
     const whereClause = {};
     if (name) {
@@ -126,12 +130,26 @@ export const getHotelsService = async ({
         });
     }
 
-    const hotelsInstance = await models.Hotel.findAll({
+    const offset = (page - 1) * limit;
+
+    const order = [];
+    if (sortPrice === 'asc' || sortPrice === 'desc') {
+        order.push(['average_price', sortPrice]);
+    }
+    if (sortRating === 'asc' || sortRating === 'desc') {
+        order.push(['rating', sortRating]);
+    }
+
+    const { count, rows } = await models.Hotel.findAndCountAll({
         where: whereClause,
         include: include.length > 0 ? include : undefined,
+        offset,
+        limit,
+        order,
+        distinct: true,
     });
 
-    const hotels = hotelsInstance.map((h) => h.toJSON());
+    const hotels = rows.map((h) => h.toJSON());
 
     if (amenity) {
         for (const hotel of hotels) {
@@ -183,6 +201,9 @@ export const getHotelsService = async ({
 
     return {
         message: 'Lấy thành công danh sách khách sạn',
+        currentPage: page,
+        totalPages: Math.ceil(count / limit),
+        totalItems: count,
         hotels,
     };
 };
@@ -190,3 +211,30 @@ export const getHotelsService = async ({
 export const updateHotelService = async (hotel) => {};
 
 export const deleteHotel = async (id) => {};
+
+export const getCitiesService = async () => {
+    try {
+        const cities = await models.Hotel.findAll({
+            attributes: [
+                [
+                    models.Hotel.sequelize.fn(
+                        'DISTINCT',
+                        models.Hotel.sequelize.col('city'),
+                    ),
+                    'city',
+                ],
+            ],
+            raw: true,
+        });
+
+        return {
+            message: 'Lấy thành công danh sách tỉnh',
+            cities: cities.map((row) => row.city),
+        };
+        cities.map((row) => row.city);
+    } catch (error) {
+        console.error('Error in getCitiesService:', error);
+
+        throw new Error('Lỗi khi lấy danh sách thành phố');
+    }
+};

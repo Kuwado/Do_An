@@ -45,6 +45,10 @@ export async function up(queryInterface, Sequelize) {
                 isEmail: true,
             },
         },
+        average_price: {
+            type: Sequelize.DECIMAL(10, 2),
+            allowNull: false,
+        },
         rating: {
             type: Sequelize.FLOAT,
             allowNull: true,

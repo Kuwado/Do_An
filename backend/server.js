@@ -4,8 +4,10 @@ import morgan from 'morgan';
 import cors from 'cors';
 
 import sequelize from './config/db.js';
+import otherRoute from './routes/OtherRoute.js';
 import authRoute from './routes/AuthRoute.js';
 import hotelRoute from './routes/HotelRoute.js';
+import voucherRoute from './routes/VoucherRoute.js';
 
 dotenv.config();
 const app = express();
@@ -26,8 +28,10 @@ sequelize
     });
 
 // Routes
+app.use('/api', otherRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/hotels', hotelRoute);
+app.use('/api/vouchers', voucherRoute);
 
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại http://localhost:${PORT}`);

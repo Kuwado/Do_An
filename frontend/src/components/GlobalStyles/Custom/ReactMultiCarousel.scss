@@ -1,0 +1,102 @@
+.react-multi-carousel-list {
+    --button-space: 2%;
+    height: 100%;
+}
+
+.react-multi-carousel-track {
+    height: 100%;
+}
+
+.react-multi-carousel-track li {
+    display: flex;
+    justify-content: center;
+    padding: 0 5px;
+}
+
+//Button
+.react-multiple-carousel__arrow {
+    color: var(--secondary-text);
+    background-color: var(--secondary);
+    opacity: 0.25;
+    z-index: 1;
+
+    &:hover {
+        color: var(--secondary-text);
+        background-color: var(--secondary);
+        opacity: 1;
+    }
+
+    &::before {
+        color: var(--secondary-text);
+    }
+}
+
+.react-multiple-carousel__arrow--left {
+    left: var(--button-space);
+}
+
+.react-multiple-carousel__arrow--right {
+    right: var(--button-space);
+}
+
+.small .react-multiple-carousel__arrow--left,
+.small .react-multiple-carousel__arrow--right {
+    --button-space: 1%;
+
+    min-width: 35px;
+    min-height: 35px;
+
+    &::before {
+        font-size: 16px;
+    }
+}
+
+// Dots
+.react-multi-carousel-dot-list {
+    bottom: 3%;
+
+    .react-multi-carousel-dot {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+    }
+
+    .react-multi-carousel-dot button {
+        width: 16px;
+        height: 16px;
+        border-color: var(--secondary);
+        background-color: transparent;
+    }
+
+    .react-multi-carousel-dot--active button {
+        background-color: var(--primary);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .react-multi-carousel-list {
+        --button-space: 4%;
+    }
+}
+
+@media (max-width: 768px) {
+    .react-multi-carousel-dot-list {
+        bottom: 4.5%;
+    }
+
+    .react-multi-carousel-dot button {
+        width: 14px !important;
+        height: 14px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .react-multi-carousel-dot-list {
+        bottom: 6%;
+    }
+
+    .react-multi-carousel-dot button {
+        width: 12px !important;
+        height: 12px !important;
+    }
+}

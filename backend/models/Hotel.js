@@ -80,6 +80,10 @@ Hotel.init(
                 isEmail: true,
             },
         },
+        average_price: {
+            type: DataTypes.DECIMAL(10, 2),
+            allowNull: false,
+        },
         rating: {
             type: DataTypes.FLOAT,
             allowNull: true,
