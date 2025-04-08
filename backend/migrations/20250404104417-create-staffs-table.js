@@ -52,11 +52,13 @@ export async function up(queryInterface, Sequelize) {
         },
         hotel_id: {
             type: Sequelize.INTEGER,
+            allowNull: false,
             references: {
                 model: 'hotels',
                 key: 'id',
             },
-            allowNull: false,
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
         },
     });
 }

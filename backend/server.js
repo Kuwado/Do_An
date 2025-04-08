@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import sequelize from './config/db.js';
 import authRoute from './routes/AuthRoute.js';
+import hotelRoute from './routes/HotelRoute.js';
 
 dotenv.config();
 const app = express();
@@ -26,6 +27,7 @@ sequelize
 
 // Routes
 app.use('/api/auth', authRoute);
+app.use('/api/hotels', hotelRoute);
 
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại http://localhost:${PORT}`);

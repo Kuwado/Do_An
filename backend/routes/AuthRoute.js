@@ -1,12 +1,17 @@
 import express from 'express';
-import { loginUser, loginStaff } from '../controllers/AuthController.js';
+import {
+    loginUser,
+    loginAdmin,
+    loginAdminFirstStep,
+} from '../controllers/AuthController.js';
 
 const router = express.Router();
 
 // Route đăng nhập cho User
 router.post('/login/user', loginUser);
 
-// Route đăng nhập cho Staff
-router.post('/login/staff', loginStaff);
+// Route đăng nhập cho Admin
+router.post('/login/admin/first-step', loginAdminFirstStep);
+router.post('/login/admin', loginAdmin);
 
 export default router;

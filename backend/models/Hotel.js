@@ -2,9 +2,36 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/db.js';
 
 class Hotel extends Model {
-    // Đây là phương thức static dùng để khai báo quan hệ giữa các bảng (nếu có)
     static associate(models) {
-        // Ví dụ: Hotel.hasMany(models.Room); Nếu bạn có quan hệ với bảng Room
+        // Nhân viên
+        Hotel.hasMany(models.Staff.scope('staff'), {
+            foreignKey: 'hotel_id',
+            as: 'staffs',
+        });
+
+        Hotel.hasMany(models.Staff.scope('admin'), {
+            foreignKey: 'hotel_id',
+            as: 'admins',
+        });
+
+        // Tiện nghi
+        Hotel.belongsToMany(models.Amenity, {
+            through: models.HotelAmenity,
+            foreignKey: 'hotel_id',
+            otherKey: 'amenity_id',
+            as: 'amenities',
+        });
+
+        Hotel.hasMany(models.HotelAmenity, {
+            foreignKey: 'hotel_id',
+            as: 'hotel_amenities',
+        });
+
+        // Phòng
+        Hotel.hasMany(models.RoomType, {
+            foreignKey: 'hotel_id',
+            as: 'room_types',
+        });
     }
 }
 

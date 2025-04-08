@@ -70,7 +70,7 @@ Staff.init(
         hotel_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: Hotel,
+                model: 'hotels',
                 key: 'id',
             },
             allowNull: false,
@@ -81,6 +81,14 @@ Staff.init(
         tableName: 'staffs',
         modelName: 'Staff',
         timestamps: false,
+        scopes: {
+            admin: {
+                where: { role: 'admin' },
+            },
+            staff: {
+                where: { role: 'staff' },
+            },
+        },
     },
 );
 
