@@ -5,6 +5,7 @@ import Amenity from './Amenity.js';
 import HotelAmenity from './HotelAmenity.js';
 import RoomType from './RoomType.js';
 import Room from './Room.js';
+import Voucher from './Voucher.js';
 
 const models = {
     Hotel,
@@ -14,6 +15,7 @@ const models = {
     HotelAmenity,
     RoomType,
     Room,
+    Voucher,
 };
 
 // Gọi associate sau khi các model đã có mặt

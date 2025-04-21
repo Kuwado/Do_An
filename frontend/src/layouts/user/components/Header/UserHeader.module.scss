@@ -6,6 +6,7 @@
     justify-content: center;
     background-color: transparent;
     // transition: background-color 0.05s;
+    z-index: 100;
 
     &.scrolled {
         background-color: var(--primary);

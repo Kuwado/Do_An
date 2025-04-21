@@ -1,0 +1,89 @@
+.date-input {
+    --padding: 15px;
+    --input-bg: transparent;
+    position: relative;
+    min-width: 100px;
+    background-color: var(--input-bg);
+    margin-top: 10px;
+
+    .required-note {
+        color: red;
+        font-size: var(--font-size);
+    }
+
+    &:focus-within input {
+        border-color: var(--primary-text);
+    }
+
+    &.small input {
+        padding: 8px 0;
+    }
+
+    &.medium input {
+        padding: 12px 0;
+    }
+
+    &.large input {
+        padding: 15px 0;
+    }
+}
+
+.date-input label {
+    position: absolute;
+    top: 50%;
+    left: var(--padding);
+    padding: 0 3px;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    color: var(--primary-text);
+    transition: top 0.2s ease, transform 0.2s ease, font-size 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.date-input input {
+    height: 100%;
+    width: 100%;
+    padding: 10px var(--padding) 10px var(--padding);
+    border-radius: 999px;
+    border: 1px solid var(--primary-text-25);
+    font-size: var(--font-size);
+    background-color: transparent;
+}
+
+.label-active {
+    top: 0;
+    left: calc(var(--padding) + 5px);
+    transform: translateY(-50%);
+    font-size: calc(var(--font-size) - 2px);
+    font-weight: bold;
+    background-color: var(--primary-background);
+    opacity: 1;
+}
+
+.date-input input:not(:placeholder-shown) + label {
+    @extend .label-active;
+}
+
+.date-input:focus-within label {
+    @extend .label-active;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    font-size: var(--font-size);
+    color: var(--primary-text);
+    opacity: 0.25;
+    cursor: pointer;
+}
+
+.date-input:focus-within .icon {
+    opacity: 1;
+}
