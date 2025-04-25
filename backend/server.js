@@ -7,6 +7,7 @@ import sequelize from './config/db.js';
 import otherRoute from './routes/OtherRoute.js';
 import authRoute from './routes/AuthRoute.js';
 import hotelRoute from './routes/HotelRoute.js';
+import amenityRoute from './routes/AmenityRoute.js';
 import voucherRoute from './routes/VoucherRoute.js';
 
 dotenv.config();
@@ -31,6 +32,7 @@ sequelize
 app.use('/api', otherRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/hotels', hotelRoute);
+app.use('/api/amenities', amenityRoute);
 app.use('/api/vouchers', voucherRoute);
 
 app.listen(PORT, () => {

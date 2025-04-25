@@ -1,4 +1,4 @@
-import models from '../models/index.js';
+import models from '../../models/index.js';
 import { Op } from 'sequelize';
 
 export const getVouchersService = async ({

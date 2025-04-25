@@ -45,7 +45,7 @@ export async function up(queryInterface, Sequelize) {
                 isEmail: true,
             },
         },
-        average_price: {
+        min_price: {
             type: Sequelize.DECIMAL(10, 2),
             allowNull: false,
         },
