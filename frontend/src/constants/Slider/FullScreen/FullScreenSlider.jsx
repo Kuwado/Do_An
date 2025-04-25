@@ -32,14 +32,14 @@ const responsive = {
     },
 };
 
-const FullScreenSlider = ({ images = [], height = '100vh' }) => {
+const FullScreenSlider = ({ images = [], height = '100vh', autoPlay = true, className }) => {
     return (
-        <div className={cx('full-screen-slider')} style={{ height }}>
+        <div className={cx('full-screen-slider', { [className]: className })} style={{ height }}>
             <Carousel
                 responsive={responsive}
                 infinite={true}
                 showDots={true}
-                autoPlay={true}
+                autoPlay={autoPlay}
                 autoPlaySpeed={7000}
                 keyBoardControl={true}
                 removeArrowOnDeviceType={['minitablet', 'mobile']}

@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './HotelCard.module.scss';
 import images from '@/assets/images';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { formatPrice } from '../../../utils/stringUtil';
+import { formatPrice } from '@/utils/stringUtil';
+import Rating from '@/constants/Rating';
 
 const cx = classNames.bind(styles);
 
@@ -22,10 +23,11 @@ const HotelCard = ({ hotel = {} }) => {
             </div>
 
             <div className={cx('information')}>
-                <Link className={cx('name')} to={`/hotel/${hotel.id}`}>
+                <Link className={cx('name')} to={`/hotels/${hotel.id}`}>
                     {hotel.name}
                 </Link>
-                <div className={cx('price')}>{formatPrice(hotel.average_price)}</div>
+                <div className={cx('price')}>{formatPrice(hotel.min_price)}</div>
+                <Rating rate={hotel.rating} />
                 <div
                     className={cx('des')}
                     style={{

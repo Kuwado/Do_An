@@ -58,8 +58,7 @@ export const searchHotels = async (req, res) => {
     const from = parseInt(req.query.from);
     const to = parseInt(req.query.to);
     const amenities = req.query.amenities?.split(',') || [];
-    const sortPrice = req.query.sort_price || '';
-    const sortRating = req.query.sortRating || '';
+    const sortBy = req.query.sortBy || '';
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
 
@@ -73,8 +72,7 @@ export const searchHotels = async (req, res) => {
             from,
             to,
             amenities,
-            sortPrice,
-            sortRating,
+            sortBy,
             page,
             limit,
         });

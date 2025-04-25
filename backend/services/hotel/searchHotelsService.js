@@ -12,8 +12,7 @@ export const searchHotelsService = async ({
     amenities,
     page = 1,
     limit = 10,
-    sortPrice = '',
-    sortRating = '',
+    sortBy = '',
 }) => {
     const whereClause = {};
 
@@ -54,11 +53,17 @@ export const searchHotelsService = async ({
     const offset = (page - 1) * limit;
 
     const order = [];
-    if (sortPrice === 'asc' || sortPrice === 'desc') {
-        order.push(['average_price', sortPrice]);
-    }
-    if (sortRating === 'asc' || sortRating === 'desc') {
-        order.push(['rating', sortRating]);
+
+    if (sortBy === 'price-asc') {
+        order.push(['min_price', 'asc']);
+    } else if (sortBy === 'price-desc') {
+        order.push(['min_price', 'desc']);
+    } else if (sortBy === 'rating-asc') {
+        order.push(['rating', 'asc']);
+    } else if (sortBy === 'rating-desc') {
+        order.push(['rating', 'desc']);
+    } else {
+        order.push(['min_price', 'asc']);
     }
 
     const { count, rows } = await models.Hotel.findAndCountAll({

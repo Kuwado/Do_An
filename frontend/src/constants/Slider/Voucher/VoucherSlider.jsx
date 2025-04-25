@@ -4,7 +4,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 import styles from './VoucherSlider.module.scss';
-import Voucher from '@/constants/Voucher';
+import { Voucher } from '@/constants/Card';
 
 const cx = classNames.bind(styles);
 
@@ -65,7 +65,7 @@ const VoucherSlider = ({ vouchers = VOUCHERS, id = '' }) => {
     return (
         <div className={cx('hotel-item-slider')}>
             <Carousel
-                className="small"
+                className="small hover"
                 responsive={responsive}
                 infinite={true}
                 removeArrowOnDeviceType={['minitablet', 'mobile']}

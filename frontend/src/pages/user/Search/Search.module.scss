@@ -1,0 +1,122 @@
+.hotels-search-page {
+    position: relative;
+}
+
+.search-container {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    padding: 0 calc((100% - var(--content-width)) / 2);
+    background-color: var(--primary);
+    box-shadow: rgba(3, 18, 26, 0.2) 0px 1px 2px;
+    z-index: 10;
+}
+
+.hotels-search-content {
+    padding-top: 100px;
+    display: flex;
+}
+
+.content-left {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-right: 10px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.content-right {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 10px;
+}
+
+.content-right-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+    padding-bottom: 10px;
+
+    span {
+        height: 70%;
+        width: 1px;
+        background-color: var(--primary-text-25);
+    }
+}
+
+.sort-item.active {
+    background-color: var(--primary-hover);
+    color: var(--secondary);
+    pointer-events: none;
+    cursor: default;
+}
+
+.hotel-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &.grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+        row-gap: 20px;
+    }
+}
+
+.display-selection {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.display-container {
+    position: relative;
+    height: 38px;
+    display: flex;
+    border-radius: 999px;
+    background-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.display-option {
+    width: 50px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--primary-hover);
+    }
+
+    &.active {
+        color: var(--secondary);
+        opacity: 1;
+        pointer-events: none;
+    }
+}
+
+.display-container::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background-color: var(--primary-text-25);
+}
