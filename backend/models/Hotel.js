@@ -22,6 +22,12 @@ class Hotel extends Model {
             as: 'amenities',
         });
 
+        Hotel.belongsToMany(models.Amenity, {
+            through: models.HotelAmenity,
+            as: 'filterAmenities',
+            foreignKey: 'hotel_id',
+        });
+
         Hotel.hasMany(models.HotelAmenity, {
             foreignKey: 'hotel_id',
             as: 'hotel_amenities',
@@ -80,7 +86,7 @@ Hotel.init(
                 isEmail: true,
             },
         },
-        average_price: {
+        min_price: {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false,
         },

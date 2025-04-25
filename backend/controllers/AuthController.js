@@ -2,7 +2,7 @@ import {
     loginUserService,
     loginAdminService,
     loginAdminServiceFirstStep,
-} from '../services/AuthService.js';
+} from '../services/auth/authService.js';
 
 export const loginUser = async (req, res) => {
     const { username, password } = req.body;

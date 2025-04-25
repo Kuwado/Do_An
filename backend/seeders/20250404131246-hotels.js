@@ -12,7 +12,7 @@ export async function up(queryInterface, Sequelize) {
             city: 'Đà Nẵng',
             phone: '0123456789',
             email: 'sunhotel@example.com',
-            average_price: 3000000,
+            min_price: 300000,
             rating: 4.5,
         },
         {
@@ -24,7 +24,7 @@ export async function up(queryInterface, Sequelize) {
             city: 'Đà Lạt',
             phone: '0987654321',
             email: 'moonhotel@example.com',
-            average_price: 3000000,
+            min_price: 300000,
             rating: 4.2,
         },
         {
@@ -36,7 +36,7 @@ export async function up(queryInterface, Sequelize) {
             city: 'Huế',
             phone: '0911223344',
             email: 'riverhotel@example.com',
-            average_price: 3000000,
+            min_price: 300000,
             rating: 4.0,
         },
         {
@@ -48,7 +48,7 @@ export async function up(queryInterface, Sequelize) {
             city: 'Đà Lạt',
             phone: '0988111222',
             email: 'goldenmountain@example.com',
-            average_price: 3000000,
+            min_price: 300000,
             rating: 3.8,
         },
         {
@@ -60,7 +60,7 @@ export async function up(queryInterface, Sequelize) {
             city: 'Hà Nội',
             phone: '0909123456',
             email: 'hoguomhotel@example.com',
-            average_price: 3000000,
+            min_price: 300000,
             rating: 4.7,
         },
         {
@@ -72,7 +72,7 @@ export async function up(queryInterface, Sequelize) {
             city: 'Nha Trang',
             phone: '0909333444',
             email: 'bienxanh@example.com',
-            average_price: 2500000,
+            min_price: 250000,
             rating: 4.5,
         },
         {
@@ -84,7 +84,7 @@ export async function up(queryInterface, Sequelize) {
             city: 'Đà Nẵng',
             phone: '0909555666',
             email: 'songhanhotel@example.com',
-            average_price: 2800000,
+            min_price: 280000,
             rating: 4.6,
         },
         {
@@ -96,7 +96,7 @@ export async function up(queryInterface, Sequelize) {
             city: 'Đà Lạt',
             phone: '0909888777',
             email: 'doithonghotel@example.com',
-            average_price: 2200000,
+            min_price: 220000,
             rating: 4.4,
         },
         {
@@ -108,7 +108,7 @@ export async function up(queryInterface, Sequelize) {
             city: 'TP. Hồ Chí Minh',
             phone: '0909222333',
             email: 'saigoncenter@example.com',
-            average_price: 3200000,
+            min_price: 320000,
             rating: 4.8,
         },
         {
@@ -120,7 +120,7 @@ export async function up(queryInterface, Sequelize) {
             city: 'Cần Thơ',
             phone: '0909666777',
             email: 'canthoriverside@example.com',
-            average_price: 2100000,
+            min_price: 210000,
             rating: 4.3,
         },
         {
@@ -132,7 +132,7 @@ export async function up(queryInterface, Sequelize) {
             city: 'Huế',
             phone: '0909444555',
             email: 'hueimperial@example.com',
-            average_price: 2400000,
+            min_price: 240000,
             rating: 4.5,
         },
     ]);

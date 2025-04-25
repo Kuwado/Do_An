@@ -1,5 +1,5 @@
-import User from '../models/User.js';
-import Staff from '../models/Staff.js';
+import User from '../../models/User.js';
+import Staff from '../../models/Staff.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();

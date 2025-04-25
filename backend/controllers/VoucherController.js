@@ -1,5 +1,3 @@
-import { getVouchersService } from '../services/VoucherService.js';
-
 // export const getHotelById = async (req, res) => {
 //     const id = req.params.id;
 //     const staff = req.query.staff === 'true';
@@ -18,6 +16,8 @@ import { getVouchersService } from '../services/VoucherService.js';
 //         return res.status(400).json({ message: error.message });
 //     }
 // };
+
+import { getVouchersService } from '../services/voucher/getVouchersService.js';
 
 export const getVouchers = async (req, res) => {
     const hotelId = req.query.hotelId;
