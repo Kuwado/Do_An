@@ -22,8 +22,6 @@ const Home = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    console.log(hotels);
-
     useEffect(() => {
         const fetchHotels = async () => {
             setLoading(true);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import classNames from 'classnames/bind';
 
@@ -9,45 +9,20 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-const TYPES = [
-    {
-        id: 1,
-        name: 'Áo',
-        children: [
-            {
-                id: 4,
-                name: 'Áo mùa hè',
-                children: [
-                    {
-                        id: 6,
-                        name: 'Áo polo',
-                    },
-                    {
-                        id: 7,
-                        name: 'Áo phông',
-                    },
-                ],
-            },
-            {
-                id: 5,
-                name: 'Áo mùa đông',
-            },
-        ],
-    },
-    {
-        id: 2,
-        name: 'Quần',
-        children: [
-            {
-                id: 3,
-                name: 'Quần dài',
-            },
-        ],
-    },
-];
 const fn = () => {};
 
-const Dropdown = ({ title = 'Title', label = 'Label', id = 'id', selected, required, className, children }) => {
+const Dropdown = ({
+    title = 'Title',
+    label = 'Label',
+    id = 'id',
+    selected,
+    required,
+    className,
+    left = false,
+    right = true,
+    width = '',
+    children,
+}) => {
     const [show, setShow] = useState(false);
     const dropRef = useRef(null);
 
@@ -67,23 +42,23 @@ const Dropdown = ({ title = 'Title', label = 'Label', id = 'id', selected, requi
 
     return (
         <div
-            className={cx('dropdown', { active: show, [className]: className })}
+            className={cx('dropdown', { active: show, [className]: className, left, right })}
             ref={dropRef}
             onClick={() => setShow((prev) => !prev)}
         >
-            <div className={cx('label')}>
-                {label}
-                {required && <span className={cx('required-note')}>*</span>}
-            </div>
-            <div className={cx('selected')}>{selected ? selected : title}</div>
-            <div className={cx('icon')}>
-                <FontAwesomeIcon icon={show ? faChevronUp : faChevronDown} />
-            </div>
-            {show && children && (
-                <div className={cx('options')}>
-                    <div className={cx('wrapper')}>{children}</div>
+            {label && (
+                <div className={cx('label')}>
+                    {label}
+                    {required && <span className={cx('required-note')}>*</span>}
                 </div>
             )}
+            <div className={cx('dropdown-container')} style={{ width }}>
+                <div className={cx('selected')}>{selected ? selected : title}</div>
+                <div className={cx('icon')}>
+                    <FontAwesomeIcon icon={show ? faChevronUp : faChevronDown} />
+                </div>
+                {show && children && <div className={cx('options')}>{children}</div>}
+            </div>
         </div>
     );
 };

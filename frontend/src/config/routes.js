@@ -1,10 +1,10 @@
 const routes = {
     user: {
         home: '/',
-        about: '/about',
         hotels: '/hotels',
-        vouchers: '/vouchers',
         login: '/login',
+        about: '/about',
+        vouchers: '/vouchers',
         register: '/register',
         forgotPassword: '/forgot-password',
     },

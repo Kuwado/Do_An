@@ -36,6 +36,45 @@ export const getHotels = async ({
     }
 };
 
+export const searchHotels = async ({
+    city,
+    check_in,
+    check_out,
+    quantity,
+    people,
+    from,
+    to,
+    amenities,
+    page = 1,
+    limit = 10,
+    sortBy = '',
+}) => {
+    try {
+        const query = new URLSearchParams();
+        if (city) query.append('city', city);
+        if (check_in) query.append('check_in', check_in);
+        if (check_out) query.append('check_out', check_out);
+        if (quantity) query.append('quantity', quantity.toString());
+        if (people) query.append('people', people.toString());
+        if (from) query.append('from', from.toString());
+        if (to) query.append('to', to.toString());
+        if (amenities) query.append('amenities', amenities.toString());
+        if (page) query.append('page', page.toString());
+        if (limit) query.append('limit', limit.toString());
+        if (sortBy) query.append('sortBy', sortBy);
+
+        const res = await axios.get(`${API_URL}/hotels/search?${query.toString()}`);
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
+
 export const getCities = async () => {
     try {
         const res = await axios.get(`${API_URL}/cities`);

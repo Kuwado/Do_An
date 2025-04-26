@@ -39,18 +39,6 @@
     right: var(--button-space);
 }
 
-.small .react-multiple-carousel__arrow--left,
-.small .react-multiple-carousel__arrow--right {
-    --button-space: 1%;
-
-    min-width: 35px;
-    min-height: 35px;
-
-    &::before {
-        font-size: 16px;
-    }
-}
-
 // Dots
 .react-multi-carousel-dot-list {
     bottom: 3%;
@@ -71,6 +59,52 @@
     .react-multi-carousel-dot--active button {
         background-color: var(--primary);
     }
+}
+
+// Small
+.small .react-multiple-carousel__arrow--left,
+.small .react-multiple-carousel__arrow--right {
+    --button-space: 1%;
+
+    min-width: 35px;
+    min-height: 35px;
+
+    &::before {
+        font-size: 16px;
+    }
+}
+
+// Hover
+.hover .react-multiple-carousel__arrow--left,
+.hover .react-multiple-carousel__arrow--right {
+    display: none;
+}
+
+.hover:hover .react-multiple-carousel__arrow--left,
+.hover:hover .react-multiple-carousel__arrow--right {
+    display: block;
+}
+
+// Card
+.card .react-multi-carousel-track li {
+    padding: 0;
+}
+
+.card .react-multiple-carousel__arrow--left,
+.card .react-multiple-carousel__arrow--right {
+    --button-space: 4%;
+
+    min-width: 25px;
+    min-height: 25px;
+
+    &::before {
+        font-size: 14px;
+    }
+}
+
+.card .react-multi-carousel-dot button {
+    width: 12px;
+    height: 12px;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {

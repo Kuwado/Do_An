@@ -34,7 +34,12 @@ const responsive = {
 const HotelItemSlider = ({ hotels = [] }) => {
     return (
         <div className={cx('hotel-item-slider')}>
-            <Carousel responsive={responsive} infinite={true} removeArrowOnDeviceType={['minitablet', 'mobile']}>
+            <Carousel
+                className="hover"
+                responsive={responsive}
+                infinite={true}
+                removeArrowOnDeviceType={['minitablet', 'mobile']}
+            >
                 {hotels.length > 0 && hotels.map((hotel) => <HotelCard key={`hotel-${hotel.id}`} hotel={hotel} />)}
             </Carousel>
         </div>

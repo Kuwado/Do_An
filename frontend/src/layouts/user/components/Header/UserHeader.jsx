@@ -9,7 +9,7 @@ import { Button } from '@/components/Button';
 
 const cx = classNames.bind(styles);
 
-const UserHeader = () => {
+const UserHeader = ({ className = '' }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const location = useLocation();
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
@@ -26,10 +26,12 @@ const UserHeader = () => {
     }, []);
 
     return (
-        <div className={cx('user-header', { scrolled: isScrolled })}>
+        <div className={cx('user-header', { scrolled: isScrolled, [className]: className })}>
             <div className={cx('header-content')}>
                 <div className={cx('header-left')}>
-                    <div className={cx('logo')}>KuwaHotel</div>
+                    <Link className={cx('logo')} to={config.routes.user.home}>
+                        KuwaHotel
+                    </Link>
                     <div className={cx('header-item-list')}>
                         <Link
                             className={cx('header-item', { active: location.pathname === config.routes.user.hotels })}
