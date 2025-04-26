@@ -1,13 +1,13 @@
 import classNames from 'classnames/bind';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBath, faLocationDot, faMountainCity, faPersonBooth } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './HotelItem.module.scss';
 import FullScreenSlider from '../../Slider/FullScreen/FullScreenSlider';
 import images from '@/assets/images';
 import Rating from '../../Rating/Rating';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBath, faLocationDot, faMountainCity, faPersonBooth } from '@fortawesome/free-solid-svg-icons';
-import { Button } from '../../../components/Button';
-import { formatPrice } from '../../../utils/stringUtil';
+import { Button } from '@/components/Button';
+import { formatPrice } from '@/utils/stringUtil';
 
 const cx = classNames.bind(styles);
 

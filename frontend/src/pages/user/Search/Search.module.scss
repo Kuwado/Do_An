@@ -53,6 +53,16 @@
     }
 }
 
+.total-hotels {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    font-weight: bold;
+    color: var(--secondary);
+}
+
 .sort-item.active {
     background-color: var(--primary-hover);
     color: var(--secondary);

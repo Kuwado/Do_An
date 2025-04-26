@@ -1,8 +1,9 @@
 const routes = {
     user: {
+        login: '/login',
         home: '/',
         hotels: '/hotels',
-        login: '/login',
+        hotel: '/hotels/:id',
         about: '/about',
         vouchers: '/vouchers',
         register: '/register',

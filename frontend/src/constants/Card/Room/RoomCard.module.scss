@@ -1,0 +1,94 @@
+.room-card {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: rgba(3, 18, 26, 0.2) 0px 1px 2px 0px;
+    background-image: url(../../../assets/background/room.svg);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.content {
+    display: flex;
+    gap: 15px;
+}
+
+.content-item {
+    width: 25%;
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.images {
+    height: 210px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.icon {
+    font-size: 18px;
+}
+
+.des {
+    opacity: 0.8;
+}
+
+.amenity-part {
+    height: 100px;
+    max-height: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.amenity-part .item {
+    font-weight: bold;
+}
+
+.amenity-part ul {
+    padding-left: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 15px;
+}
+
+.last-item {
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff5e1f;
+}
+
+.available-rooms {
+    color: #e7090e;
+}
+
+.action-btns {
+    display: flex;
+    gap: 20px;
+}

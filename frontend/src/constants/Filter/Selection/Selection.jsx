@@ -47,6 +47,7 @@ const Selection = ({
     selections = SELECTIONS,
     selected = [],
     active = false,
+    count = false,
     setSelected = fn,
 }) => {
     const [show, setShow] = useState(active);
@@ -79,7 +80,9 @@ const Selection = ({
                                     checked={selected.includes(select.id)}
                                     onChange={(e) => handleSelect(e, select.id)}
                                 />
-                                <label htmlFor={`selection-${id}-${select.id}`}>{select.name}</label>
+                                <label htmlFor={`selection-${id}-${select.id}`}>
+                                    {select.name} {count && select.count}
+                                </label>
                             </div>
                         ))}
                 </div>

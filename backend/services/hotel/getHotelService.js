@@ -36,6 +36,7 @@ export const getHotelService = async (id) => {
     }
 
     const hotel = hotelInstance.toJSON();
+    hotel.total_services = hotel.services.length;
 
     // Phân nhóm amenities theo category
     const groupedAmenities = {
@@ -83,6 +84,7 @@ export const getHotelService = async (id) => {
         available += availableRooms.length;
     }
 
+    hotel.total_room_types = hotel.room_types.length;
     hotel.total_rooms = total;
     hotel.available_rooms = available;
 
