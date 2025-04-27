@@ -5,17 +5,9 @@ import { searchHotelsService } from '../services/hotel/searchHotelsService.js';
 
 export const getHotelById = async (req, res) => {
     const id = req.params.id;
-    const staff = req.query.staff === 'true';
-    const admin = req.query.admin === 'true';
-    const amenity = req.query.amenity === 'true';
-    const room = req.query.room === 'true';
+
     try {
-        const result = await getHotelService(id, {
-            staff,
-            admin,
-            amenity,
-            room,
-        });
+        const result = await getHotelService(id);
         return res.status(200).json(result);
     } catch (error) {
         return res.status(400).json({ message: error.message });

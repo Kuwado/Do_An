@@ -13,6 +13,10 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.STRING(255),
             allowNull: false,
         },
+        images: {
+            type: Sequelize.TEXT,
+            allowNull: true,
+        },
         description: {
             type: Sequelize.TEXT,
             allowNull: true,

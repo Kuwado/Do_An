@@ -7,6 +7,33 @@ export async function up(queryInterface, Sequelize) {
 
     return queryInterface.bulkInsert('users', [
         {
+            username: 'user1',
+            password: password,
+            first_name: 'Jane',
+            last_name: 'Smith',
+            avatar: null,
+            phone: '0987654321',
+            email: 'jane@gmail.com',
+        },
+        {
+            username: 'user2',
+            password: password,
+            first_name: 'Kanashi',
+            last_name: 'Kuwado',
+            avatar: null,
+            phone: '0987454321',
+            email: 'kuwado@gmail.com',
+        },
+        {
+            username: 'user3',
+            password: password,
+            first_name: 'Tung Tung',
+            last_name: 'Sahur',
+            avatar: null,
+            phone: '0982654321',
+            email: 'ttsahur@gmail.com',
+        },
+        {
             username: 'viethoan',
             password: password,
             first_name: 'Việt',
@@ -14,15 +41,6 @@ export async function up(queryInterface, Sequelize) {
             avatar: null,
             phone: '0372689718',
             email: 'viethoan557723@gmail.com',
-        },
-        {
-            username: 'jane_smith',
-            password: password,
-            first_name: 'Jane',
-            last_name: 'Smith',
-            avatar: null,
-            phone: '0987654321',
-            email: 'jane@example.com',
         },
     ]);
 }
