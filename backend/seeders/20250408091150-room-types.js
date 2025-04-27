@@ -2,25 +2,54 @@
 
 /** @type {import('sequelize-cli').Migration} */
 export async function up(queryInterface, Sequelize) {
-    const [hotels] = await queryInterface.sequelize.query(
-        'SELECT id FROM hotels',
+    const hotels = await queryInterface.sequelize.query(
+        'SELECT id FROM hotels;',
+        { type: Sequelize.QueryTypes.SELECT },
     );
+
     const roomTypes = [];
 
-    const roomTypeNames = ['Deluxe', 'Superior', 'Standard'];
-    const now = new Date();
-
     for (const hotel of hotels) {
-        for (let i = 0; i < 3; i++) {
-            roomTypes.push({
-                name: `${roomTypeNames[i]} Room - Hotel ${hotel.id}`,
-                description: `${roomTypeNames[i]} Room Description`,
-                price: (100 + i * 50).toFixed(2),
-                capacity: 2 + i,
-                area: 20 + i * 5,
+        roomTypes.push(
+            {
+                name: 'Phòng Đơn Tiêu Chuẩn',
+                description:
+                    'Phòng tiêu chuẩn đầy đủ tiện nghi, phù hợp cho 2 người.',
+                images: null,
+                price: 350000,
+                capacity: 1,
+                area: 15.0,
                 hotel_id: hotel.id,
-            });
-        }
+            },
+            {
+                name: 'Phòng Đôi Tiêu Chuẩn',
+                description:
+                    'Phòng tiêu chuẩn đầy đủ tiện nghi, phù hợp cho 2 người.',
+                images: null,
+                price: 500000,
+                capacity: 2,
+                area: 20.0,
+                hotel_id: hotel.id,
+            },
+            {
+                name: 'Phòng Deluxe',
+                description: 'Phòng Deluxe rộng rãi, view thành phố tuyệt đẹp.',
+                images: null,
+                price: 1000000,
+                capacity: 3,
+                area: 30.0,
+                hotel_id: hotel.id,
+            },
+            {
+                name: 'Phòng Suite Cao Cấp',
+                description: 'Phòng Suite đẳng cấp với phòng khách riêng biệt.',
+                images: null,
+                price: 2000000,
+                capacity: 4,
+                area: 50.0,
+                hotel_id: hotel.id,
+            },
+        );
     }
 
     await queryInterface.bulkInsert('room_types', roomTypes, {});

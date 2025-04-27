@@ -26,6 +26,10 @@ RoomType.init(
             type: DataTypes.STRING(255),
             allowNull: false,
         },
+        images: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
         description: {
             type: DataTypes.TEXT,
             allowNull: true,

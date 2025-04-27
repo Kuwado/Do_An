@@ -4,7 +4,12 @@ import sequelize from '../config/db.js';
 import bcrypt from 'bcrypt';
 
 class User extends Model {
-    static associate(models) {}
+    static associate(models) {
+        User.hasMany(models.Review, {
+            foreignKey: 'user_id',
+            as: 'reviews',
+        });
+    }
 
     static async hashPassword(password) {
         const salt = await bcrypt.genSalt(10);

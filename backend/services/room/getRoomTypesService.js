@@ -22,11 +22,6 @@ export const getHotelService = async (id) => {
         as: 'services',
     });
 
-    include.push({
-        model: models.Review,
-        as: 'reviews',
-    });
-
     let hotelInstance = await models.Hotel.findByPk(id, {
         include: include.length > 0 ? include : undefined,
     });
@@ -85,8 +80,6 @@ export const getHotelService = async (id) => {
 
     hotel.total_rooms = total;
     hotel.available_rooms = available;
-
-    hotel.total_reviews = hotel.reviews.length;
 
     return {
         message: 'Lấy thành công thông tin khách sạn',
