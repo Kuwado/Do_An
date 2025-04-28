@@ -11,6 +11,8 @@ import roomRoute from './routes/RoomRoute.js';
 import amenityRoute from './routes/AmenityRoute.js';
 import voucherRoute from './routes/VoucherRoute.js';
 import reviewRoute from './routes/ReviewRoute.js';
+import userRoute from './routes/UserRoute.js';
+import adminRoute from './routes/AdminRoute.js';
 
 dotenv.config();
 const app = express();
@@ -38,6 +40,8 @@ app.use('/api/rooms', roomRoute);
 app.use('/api/amenities', amenityRoute);
 app.use('/api/vouchers', voucherRoute);
 app.use('/api/reviews', reviewRoute);
+app.use('/api/users', userRoute);
+app.use('/api/admins', adminRoute);
 
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại http://localhost:${PORT}`);

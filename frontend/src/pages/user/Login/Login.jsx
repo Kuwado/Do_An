@@ -11,7 +11,7 @@ import config from '@/config';
 import { Input } from '@components/Input';
 import { PasswordInput } from '@components/Input';
 import { Button } from '@components/Button';
-import { loginUser, logoutUser } from '@/services/AuthService';
+import useProfile from '@/hooks/profile/useProfile';
 
 const cx = classNames.bind(styles);
 
@@ -19,21 +19,23 @@ const Login = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const { error, setError, loginUser, logout } = useProfile();
 
     useEffect(() => {
-        logoutUser();
+        logout();
     }, []);
 
-    const handleLogin = async () => {
-        const res = await loginUser(username, password);
-        if (res.success) {
-            const nextUrl = localStorage.getItem('next');
-            navigate(nextUrl ?? config.routes.user.home);
-        } else {
-            setError(res.message);
-        }
-    };
+    console.log(error);
+
+    // const handleLogin = async () => {
+    //     const res = await loginUser(username, password);
+    //     if (res.success) {
+    //         const nextUrl = localStorage.getItem('next');
+    //         navigate(nextUrl ?? config.routes.user.home);
+    //     } else {
+    //         setError(res.message);
+    //     }
+    // };
 
     return (
         <div className={cx('user-login-page')}>
@@ -61,7 +63,7 @@ const Login = () => {
                             Quên mật khẩu
                         </Link>
 
-                        <Button secondary curved width="100%" onClick={handleLogin}>
+                        <Button secondary curved width="100%" onClick={() => loginUser(username, password)}>
                             Đăng nhập
                         </Button>
 

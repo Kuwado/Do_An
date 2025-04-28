@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
@@ -11,13 +11,15 @@ import config from '@/config';
 import images from '@/assets/images';
 import AdminFunction from './AdminFunction';
 import StaffFunction from './StaffFunction';
+import useProfile from '@/hooks/profile/useProfile';
 
 const cx = classNames.bind(styles);
 
 const Sidebar = () => {
     const [show, setShow] = useState(true);
-    const admin = JSON.parse(localStorage.getItem('admin'));
+    const { admin, fetchAdmin } = useProfile();
     const [role, setRole] = useState('admin');
+    console.log(admin);
 
     return (
         <div className={cx('sidebar', { hide: !show })}>
@@ -31,8 +33,8 @@ const Sidebar = () => {
             </div>
 
             <div className={cx('sidebar-body')}>
-                {role == 'admin' && <AdminFunction />}
-                {role == 'staff' && <StaffFunction />}
+                {admin.role === 'admin' && <AdminFunction />}
+                {admin.role === 'staff' && <StaffFunction />}
             </div>
 
             <div className={cx('sidebar-footer')}>
@@ -50,7 +52,7 @@ const Sidebar = () => {
                             {admin.first_name} {admin.last_name}
                         </div>
                         <div className={cx('role')}>
-                            Vai trò: <span>{admin.role == 'admin' ? 'Quản trị viên' : 'Nhân viên'}</span>
+                            Vai trò: <span>{admin.role === 'admin' ? 'Quản trị viên' : 'Nhân viên'}</span>
                         </div>
                     </div>
                 </div>

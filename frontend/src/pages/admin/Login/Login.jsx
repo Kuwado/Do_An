@@ -7,40 +7,29 @@ import { faKey } from '@fortawesome/free-solid-svg-icons';
 import styles from './Login.module.scss';
 import { Input, PasswordInput } from '@components/Input';
 import { Button } from '@components/Button';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import config from '@/config';
 import images from '@/assets/images';
-import { loginAdmin, loginAdminFirstStep, logoutAdmin } from '@/services/AuthService';
+import { loginAdminFirstStep } from '@/services/AuthService';
+import useProfile from '@/hooks/profile/useProfile';
 
 const cx = classNames.bind(styles);
 
 const Login = () => {
-    const location = useLocation();
     const navigate = useNavigate();
     const [step, setStep] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const [admin, setAdmin] = useState({});
+    const { error, setError, admin, setAdmin, loginAdmin, logout } = useProfile();
 
     useEffect(() => {
-        if (location.pathname == config.routes.admin.login2) {
-            setAdmin(JSON.parse(localStorage.getItem('admin')));
-        }
-    }, [location]);
-
-    useEffect(() => {
-        logoutAdmin();
+        logout();
     }, []);
-
-    useEffect(() => {
-        console.log(username);
-    }, [username]);
 
     const handleNextStep = async () => {
         const res = await loginAdminFirstStep(username);
-        console.log(res);
         if (res.success) {
+            setAdmin(res.data.admin);
             navigate(config.routes.admin.login2);
             setError('');
             setStep('second');
@@ -53,17 +42,6 @@ const Login = () => {
         navigate(config.routes.admin.login);
         setError('');
         setStep('first');
-    };
-
-    const handleLogin = async () => {
-        const res = await loginAdmin(username, password);
-        if (res.success) {
-            navigate(admin.role == 'admin' ? config.routes.admin.dashboard : config.routes.staff.dashboard);
-            setError('');
-            setStep('first');
-        } else {
-            setError(res.message);
-        }
     };
 
     return (
@@ -100,13 +78,13 @@ const Login = () => {
                         </div>
                         <div className={cx('second-step')}>
                             <div className={cx('info')}>
-                                <img src={admin.avatar ?? images.avatar} alt="avatar" />
+                                <img src={admin.avatar ? admin.avatar : images.avatar} alt="avatar" />
                                 <div className={cx('full-name')}>
                                     {admin.first_name} {admin.last_name}
                                 </div>
                                 <div className={cx('username')}>{admin.username}</div>
                                 <div className={cx('role')}>
-                                    {admin.role == 'admin' ? 'Quản trị viên' : 'Nhân viên'}
+                                    {admin.role === 'admin' ? 'Quản trị viên' : 'Nhân viên'}
                                 </div>
                             </div>
 
@@ -118,7 +96,7 @@ const Login = () => {
                                 <Button primary transparent curved onClick={handlePrevStep}>
                                     Quay lại
                                 </Button>
-                                <Button secondary curved onClick={handleLogin}>
+                                <Button secondary curved onClick={() => loginAdmin(username, password)}>
                                     Tiếp theo
                                 </Button>
                             </div>

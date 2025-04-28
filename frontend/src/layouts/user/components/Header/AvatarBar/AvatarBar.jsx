@@ -7,7 +7,6 @@ import {
     faArrowRightFromBracket,
     faChevronDown,
     faChevronUp,
-    faClipboard,
     faClipboardList,
     faHeart,
     faMoneyBillWave,
@@ -18,7 +17,7 @@ import {
 import styles from './AvatarBar.module.scss';
 import config from '@/config';
 import images from '@/assets/images';
-import { logoutUser } from '@/services/AuthService';
+import useProfile from '@/hooks/profile/useProfile';
 
 const cx = classNames.bind(styles);
 
@@ -26,10 +25,12 @@ const AvatarBar = () => {
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
     const avatarRef = useRef(null);
-    const user = JSON.parse(localStorage.getItem('user'));
+    const { user, logout } = useProfile();
+
+    console.log(user);
 
     const handleLogout = () => {
-        logoutUser();
+        logout();
         navigate(config.routes.user.login);
     };
 
@@ -102,7 +103,9 @@ const AvatarBar = () => {
                     <div className={cx('item-icon')}>
                         <FontAwesomeIcon icon={faArrowRightFromBracket} />
                     </div>
-                    <span className={cx('item-title')}>Đăng xuất</span>
+                    <span className={cx('item-title')} onClick={handleLogout}>
+                        Đăng xuất
+                    </span>
                 </Link>
             </div>
         </div>

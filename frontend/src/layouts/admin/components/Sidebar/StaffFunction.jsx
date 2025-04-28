@@ -19,7 +19,7 @@ const StaffFunction = () => {
                 <div className={cx('sidebar-icon')}>
                     <FontAwesomeIcon icon={faHome} />
                 </div>
-                <div className={cx('sidebar-title')}>Trang chủ</div>
+                <div className={cx('sidebar-title')}>Trang chủ staff</div>
             </Link>
             <Link className={cx('sidebar-item')} to={config.routes.staff.dashboard}>
                 <div className={cx('sidebar-icon')}>
