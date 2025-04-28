@@ -10,9 +10,21 @@ class Amenity extends Model {
             as: 'hotels',
         });
 
+        Amenity.belongsToMany(models.RoomType, {
+            through: models.HotelAmenity,
+            foreignKey: 'amenity_id',
+            otherKey: 'room_type_id',
+            as: 'room_types',
+        });
+
         Amenity.hasMany(models.HotelAmenity, {
             foreignKey: 'amenity_id',
             as: 'hotel_amenities',
+        });
+
+        Amenity.hasMany(models.RoomTypeAmenity, {
+            foreignKey: 'amenity_id',
+            as: 'room_type_amenities',
         });
     }
 }

@@ -1,9 +1,20 @@
 import models from '../../models/index.js';
 import { Op } from 'sequelize';
 
-export const getHotelService = async (id) => {
-    const include = [];
+export const getRoomTypeService = async ({
+    hotelId,
+    name = '',
+    rooms = false,
+    page = 1,
+    limit = 10,
+}) => {
+    const whereClause = {};
+    whereClause.hotel_id = hotelId;
+    if (name) {
+        whereClause.name = { [Op.substring]: name };
+    }
 
+    const include = [];
     include.push({
         model: models.Amenity,
         as: 'amenities',
@@ -11,78 +22,69 @@ export const getHotelService = async (id) => {
             attributes: [],
         },
     });
-
-    include.push({
-        model: models.RoomType,
-        as: 'room_types',
-    });
-
-    include.push({
-        model: models.Service,
-        as: 'services',
-    });
-
-    let hotelInstance = await models.Hotel.findByPk(id, {
-        include: include.length > 0 ? include : undefined,
-    });
-
-    if (!hotelInstance) {
-        throw new Error(`Khách sạn với id là ${id} không tồn tại`);
+    if (rooms) {
+        include.push({
+            model: models.Room,
+            as: 'rooms',
+        });
     }
 
-    const hotel = hotelInstance.toJSON();
+    const offset = (page - 1) * limit;
+
+    const { count, rows } = await models.RoomType.findAndCountAll({
+        where: whereClause,
+        include: include.length > 0 ? include : undefined,
+        offset,
+        limit,
+        distinct: true,
+    });
+
+    const roomTypes = rows.map((rt) => rt.toJSON());
 
     // Phân nhóm amenities theo category
-    const groupedAmenities = {
-        bathroom: [],
-        view: [],
-        general: [],
-    };
+    for (const roomType of roomTypes) {
+        const groupedAmenities = {
+            bathroom: [],
+            view: [],
+            general: [],
+        };
 
-    hotel.amenities.forEach((amenity) => {
-        if (groupedAmenities[amenity.category]) {
-            groupedAmenities[amenity.category].push(amenity);
+        if (Array.isArray(roomType.amenities)) {
+            roomType.amenities.forEach((a) => {
+                if (groupedAmenities[a.category]) {
+                    groupedAmenities[a.category].push(a);
+                }
+            });
         }
-    });
 
-    hotel.amenities = groupedAmenities;
-
-    const groupedServices = {
-        dining: [],
-        entertainment: [],
-        facilities: [],
-    };
-
-    hotel.services.forEach((service) => {
-        if (groupedServices[service.category]) {
-            groupedServices[service.category].push(service);
-        }
-    });
-
-    hotel.services = groupedServices;
+        roomType.amenities = groupedAmenities;
+    }
 
     // Tính toán số lượng phòng và phòng trống
-    let total = 0;
-    let available = 0;
+    let total_rooms = 0;
+    let available_rooms = 0;
 
-    for (const rt of hotel.room_types) {
+    for (const rt of roomTypes) {
         const rooms = await models.Room.findAll({
             where: { room_type_id: rt.id },
         });
 
         rt.total_rooms = rooms.length;
-        total += rooms.length;
+        total_rooms += rooms.length;
 
         const availableRooms = rooms.filter((r) => r.status === 'available');
         rt.available_rooms = availableRooms.length;
-        available += availableRooms.length;
+        available_rooms += availableRooms.length;
     }
 
-    hotel.total_rooms = total;
-    hotel.available_rooms = available;
+    roomTypes.total_rooms = total_rooms;
+    roomTypes.available_rooms = available_rooms;
 
     return {
-        message: 'Lấy thành công thông tin khách sạn',
-        hotel: hotel,
+        message: 'Lấy thành công danh sách các loại phòng khách sạn',
+        currentPage: page,
+        totalPages: Math.ceil(count / limit),
+        totalItems: count,
+        room_types: roomTypes,
     };
 };
