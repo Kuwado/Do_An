@@ -1,12 +1,12 @@
 import models from '../../models/index.js';
 import { Op } from 'sequelize';
 
-export const getRoomTypeService = async ({
+export const getRoomTypesService = async ({
     hotelId,
     name = '',
     rooms = false,
     page = 1,
-    limit = 10,
+    limit = '',
 }) => {
     const whereClause = {};
     whereClause.hotel_id = hotelId;
@@ -29,15 +29,18 @@ export const getRoomTypeService = async ({
         });
     }
 
-    const offset = (page - 1) * limit;
-
-    const { count, rows } = await models.RoomType.findAndCountAll({
+    const options = {
         where: whereClause,
         include: include.length > 0 ? include : undefined,
-        offset,
-        limit,
         distinct: true,
-    });
+    };
+
+    if (limit && limit !== null && limit !== undefined) {
+        options.offset = (page - 1) * limit;
+        options.limit = limit;
+    }
+
+    const { count, rows } = await models.RoomType.findAndCountAll(options);
 
     const roomTypes = rows.map((rt) => rt.toJSON());
 
