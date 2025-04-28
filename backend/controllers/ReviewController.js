@@ -1,17 +1,13 @@
-import { getRoomTypesService } from '../services/room/getRoomTypesService.js';
+import { getReviewsService } from '../services/review/getReviewsService.js';
 
-export const getRoomTypes = async (req, res) => {
+export const getReviews = async (req, res) => {
     const hotelId = req.query.hotel_id;
-    const name = req.query.name;
-    const rooms = req.query.rooms === 'true';
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit);
 
     try {
-        const result = await getRoomTypesService({
+        const result = await getReviewsService({
             hotelId,
-            name,
-            rooms,
             page,
             limit,
         });
