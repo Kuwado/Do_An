@@ -8,9 +8,7 @@ export const loginUser = async (username, password) => {
             username,
             password,
         });
-        localStorage.setItem('user', JSON.stringify(res.data.user));
-        localStorage.setItem('token', res.data.token);
-        return { success: true };
+        return { success: true, data: res.data };
     } catch (err) {
         const errorMessage =
             err.response && err.response.data && err.response.data.message
@@ -21,18 +19,11 @@ export const loginUser = async (username, password) => {
     }
 };
 
-export const logoutUser = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    localStorage.removeItem('next');
-};
-
 // Admin
 export const loginAdminFirstStep = async (username) => {
     try {
         const res = await axios.post(`${API_URL}/auth/login/admin/first-step`, { username });
-        localStorage.setItem('admin', JSON.stringify(res.data.admin));
-        return { success: true };
+        return { success: true, data: res.data };
     } catch (err) {
         const errorMessage =
             err.response && err.response.data && err.response.data.message
@@ -49,9 +40,7 @@ export const loginAdmin = async (username, password) => {
             username,
             password,
         });
-        localStorage.setItem('admin', JSON.stringify(res.data.admin));
-        localStorage.setItem('token-admin', res.data.token);
-        return { success: true };
+        return { success: true, data: res.data };
     } catch (err) {
         const errorMessage =
             err.response && err.response.data && err.response.data.message
@@ -60,9 +49,4 @@ export const loginAdmin = async (username, password) => {
 
         return { success: false, message: errorMessage };
     }
-};
-
-export const logoutAdmin = () => {
-    localStorage.removeItem('admin');
-    localStorage.removeItem('token-admin');
 };
