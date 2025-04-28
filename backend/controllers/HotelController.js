@@ -5,7 +5,6 @@ import { searchHotelsService } from '../services/hotel/searchHotelsService.js';
 
 export const getHotelById = async (req, res) => {
     const id = req.params.id;
-
     try {
         const result = await getHotelService(id);
         return res.status(200).json(result);

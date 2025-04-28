@@ -1,17 +1,17 @@
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import styles from './Search.module.scss';
 import SearchBar from '@/constants/Search';
-import { useEffect, useState } from 'react';
 import { HotelItem, HotelCard } from '@/constants/Card';
 import { PriceRangeSlider } from '@/constants/Filter';
+import Pagination from '@/constants/Pagiantion';
 import { Button } from '@/components/Button';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { searchHotels } from '@/services/HotelService';
-import Pagination from '@/constants/Pagiantion/Pagination';
 import SortBy from './components/SortBy';
 import AmenityFilter from './components/AmenityFilter';
 import DisplaySelction from './components/DisplaySelction';
+import { searchHotels } from '@/services/HotelService';
 
 const cx = classNames.bind(styles);
 
@@ -23,6 +23,7 @@ const Search = () => {
     const navigate = useNavigate();
     const params = new URLSearchParams(location.search);
     const [hotels, setHotels] = useState([]);
+    const [totalHotels, setTotalHotels] = useState(null);
     const [totalPages, setTotalPages] = useState(null);
     const [values, setValues] = useState([params.get('from') ?? MIN, params.get('to') ?? MAX]);
     const [amenities, setAmenities] = useState([]);
@@ -56,6 +57,7 @@ const Search = () => {
                 const res = await searchHotels({ ...queryParams });
                 setHotels(res.hotels);
                 setTotalPages(res.totalPages);
+                setTotalHotels(res.totalItems);
                 setError(null);
             } catch (err) {
                 setError(err);
@@ -131,6 +133,9 @@ const Search = () => {
 
                 <div className={cx('content-right')}>
                     <div className={cx('content-right-header')}>
+                        <div className={cx('total-hotels')}>
+                            {totalHotels > 1 ? `Có ${totalHotels} khách sạn` : 'Không có khách sạn phù hợp'}
+                        </div>
                         <SortBy sortBy={sortBy} setSortBy={setSortBy} />
                         <span></span>
                         <DisplaySelction display={display} setDisplay={setDisplay} />

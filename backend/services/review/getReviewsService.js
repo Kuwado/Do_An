@@ -15,6 +15,7 @@ export const getReviewsService = async ({ hotelId, page = 1, limit = '' }) => {
         where: whereClause,
         include: include.length > 0 ? include : undefined,
         distinct: true,
+        order: [['created_at', 'DESC']],
     };
 
     if (limit && limit !== null && limit !== undefined) {

@@ -11,7 +11,7 @@ class Amenity extends Model {
         });
 
         Amenity.belongsToMany(models.RoomType, {
-            through: models.HotelAmenity,
+            through: models.RoomTypeAmenity,
             foreignKey: 'amenity_id',
             otherKey: 'room_type_id',
             as: 'room_types',

@@ -40,6 +40,7 @@ const AmenityFilter = ({ amenities, setAmenities, setLoading, setError }) => {
                 selections={amenitiesList.view}
                 selected={amenities}
                 setSelected={setAmenities}
+                count={true}
             />
             <Selection
                 title="Tiện nghi cơ bản"
@@ -47,6 +48,7 @@ const AmenityFilter = ({ amenities, setAmenities, setLoading, setError }) => {
                 selections={amenitiesList.general}
                 selected={amenities}
                 setSelected={setAmenities}
+                count={true}
             />
             <Selection
                 title="Tiện nghi phòng tắm"
@@ -54,6 +56,7 @@ const AmenityFilter = ({ amenities, setAmenities, setLoading, setError }) => {
                 selections={amenitiesList.bathroom}
                 selected={amenities}
                 setSelected={setAmenities}
+                count={true}
             />
         </>
     );

@@ -2,17 +2,15 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const getRoomTypes = async ({ hotelId = '', name = '', rooms = false, page = 1, limit = '' }) => {
+export const getReviews = async ({ hotelId = '', page = 1, limit = '' }) => {
     try {
         const query = new URLSearchParams({
             hotel_id: hotelId,
-            name,
-            rooms: rooms.toString(),
             page: page.toString(),
             limit: limit.toString(),
         }).toString();
 
-        const res = await axios.get(`${API_URL}/rooms/types?${query}`);
+        const res = await axios.get(`${API_URL}/reviews?${query}`);
         return res.data;
     } catch (err) {
         const errorMessage =

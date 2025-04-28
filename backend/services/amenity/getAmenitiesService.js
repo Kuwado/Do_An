@@ -25,7 +25,7 @@ export const getAmenitiesService = async () => {
         id: item.id,
         name: item.name,
         category: item.category,
-        hotelCount: parseInt(item.get('hotelCount')),
+        count: parseInt(item.get('hotelCount')),
     }));
 
     const amenities = {

@@ -1,0 +1,20 @@
+.hotel-reviews {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #073e68;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

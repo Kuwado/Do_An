@@ -28,7 +28,7 @@ export async function up(queryInterface, Sequelize) {
             hotel_id: 2,
         },
         {
-            name: 'Xe Đưa Đón Sân Bay',
+            name: 'Xe đưa đón sân bay',
             images: null,
             description:
                 'Dịch vụ đưa đón khách từ sân bay về khách sạn và ngược lại.',
