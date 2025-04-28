@@ -12,6 +12,18 @@ class RoomType extends Model {
             foreignKey: 'room_type_id',
             as: 'rooms',
         });
+
+        RoomType.belongsToMany(models.Amenity, {
+            through: models.RoomTypeAmenity,
+            foreignKey: 'room_type_id',
+            otherKey: 'amenity_id',
+            as: 'amenities',
+        });
+
+        RoomType.hasMany(models.RoomTypeAmenity, {
+            foreignKey: 'room_type_id',
+            as: 'room_type_amenities',
+        });
     }
 }
 
