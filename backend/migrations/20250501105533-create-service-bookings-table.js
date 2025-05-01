@@ -2,48 +2,36 @@
 
 /** @type {import('sequelize-cli').Migration} */
 export async function up(queryInterface, Sequelize) {
-    await queryInterface.createTable('bookings', {
+    await queryInterface.createTable('service_bookings', {
         id: {
             type: Sequelize.INTEGER,
-            primaryKey: true,
             autoIncrement: true,
+            primaryKey: true,
         },
-        user_id: {
+        booking_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: 'users',
+                model: 'bookings',
                 key: 'id',
             },
             onDelete: 'CASCADE',
         },
-        room_id: {
+        service_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: 'rooms',
+                model: 'services',
                 key: 'id',
             },
             onDelete: 'CASCADE',
         },
-        hotel_id: {
+        quantity: {
             type: Sequelize.INTEGER,
             allowNull: false,
-            references: {
-                model: 'hotels',
-                key: 'id',
-            },
-            onDelete: 'CASCADE',
+            defaultValue: 1,
         },
-        check_in: {
-            type: Sequelize.DATE,
-            allowNull: false,
-        },
-        check_out: {
-            type: Sequelize.DATE,
-            allowNull: false,
-        },
-        room_price: {
+        price: {
             type: Sequelize.DECIMAL(10, 2),
             allowNull: true,
         },
@@ -56,45 +44,28 @@ export async function up(queryInterface, Sequelize) {
             },
             onDelete: 'SET NULL',
         },
-        room_amount: {
+        final_amount: {
             type: Sequelize.DECIMAL(10, 2),
             allowNull: true,
-        },
-        service_amount: {
-            type: Sequelize.DECIMAL(10, 2),
-            allowNull: true,
-            defaultValue: 0,
-        },
-        total_amount: {
-            type: Sequelize.DECIMAL(10, 2),
-            allowNull: true,
-        },
-        paid_amount: {
-            type: Sequelize.DECIMAL(10, 2),
-            allowNull: true,
-            defaultValue: 0,
         },
         status: {
-            type: Sequelize.ENUM(
-                'pending',
-                'confirmed',
-                'cancelled',
-                'completed',
-            ),
-            allowNull: false,
+            type: Sequelize.ENUM('pending', 'confirmed', 'cancelled'),
             defaultValue: 'pending',
+        },
+        date: {
+            type: Sequelize.DATE,
+            allowNull: false,
         },
         created_at: {
             type: Sequelize.DATE,
-            defaultValue: Sequelize.fn('NOW'),
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
         updated_at: {
             type: Sequelize.DATE,
-            defaultValue: Sequelize.fn('NOW'),
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
     });
 }
-
 export async function down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('bookings');
+    await queryInterface.dropTable('service_bookings');
 }
