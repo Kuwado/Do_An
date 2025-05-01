@@ -39,6 +39,7 @@ class Hotel extends Model {
             as: 'room_types',
         });
 
+        // Dịch vụ
         Hotel.hasMany(models.Service, {
             foreignKey: 'hotel_id',
             as: 'services',

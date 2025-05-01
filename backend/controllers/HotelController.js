@@ -5,8 +5,10 @@ import { searchHotelsService } from '../services/hotel/searchHotelsService.js';
 
 export const getHotelById = async (req, res) => {
     const id = req.params.id;
+    const checkIn = req.query.check_in;
+    const checkOut = req.query.check_out;
     try {
-        const result = await getHotelService(id);
+        const result = await getHotelService(id, checkIn, checkOut);
         return res.status(200).json(result);
     } catch (error) {
         return res.status(400).json({ message: error.message });
@@ -16,8 +18,8 @@ export const getHotelById = async (req, res) => {
 export const getHotels = async (req, res) => {
     const name = req.query.name;
     const city = req.query.city;
-    const amenity = req.query.amenity === 'true';
-    const room = req.query.room === 'true';
+    const checkIn = req.query.check_in;
+    const checkOut = req.query.check_out;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const sortPrice = req.query.sort_price || '';
@@ -27,8 +29,8 @@ export const getHotels = async (req, res) => {
         const result = await getHotelsService({
             name,
             city,
-            amenity,
-            room,
+            checkIn,
+            checkOut,
             page,
             limit,
             sortPrice,

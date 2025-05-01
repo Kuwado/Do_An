@@ -19,6 +19,8 @@ npm install morgan
 # Cors
 npm install cors
 
+npm install date-fns-tz
+
 
 
 npx sequelize-cli db:drop

@@ -5,8 +5,8 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const getHotels = async ({
     name = '',
     city = '',
-    amenity = false,
-    room = false,
+    checkIn = '',
+    checkOut = '',
     page = 1,
     limit = 10,
     sortPrice = '',
@@ -16,8 +16,8 @@ export const getHotels = async ({
         const query = new URLSearchParams({
             name,
             city,
-            amenity: amenity.toString(),
-            room: room.toString(),
+            check_in: checkIn,
+            check_out: checkOut,
             page: page.toString(),
             limit: limit.toString(),
             sortPrice,
@@ -75,9 +75,14 @@ export const searchHotels = async ({
     }
 };
 
-export const getHotel = async (id) => {
+export const getHotel = async (id, checkIn, checkOut) => {
+    const query = new URLSearchParams({
+        check_in: checkIn,
+        check_out: checkOut,
+    });
+
     try {
-        const res = await axios.get(`${API_URL}/hotels/${id}`);
+        const res = await axios.get(`${API_URL}/hotels/${id}?${query.toString()}`);
         return res.data;
     } catch (err) {
         const errorMessage =

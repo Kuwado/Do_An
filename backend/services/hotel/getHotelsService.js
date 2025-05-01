@@ -4,8 +4,6 @@ import { Op } from 'sequelize';
 export const getHotelsService = async ({
     name = '',
     city = '',
-    amenity = false,
-    room = false,
     page = 1,
     limit = 10,
     sortPrice = '',
@@ -20,21 +18,13 @@ export const getHotelsService = async ({
     }
 
     const include = [];
-    if (amenity) {
-        include.push({
-            model: models.Amenity,
-            as: 'amenities',
-            through: {
-                attributes: [],
-            },
-        });
-    }
-    if (room) {
-        include.push({
-            model: models.RoomType,
-            as: 'room_types',
-        });
-    }
+    include.push({
+        model: models.Amenity,
+        as: 'amenities',
+        through: {
+            attributes: [],
+        },
+    });
 
     const offset = (page - 1) * limit;
 
@@ -57,52 +47,22 @@ export const getHotelsService = async ({
 
     const hotels = rows.map((h) => h.toJSON());
 
-    if (amenity) {
-        for (const hotel of hotels) {
-            const groupedAmenities = {
-                bathroom: [],
-                view: [],
-                general: [],
-            };
+    for (const hotel of hotels) {
+        const groupedAmenities = {
+            bathroom: [],
+            view: [],
+            general: [],
+        };
 
-            if (Array.isArray(hotel.amenities)) {
-                hotel.amenities.forEach((a) => {
-                    if (groupedAmenities[a.category]) {
-                        groupedAmenities[a.category].push(a);
-                    }
-                });
-            }
-
-            hotel.amenities = groupedAmenities;
-        }
-    }
-
-    if (room) {
-        await Promise.all(
-            hotels.map(async (hotel) => {
-                let total = 0;
-                let available = 0;
-
-                for (const rt of hotel.room_types) {
-                    const rooms = await models.Room.findAll({
-                        where: { room_type_id: rt.id },
-                    });
-
-                    const availableRooms = rooms.filter(
-                        (r) => r.status === 'available',
-                    );
-
-                    rt.total_rooms = rooms.length;
-                    rt.available_rooms = availableRooms.length;
-
-                    total += rooms.length;
-                    available += availableRooms.length;
+        if (Array.isArray(hotel.amenities)) {
+            hotel.amenities.forEach((a) => {
+                if (groupedAmenities[a.category]) {
+                    groupedAmenities[a.category].push(a);
                 }
+            });
+        }
 
-                hotel.total_rooms = total;
-                hotel.available_rooms = available;
-            }),
-        );
+        hotel.amenities = groupedAmenities;
     }
 
     return {
