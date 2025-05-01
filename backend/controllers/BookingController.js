@@ -1,4 +1,5 @@
 import { createBookingService } from '../services/booking/createBookingService.js';
+import { createServiceBookingService } from '../services/booking/createServiceBookingService.js';
 import { isRoomAvailable } from '../services/room/isRoomAvailable.js';
 import { formatCheckIn, formatCheckOut } from '../utils/formatDateTime.js';
 
@@ -30,6 +31,23 @@ export const createBooking = async (req, res) => {
         console.error(error);
         return res.status(500).json({
             message: 'Đặt phòng thất bại!',
+            error: error.message,
+        });
+    }
+};
+
+export const createServiceBooking = async (req, res) => {
+    try {
+        const serviceBookingData = req.body;
+
+        // Tạo booking
+        const result = await createServiceBookingService(serviceBookingData);
+
+        return res.status(201).json(result);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Đặt dịch vụ thất bại!',
             error: error.message,
         });
     }
