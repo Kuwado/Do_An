@@ -3,6 +3,8 @@ import { getRoomTypesService } from '../services/room/getRoomTypesService.js';
 export const getRoomTypes = async (req, res) => {
     const hotelId = req.query.hotel_id;
     const name = req.query.name;
+    const checkIn = req.query.check_in;
+    const checkOut = req.query.check_out;
     const rooms = req.query.rooms === 'true';
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit);
@@ -11,6 +13,8 @@ export const getRoomTypes = async (req, res) => {
         const result = await getRoomTypesService({
             hotelId,
             name,
+            checkIn,
+            checkOut,
             rooms,
             page,
             limit,

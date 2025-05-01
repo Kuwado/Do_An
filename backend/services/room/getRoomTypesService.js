@@ -1,9 +1,13 @@
 import models from '../../models/index.js';
 import { Op } from 'sequelize';
+import { formatCheckIn, formatCheckOut } from '../../utils/formatDateTime.js';
+import { isRoomAvailable } from './isRoomAvailable.js';
 
 export const getRoomTypesService = async ({
     hotelId,
     name = '',
+    checkIn = '',
+    checkOut = '',
     rooms = false,
     page = 1,
     limit = '',
@@ -75,9 +79,18 @@ export const getRoomTypesService = async ({
         rt.total_rooms = rooms.length;
         total_rooms += rooms.length;
 
-        const availableRooms = rooms.filter((r) => r.status === 'available');
-        rt.available_rooms = availableRooms.length;
-        available_rooms += availableRooms.length;
+        checkIn = formatCheckIn(checkIn);
+        checkOut = formatCheckOut(checkOut);
+        let availableRooms = 0;
+        for (const room of rooms) {
+            const available = await isRoomAvailable(room.id, checkIn, checkOut);
+            if (available) {
+                availableRooms++;
+            }
+        }
+
+        rt.available_rooms = availableRooms;
+        available_rooms += availableRooms;
     }
 
     roomTypes.total_rooms = total_rooms;

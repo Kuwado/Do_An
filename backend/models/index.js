@@ -9,6 +9,7 @@ import Voucher from './Voucher.js';
 import Service from './Service.js';
 import RoomTypeAmenity from './RoomTypeAmenity.js';
 import Review from './Review.js';
+import Booking from './Booking.js';
 
 const models = {
     Hotel,
@@ -22,6 +23,7 @@ const models = {
     Service,
     RoomTypeAmenity,
     Review,
+    Booking,
 };
 
 // Gọi associate sau khi các model đã có mặt

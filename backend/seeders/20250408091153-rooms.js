@@ -7,7 +7,6 @@ export async function up(queryInterface, Sequelize) {
     );
     const rooms = [];
 
-    const statuses = ['available', 'pending', 'booked', 'maintenance'];
     const usedRoomNumbers = new Set();
 
     const generateUniqueRoomNumber = () => {
@@ -23,7 +22,6 @@ export async function up(queryInterface, Sequelize) {
         for (let i = 0; i < 5; i++) {
             rooms.push({
                 room_number: generateUniqueRoomNumber(),
-                status: statuses[Math.floor(Math.random() * statuses.length)],
                 room_type_id: roomType.id,
             });
         }

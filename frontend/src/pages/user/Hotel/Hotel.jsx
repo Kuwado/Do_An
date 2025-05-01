@@ -9,9 +9,9 @@ import Rooms from './components/Rooms/Rooms';
 import Vouchers from './components/Vouchers/Vouchers';
 import Reviews from './components/Reviews/Reviews';
 import { getHotel } from '@/services/HotelService';
-import { getRoomTypes } from '../../../services/RoomService';
-import { getVouchers } from '../../../services/VoucherService';
-import { getReviews } from '../../../services/ReviewService';
+import { getRoomTypes } from '@/services/RoomService';
+import { getVouchers } from '@/services/VoucherService';
+import { getReviews } from '@/services/ReviewService';
 
 const cx = classNames.bind(styles);
 
