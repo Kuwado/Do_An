@@ -49,6 +49,11 @@ class Hotel extends Model {
             foreignKey: 'hotel_id',
             as: 'reviews',
         });
+
+        Hotel.hasMany(models.Booking, {
+            foreignKey: 'hotel_id',
+            as: 'bookings',
+        });
     }
 }
 

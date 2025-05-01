@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import styles from './Hotel.module.scss';
@@ -12,11 +12,16 @@ import { getHotel } from '@/services/HotelService';
 import { getRoomTypes } from '@/services/RoomService';
 import { getVouchers } from '@/services/VoucherService';
 import { getReviews } from '@/services/ReviewService';
+import { getDate } from '@/utils/dateUtil';
 
 const cx = classNames.bind(styles);
 
 const Hotel = () => {
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
     const { id } = useParams();
+    const [checkIn, setCheckIn] = useState(params.get('check_in') ?? getDate(0));
+    const [checkOut, setCheckOut] = useState(params.get('check_out') ?? getDate(1));
     const [hotel, setHotel] = useState({});
     const [rooms, setRooms] = useState([]);
     const [vouchers, setVouchers] = useState([]);
@@ -28,16 +33,16 @@ const Hotel = () => {
     const [loading, setLoading] = useState('');
     const [error, setError] = useState('');
 
-    console.log(vouchers);
-    console.log(id);
+    console.log('change day');
+    console.log(rooms);
 
     useEffect(() => {
         const fetchHotelData = async () => {
             setLoading(true);
             try {
                 const [resHotel, resRooms, resVouchers, resReviews] = await Promise.all([
-                    getHotel(id),
-                    getRoomTypes({ hotelId: id }),
+                    getHotel({ id, checkIn, checkOut }),
+                    getRoomTypes({ hotelId: id, checkIn, checkOut }),
                     getVouchers({ hotelId: id }),
                     getReviews({ hotelId: id }),
                 ]);
@@ -59,13 +64,47 @@ const Hotel = () => {
         }
     }, [id]);
 
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        setCheckIn(params.get('check_in') ?? getDate(0));
+        setCheckOut(params.get('check_out') ?? getDate(1));
+
+        const fetchAvailableRooms = async () => {
+            setLoading(true);
+            try {
+                const [resHotel, resRooms] = await Promise.all([
+                    getHotel({ id, checkIn, checkOut }),
+                    getRoomTypes({ hotelId: id, checkIn, checkOut }),
+                ]);
+
+                setHotel(resHotel.hotel);
+                setRooms(resRooms.room_types);
+                setError(null);
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchAvailableRooms();
+    }, [location.search]);
+
     return (
         <div className={cx('hotel-page')}>
-            <Header overviewRef={overviewRef} roomsRef={roomsRef} vouchersRef={vouchersRef} reviewsRef={reviewsRef} />
+            <Header
+                overviewRef={overviewRef}
+                roomsRef={roomsRef}
+                vouchersRef={vouchersRef}
+                reviewsRef={reviewsRef}
+                checkIn={checkIn}
+                checkOut={checkOut}
+                setCheckIn={setCheckIn}
+                setCheckOut={setCheckOut}
+            />
 
             <div className={cx('hotel-content')}>
                 <Overview forwardedRef={overviewRef} hotel={hotel} />
-                <Rooms forwardedRef={roomsRef} rooms={rooms} />
+                <Rooms forwardedRef={roomsRef} rooms={rooms} checkIn={checkIn} checkOut={checkOut} />
                 <Vouchers forwardedRef={vouchersRef} vouchers={vouchers} />
                 <Reviews forwardedRef={reviewsRef} reviews={reviews} />
             </div>

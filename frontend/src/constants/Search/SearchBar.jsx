@@ -75,8 +75,8 @@ const SearchBar = () => {
                 />
             </div>
 
-            <div className={cx('btn-container')} onClick={handleSearch}>
-                <Button secondary curved leftIcon={<FontAwesomeIcon icon={faMagnifyingGlass} />}>
+            <div className={cx('btn-container')}>
+                <Button secondary curved leftIcon={<FontAwesomeIcon icon={faMagnifyingGlass} />} onClick={handleSearch}>
                     Tìm kiếm
                 </Button>
             </div>

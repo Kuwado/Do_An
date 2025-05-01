@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './DateInput.module.scss';
 
 const cx = classNames.bind(styles);
+import { getDate } from '@/utils/dateUtil';
 
 const fn = () => {};
 
@@ -20,6 +21,7 @@ const DateInput = ({
     className,
     onFocus,
     onBlur,
+    min = true,
 }) => {
     const handleChangeValue = (e) => {
         setValue(e.target.value);
@@ -36,6 +38,7 @@ const DateInput = ({
                 autoComplete={autoComplete}
                 onFocus={onFocus}
                 onBlur={onBlur}
+                min={min ? getDate(0) : undefined}
             />
             <label htmlFor={`date-input-${id}`}>
                 {label}

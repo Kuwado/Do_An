@@ -3,6 +3,7 @@ import LoginPoster from './login.png';
 import LogoGoogle from './Google__G__logo.svg.webp';
 import NoImage from './noimage.png';
 import Hotel from './hotel.jpg';
+import Room from './room.jpg';
 import Home1 from './home1.webp';
 import Home2 from './home2.webp';
 
@@ -12,6 +13,7 @@ const images = {
     logoGoogle: LogoGoogle,
     noImage: NoImage,
     hotel: Hotel,
+    room: Room,
     home1: Home1,
     home2: Home2,
 };

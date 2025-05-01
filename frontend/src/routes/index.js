@@ -7,6 +7,10 @@ const publicRoutes = [
     { path: config.routes.user.home, element: pages.user.home, layout: layouts.user.home },
     { path: config.routes.user.hotels, element: pages.user.hotels },
     { path: config.routes.user.hotel, element: pages.user.hotel },
+    { path: config.routes.user.booking, element: pages.user.booking },
+    { path: config.routes.user.payment, element: pages.user.booking },
+    { path: config.routes.user.confirm, element: pages.user.booking },
+
     { path: config.routes.user.about, element: pages.user.about },
     { path: config.routes.other.test, element: pages.other.test },
 

@@ -15,14 +15,33 @@ export const getRoomTypes = async ({
         const query = new URLSearchParams({
             hotel_id: hotelId,
             name,
-            checkIn,
-            checkOut,
+            check_in: checkIn,
+            check_out: checkOut,
             rooms: rooms.toString(),
             page: page.toString(),
             limit: limit.toString(),
         }).toString();
 
         const res = await axios.get(`${API_URL}/rooms/types?${query}`);
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
+
+export const getRoomType = async ({ id, checkIn, checkOut }) => {
+    const query = new URLSearchParams({
+        check_in: checkIn,
+        check_out: checkOut,
+    });
+
+    try {
+        const res = await axios.get(`${API_URL}/rooms/types/${id}?${query.toString()}`);
         return res.data;
     } catch (err) {
         const errorMessage =

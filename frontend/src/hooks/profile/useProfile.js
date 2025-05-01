@@ -19,8 +19,6 @@ const useProfile = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    console.log(admin);
-
     const fetchUser = async () => {
         setLoading(true);
         try {

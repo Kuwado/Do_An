@@ -10,6 +10,8 @@ import Service from './Service.js';
 import RoomTypeAmenity from './RoomTypeAmenity.js';
 import Review from './Review.js';
 import Booking from './Booking.js';
+import UserVoucher from './UserVoucher.js';
+import ServiceBooking from './ServiceBooking.js';
 
 const models = {
     Hotel,
@@ -24,6 +26,8 @@ const models = {
     RoomTypeAmenity,
     Review,
     Booking,
+    ServiceBooking,
+    UserVoucher,
 };
 
 // Gọi associate sau khi các model đã có mặt

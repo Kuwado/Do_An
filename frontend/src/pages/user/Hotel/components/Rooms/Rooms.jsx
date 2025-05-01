@@ -7,7 +7,7 @@ import { faBed } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-const Rooms = ({ rooms = {}, forwardedRef }) => {
+const Rooms = ({ rooms = {}, forwardedRef, checkIn, checkOut }) => {
     return (
         <div ref={forwardedRef} className={cx('hotel-rooms')}>
             <div className={cx('title')}>
@@ -15,7 +15,10 @@ const Rooms = ({ rooms = {}, forwardedRef }) => {
                 <span>Danh sách phòng</span>
             </div>
             <div className={cx('content')}>
-                {rooms && rooms.map((room) => <RoomCard key={`room-${room.id}`} room={room} />)}
+                {rooms.length > 0 &&
+                    rooms.map((room) => (
+                        <RoomCard key={`room-${room.id}`} room={room} checkIn={checkIn} checkOut={checkOut} />
+                    ))}
             </div>
         </div>
     );

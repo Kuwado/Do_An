@@ -1,3 +1,4 @@
+import { getRoomTypeService } from '../services/room/getRoomTypeService.js';
 import { getRoomTypesService } from '../services/room/getRoomTypesService.js';
 
 export const getRoomTypes = async (req, res) => {
@@ -19,6 +20,18 @@ export const getRoomTypes = async (req, res) => {
             page,
             limit,
         });
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+};
+
+export const getRoomTypeById = async (req, res) => {
+    const id = req.params.id;
+    const checkIn = req.query.check_in;
+    const checkOut = req.query.check_out;
+    try {
+        const result = await getRoomTypeService(id, checkIn, checkOut);
         return res.status(200).json(result);
     } catch (error) {
         return res.status(400).json({ message: error.message });

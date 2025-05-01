@@ -4,6 +4,10 @@ const routes = {
         home: '/',
         hotels: '/hotels',
         hotel: '/hotels/:id',
+        booking: '/hotels/:hotelId/booking/:roomTypeId',
+        payment: '/hotels/:hotelId/payment',
+        confirm: '/hotels/:hotelId/booking-confirm/:bookingId',
+
         about: '/about',
         vouchers: '/vouchers',
         register: '/register',

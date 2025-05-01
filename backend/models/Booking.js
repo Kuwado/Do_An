@@ -2,7 +2,7 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/db.js';
 import { differenceInDays } from 'date-fns';
-import Room from './Room.js';
+import models from './index.js';
 
 class Booking extends Model {
     static associate(models) {
@@ -24,6 +24,12 @@ class Booking extends Model {
         Booking.belongsTo(models.Voucher, {
             foreignKey: 'voucher_id',
             as: 'voucher',
+        });
+
+        //
+        Booking.hasMany(models.ServiceBooking, {
+            foreignKey: 'booking_id',
+            as: 'service_bookings',
         });
     }
 }

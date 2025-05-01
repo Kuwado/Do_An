@@ -26,6 +26,7 @@ export const getRoomTypesService = async ({
             attributes: [],
         },
     });
+
     if (rooms) {
         include.push({
             model: models.Room,
