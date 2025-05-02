@@ -40,13 +40,9 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.DATEONLY,
             allowNull: false,
         },
-        usage_limit: {
-            type: Sequelize.INTEGER,
+        status: {
+            type: Sequelize.ENUM('upcoming', 'active', 'end'),
             allowNull: false,
-        },
-        used_count: {
-            type: Sequelize.INTEGER,
-            defaultValue: 0,
         },
         hotel_id: {
             type: Sequelize.INTEGER,

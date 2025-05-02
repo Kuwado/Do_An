@@ -12,8 +12,7 @@ export async function up(queryInterface, Sequelize) {
             discount_type: 'percent',
             start_date: '2025-04-01',
             end_date: '2025-06-30',
-            usage_limit: 100,
-            used_count: 0,
+            status: 'active',
             hotel_id: null,
         },
         {
@@ -25,8 +24,7 @@ export async function up(queryInterface, Sequelize) {
             discount_type: 'percent',
             start_date: '2025-04-01',
             end_date: '2025-06-30',
-            usage_limit: 100,
-            used_count: 0,
+            status: 'active',
             hotel_id: null,
         },
         {
@@ -39,8 +37,7 @@ export async function up(queryInterface, Sequelize) {
             discount_type: 'percent',
             start_date: '2025-04-01',
             end_date: '2025-06-30',
-            usage_limit: 100,
-            used_count: 0,
+            status: 'active',
             hotel_id: null,
         },
         {
@@ -52,8 +49,7 @@ export async function up(queryInterface, Sequelize) {
             discount_type: 'fixed',
             start_date: '2025-04-01',
             end_date: '2025-06-30',
-            usage_limit: 100,
-            used_count: 0,
+            status: 'active',
             hotel_id: null,
         },
         {
@@ -65,8 +61,7 @@ export async function up(queryInterface, Sequelize) {
             discount_type: 'fixed',
             start_date: '2025-04-01',
             end_date: '2025-06-30',
-            usage_limit: 100,
-            used_count: 0,
+            status: 'active',
             hotel_id: null,
         },
         {
@@ -78,8 +73,7 @@ export async function up(queryInterface, Sequelize) {
             discount_type: 'fixed',
             start_date: '2025-03-01',
             end_date: '2025-05-31',
-            usage_limit: 50,
-            used_count: 10,
+            status: 'active',
             hotel_id: 1,
         },
     ]);

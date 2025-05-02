@@ -3,6 +3,7 @@ import models from '../models/index.js';
 import { Op } from 'sequelize';
 
 export const expirePendingBookings = () => {
+    // Nếu có voucher reborn lại
     cron.schedule('*/5 * * * *', async () => {
         const now = new Date();
         const updated = await models.Booking.update(
