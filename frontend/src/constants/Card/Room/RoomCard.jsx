@@ -7,18 +7,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBath, faMountainCity, faPersonBooth, faRulerCombined, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '@/components/Button';
 import { formatPrice } from '@/utils/stringUtil';
+import { getDate } from '@/utils/dateUtil';
 
-const IMAGES = [images.hotel, images.hotel, images.hotel, images.hotel];
+const IMAGES = [images.room, images.room, images.room, images.room];
 
 const cx = classNames.bind(styles);
 
-const RoomCard = ({ room }) => {
+const RoomCard = ({ room, checkIn = getDate(0), checkOut = getDate(1) }) => {
     return (
         <div className={cx('room-card')}>
             <div className={cx('name')}>{room.name}</div>
             <div className={cx('content')}>
                 <div className={cx('content-item', 'images')}>
-                    <FullScreenSlider className="hover card" images={IMAGES} height="100%" autoPlay={false} />
+                    <FullScreenSlider
+                        className="hover card"
+                        images={room.images || IMAGES}
+                        height="100%"
+                        autoPlay={false}
+                    />
                 </div>
 
                 <div className={cx('content-item')}>
@@ -79,7 +85,11 @@ const RoomCard = ({ room }) => {
 
                     <div className={cx('action-btns')}>
                         <Button primaryBorder>Chi tiết</Button>
-                        <Button secondary noClick={room.available_rooms === 0}>
+                        <Button
+                            secondary
+                            noClick={room.available_rooms === 0}
+                            to={`/hotels/${room.hotel_id}/booking/${room.id}?check_in=${checkIn}&check_out=${checkOut}`}
+                        >
                             Đặt phòng
                         </Button>
                     </div>

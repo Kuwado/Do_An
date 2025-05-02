@@ -1,0 +1,120 @@
+.booking-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 20px;
+    background-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.room-booking {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.images {
+    border-radius: 15px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.hotel-name-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.hotel-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.room-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    .icon {
+        width: 30px;
+        justify-content: center;
+        font-size: calc(var(--font-size) + 2px);
+    }
+
+    &.name {
+        font-weight: bold;
+    }
+
+    &.voucher-applied {
+        color: var(--secondary);
+    }
+}
+
+.voucher {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+
+    .input {
+        flex: 1;
+    }
+
+    .btn {
+        position: relative;
+        height: 40px !important;
+        width: max-content !important;
+    }
+
+    .btn::after {
+        position: absolute;
+        content: '';
+        left: -11px;
+        height: 30px;
+        width: 1px;
+        background-color: var(--primary-text-25);
+    }
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid var(--primary-text-25);
+
+    .title {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .amount {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-end;
+    }
+
+    .before {
+        text-decoration: line-through;
+        font-size: calc(var(--font-size) - 2px);
+        opacity: 0.8;
+    }
+
+    .final {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ff5e1f;
+    }
+}

@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 const UserHeader = ({ className = '' }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const location = useLocation();
-    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
+    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('user_token'));
 
     useEffect(() => {
         const handleScroll = () => {

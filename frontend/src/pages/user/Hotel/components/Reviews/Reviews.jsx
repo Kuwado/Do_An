@@ -15,7 +15,8 @@ const Reviews = ({ reviews = [], forwardedRef }) => {
                 <span>Đánh giá về khách sạn</span>
             </div>
             <div className={cx('content')}>
-                {reviews && reviews.map((review) => <Comment key={`comment-${review.id}`} review={review} />)}
+                {reviews.length > 0 &&
+                    reviews.map((review) => <Comment key={`comment-${review.id}`} review={review} />)}
             </div>
         </div>
     );

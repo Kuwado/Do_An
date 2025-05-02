@@ -27,8 +27,6 @@ const AvatarBar = () => {
     const avatarRef = useRef(null);
     const { user, logout } = useProfile();
 
-    console.log(user);
-
     const handleLogout = () => {
         logout();
         navigate(config.routes.user.login);
