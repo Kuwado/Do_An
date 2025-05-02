@@ -90,11 +90,16 @@ Booking.init(
         status: {
             type: DataTypes.ENUM(
                 'pending',
+                'expired',
                 'confirmed',
                 'cancelled',
                 'completed',
             ),
             defaultValue: 'pending',
+        },
+        expired_at: {
+            type: DataTypes.DATE,
+            allowNull: true,
         },
         created_at: {
             type: DataTypes.DATE,

@@ -1,29 +1,35 @@
 import { createBookingService } from '../services/booking/createBookingService.js';
 import { createServiceBookingService } from '../services/booking/createServiceBookingService.js';
-import { isRoomAvailable } from '../services/room/isRoomAvailable.js';
+import {
+    getRoomAvailableIds,
+    isRoomAvailable,
+} from '../services/room/roomAvailable.js';
 import { formatCheckIn, formatCheckOut } from '../utils/formatDateTime.js';
 
 export const createBooking = async (req, res) => {
     try {
         const bookingData = req.body;
+        // console.log(req);
 
         bookingData.check_in = formatCheckIn(bookingData.check_in);
         bookingData.check_out = formatCheckOut(bookingData.check_out);
 
         // Kiểm tra phòng có khả dụng không
-        const available = await isRoomAvailable(
-            bookingData.room_id,
+        const availableRoomIds = await getRoomAvailableIds(
+            bookingData.room_type_id,
             bookingData.check_in,
             bookingData.check_out,
         );
 
-        if (!available) {
+        if (availableRoomIds.length === 0) {
             return res.status(409).json({
-                message: 'Phòng này đã được đặt trong khoảng thời gian đó.',
+                message: 'Loại phòng này đã được đặt hết',
             });
         }
 
         // Tạo booking
+        bookingData.room_id = availableRoomIds[0];
+        bookingData.user_id = req.user.id;
         const result = await createBookingService(bookingData);
 
         return res.status(201).json(result);
