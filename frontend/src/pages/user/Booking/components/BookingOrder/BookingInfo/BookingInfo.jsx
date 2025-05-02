@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,25 +18,33 @@ import { Input } from '@/components/Input';
 import { Button } from '@/components/Button';
 import { formatDate, getDaysBetween } from '@/utils/dateUtil';
 import { formatPrice } from '@/utils/stringUtil';
+import { checkVoucher } from '@/services/VoucherService';
 import images from '@/assets/images';
 
 const cx = classNames.bind(styles);
 
 const IMAGES = [images.room, images.room, images.room, images.room];
 
-const BookingInfo = ({ hotel, room, voucher, setVoucher, checkIn, checkOut }) => {
+const BookingInfo = ({ hotel, room, voucher, setVoucher, checkIn, checkOut, voucherInput = true, finalAmout }) => {
     const [code, setCode] = useState('');
+    const [codeError, setCodeError] = useState(null);
+    const [total, setTotal] = useState(0);
+    const [final, setFinal] = useState(finalAmout ?? total);
 
-    const getTotalAmount = () => {
-        let total = room.price * getDaysBetween(checkIn, checkOut);
-        if (voucher) {
-            if (voucher.discount_type === 'percent') {
-                total = Math.round((total * voucher.discount) / 100);
-            } else if (voucher.discount_type === 'fixed') {
-                total -= voucher.discount;
-            }
+    useEffect(() => {
+        const t = room.price * getDaysBetween(checkIn, checkOut);
+        setTotal(t);
+    }, [room, checkIn, checkOut]);
+
+    const applyVoucher = async () => {
+        const res = await checkVoucher({ hotelId: hotel.id, code: code, type: 'room', originalPrice: total });
+        if (res.success) {
+            setVoucher(res.voucher);
+            setFinal(res.final_amount);
+            setCodeError(null);
+        } else {
+            setCodeError(res.message);
         }
-        return formatPrice(total);
     };
 
     return (
@@ -85,22 +93,22 @@ const BookingInfo = ({ hotel, room, voucher, setVoucher, checkIn, checkOut }) =>
                 )}
             </div>
 
-            <div className={cx('voucher')}>
-                <Input className={cx('input')} value={code} setValue={setCode} label="Voucher" />
-                <Button className={cx('btn')} secondary curved small>
-                    Áp dụng
-                </Button>
-            </div>
+            {voucherInput && (
+                <div className={cx('voucher')}>
+                    <Input className={cx('input')} value={code} setValue={setCode} label="Voucher" />
+                    <Button className={cx('btn')} secondary curved small onClick={() => applyVoucher()}>
+                        Áp dụng
+                    </Button>
+                </div>
+            )}
+
+            {codeError && <div>{codeError}</div>}
 
             <div className={cx('total')}>
                 <div className={cx('title')}>Tổng tiền:</div>
                 <div className={cx('amount')}>
-                    {voucher?.discount && (
-                        <div className={cx('before')}>
-                            {formatPrice(room.price * getDaysBetween(checkIn, checkOut))}
-                        </div>
-                    )}
-                    <div className={cx('final')}>{getTotalAmount()}</div>
+                    {voucher?.discount && <div className={cx('before')}>{formatPrice(total)}</div>}
+                    <div className={cx('final')}>{formatPrice(voucher?.discount ? final : total)}</div>
                 </div>
             </div>
         </div>

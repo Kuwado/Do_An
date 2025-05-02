@@ -68,10 +68,13 @@ export const applyVoucherService = async ({
         final_amount = originalPrice - voucher.discount;
     }
 
+    if (final_amount < 0) final_amount = 0;
+
     return {
         susscess: true,
         message: 'Voucher đã được áp dụng thành công',
         final_amount,
+        voucher,
     };
 };
 

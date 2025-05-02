@@ -12,6 +12,7 @@ export const createBookingService = async (data) => {
     });
 
     data.room_price = room.room_type.price;
+    data.hotel_id = room.room_type.hotel_id;
 
     if (!room) {
         throw new Error(`Không tìm thấy phòng ${data.room_id}`);

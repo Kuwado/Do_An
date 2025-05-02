@@ -2,35 +2,18 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import styles from './BookingOrder.module.scss';
-import FullScreenSlider from '@/constants/Slider/FullScreen/FullScreenSlider';
-import images from '@/assets/images';
-import Rating from '@/constants/Rating';
+import BookingInfo from './BookingInfo/BookingInfo';
+import BookingUser from './BookingUser/BookingUser';
+import { createBooking } from '@/services/BookingService';
 import { getRoomType } from '@/services/RoomService';
 import { getHotel } from '@/services/HotelService';
 import { getDate } from '@/utils/dateUtil';
-import {
-    faClock,
-    faMoneyBill,
-    faRulerCombined,
-    faSignature,
-    faTicket,
-    faUsers,
-} from '@fortawesome/free-solid-svg-icons';
-import { formatDate, getDaysBetween } from '@/utils/dateUtil';
-import { formatPrice } from '@/utils/stringUtil';
-import { Input } from '@/components/Input';
 import { Button } from '@/components/Button';
-import BookingInfo from './BookingInfo/BookingInfo';
-import BookingUser from './BookingUser/BookingUser';
 
 const cx = classNames.bind(styles);
 
-const IMAGES = [images.room, images.room, images.room, images.room];
-
-const BookingOrder = () => {
+const BookingOrder = ({ countDownTime }) => {
     const navigate = useNavigate();
     const params = new URLSearchParams(location.search);
     const { hotelId, roomTypeId } = useParams();
@@ -39,6 +22,7 @@ const BookingOrder = () => {
     const [voucher, setVoucher] = useState({});
     const [checkIn, setCheckIn] = useState(params.get('check_in') ?? getDate(0));
     const [checkOut, setCheckOut] = useState(params.get('check_out') ?? getDate(1));
+    const [isRoomAvailable, setIsRoomAvailable] = useState(true);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -52,6 +36,7 @@ const BookingOrder = () => {
                 ]);
                 setHotel(resHotel.hotel);
                 setRoom(resRoom.room_type);
+                setIsRoomAvailable(resRoom.room_type.available_rooms > 0);
                 setError(null);
             } catch (err) {
                 setError(err);
@@ -63,10 +48,37 @@ const BookingOrder = () => {
         fetchRoomType();
     }, []);
 
+    const handlePayment = async () => {
+        setLoading(true);
+        try {
+            const res = await createBooking({ roomTypeId, checkIn, checkOut, voucherId: voucher.id });
+            if (!res.success) {
+                setError(res.message);
+            } else {
+                setError(null);
+                localStorage.setItem('pending_booking_id', res.booking.id);
+                localStorage.setItem('booking_created_at', res.booking.created_at);
+            }
+        } catch (err) {
+            setError(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className={cx('booking-order')}>
             <div className={cx('booking-left')}>
-                <BookingUser hotelId={hotelId} />
+                {isRoomAvailable ? (
+                    <BookingUser hotelId={hotelId} handlePayment={handlePayment} countDownTime={countDownTime} />
+                ) : (
+                    <div className={cx('out-of-room')}>
+                        <div>Phòng đã được đặt hết. Vui lòng chọn phòng khác</div>
+                        <Button primaryBorder transparent width="130px" onClick={() => navigate(-1)}>
+                            Quay lại
+                        </Button>
+                    </div>
+                )}
             </div>
 
             <div className={cx('booking-right')}>

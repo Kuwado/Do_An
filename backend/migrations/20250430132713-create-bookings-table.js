@@ -47,6 +47,10 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.DECIMAL(10, 2),
             allowNull: true,
         },
+        total_room_price: {
+            type: Sequelize.DECIMAL(10, 2),
+            allowNull: true,
+        },
         voucher_id: {
             type: Sequelize.INTEGER,
             allowNull: true,

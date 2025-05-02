@@ -9,7 +9,9 @@ const publicRoutes = [
     { path: config.routes.user.hotel, element: pages.user.hotel },
     { path: config.routes.user.booking, element: pages.user.booking },
     { path: config.routes.user.payment, element: pages.user.booking },
-    { path: config.routes.user.confirm, element: pages.user.booking },
+    { path: config.routes.user.completed, element: pages.user.booking },
+    { path: config.routes.user.bookingList, element: pages.user.bookingList },
+    { path: config.routes.user.bookingDetail, element: pages.user.bookingDetail },
 
     { path: config.routes.user.about, element: pages.user.about },
     { path: config.routes.other.test, element: pages.other.test },

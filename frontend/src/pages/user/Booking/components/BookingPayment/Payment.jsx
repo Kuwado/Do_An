@@ -1,0 +1,147 @@
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import classNames from 'classnames/bind';
+
+import styles from './BookingPayment.module.scss';
+import Timer from '@/constants/Timer/Timer';
+import { Button } from '@/components/Button';
+import { updateBooking } from '@/services/BookingService';
+
+const cx = classNames.bind(styles);
+
+const Payment = ({ countDownTime, setBookingId }) => {
+    const navigate = useNavigate();
+    const { hotelId } = useParams();
+    const [createdAt, setCreatedAt] = useState(localStorage.getItem('booking_created_at') || '');
+    const [method, setMethod] = useState('offline');
+    const [canNext, setCanNext] = useState(false);
+    const [showQR, setShowQR] = useState(false);
+    const [expired, setExpired] = useState(false);
+
+    useEffect(() => {
+        const createdTime = localStorage.getItem('booking_created_at');
+        setCreatedAt(createdTime);
+        if (createdTime) {
+            const expireAt = new Date(createdTime).getTime() + countDownTime * 60 * 1000;
+            const now = new Date().getTime();
+            const diff = expireAt - now;
+            if (diff <= 0) {
+                setExpired(true);
+            } else {
+                setExpired(false);
+            }
+        } else {
+            setExpired(true);
+        }
+    }, []);
+
+    const handleClearCountDown = () => {
+        localStorage.removeItem('pending_booking_id');
+        localStorage.removeItem('booking_created_at');
+        setExpired(true);
+    };
+
+    const handleCancel = async () => {
+        const bookingId = localStorage.getItem('pending_booking_id');
+        localStorage.removeItem('pending_booking_id');
+        localStorage.removeItem('booking_created_at');
+        navigate(-1);
+    };
+
+    const handleComplete = async () => {
+        const bookingId = localStorage.getItem('pending_booking_id');
+        const res = await updateBooking(bookingId, { expired_at: null });
+        if (!res.success) {
+            alert(res.message);
+        } else {
+            handleClearCountDown();
+            setBookingId(bookingId);
+            navigate(`/hotels/${hotelId}/booking-completed`);
+        }
+    };
+
+    useEffect(() => {
+        if (method === 'online-50') {
+            setCanNext(false);
+            setShowQR(true);
+        } else if (method === 'online-100') {
+            setCanNext(false);
+            setShowQR(true);
+        } else if (method === 'offline') {
+            setShowQR(false);
+            setCanNext(true);
+        }
+    }, [method]);
+
+    return (
+        <>
+            {!expired ? (
+                <div className={cx('booking-left')}>
+                    <div className={cx('header')}>
+                        <div className={cx('title')}>Thanh toán đặt phòng</div>
+                        <Timer start={createdAt} countDownTime={countDownTime} onClear={handleClearCountDown} />
+                    </div>
+
+                    <span className={cx('description')}>
+                        Vui lòng chọn phương thức thanh toán. Với phương thức thanh toan trực tiếp quý khách sẽ được
+                        nhân viên gọi điện hoặc gửi mail để xác nhận. Cảm ơn quý khách đã sử dụng dịch vụ của chúng tôi.
+                        Chúc quý khách một ngày tốt lành.
+                    </span>
+
+                    <div className={cx('payment-method')}>
+                        <label>
+                            <input
+                                type="radio"
+                                name="payment-method"
+                                value="online-50"
+                                onChange={(e) => setMethod(e.target.value)}
+                                checked={method === 'online-50'}
+                            />
+                            Đặt cọc 50% tiền phòng
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="payment-method"
+                                value="online-100"
+                                onChange={(e) => setMethod(e.target.value)}
+                                checked={method === 'online-100'}
+                            />
+                            Thanh toán toàn bộ tiền phòng
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="payment-method"
+                                value="offline"
+                                onChange={(e) => setMethod(e.target.value)}
+                                checked={method === 'offline'}
+                            />
+                            Thanh toán trực tiếp
+                        </label>
+                    </div>
+
+                    {showQR && <div className={cx('qr')}>QR nè</div>}
+
+                    <div className={cx('action-btns')}>
+                        <Button transparent primaryBorder width="150px" onClick={handleCancel}>
+                            Hủy đặt
+                        </Button>
+                        <Button secondary width="150px" noClick={!canNext} onClick={handleComplete}>
+                            Hoàn thành
+                        </Button>
+                    </div>
+                </div>
+            ) : (
+                <div className={cx('booking-left', 'expired')}>
+                    <div>Đã hết thời gian giữ phòng. Vui lòng đặt lại</div>
+                    <Button transparent primaryBorder width="150px" onClick={handleCancel}>
+                        Đặt lại phòng
+                    </Button>
+                </div>
+            )}
+        </>
+    );
+};
+
+export default Payment;
