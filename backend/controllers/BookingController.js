@@ -1,5 +1,6 @@
 import { createBookingService } from '../services/booking/createBookingService.js';
 import { createServiceBookingService } from '../services/booking/createServiceBookingService.js';
+import { getBookingService } from '../services/booking/getBookingService.js';
 import {
     getRoomAvailableIds,
     isRoomAvailable,
@@ -56,5 +57,29 @@ export const createServiceBooking = async (req, res) => {
             message: 'Đặt dịch vụ thất bại!',
             error: error.message,
         });
+    }
+};
+
+export const getBookingById = async (req, res) => {
+    const id = req.params.id;
+    const user = req.query.user ? req.query.user === 'true' : true;
+    const hotel = req.query.hotel ? req.query.hotel === 'true' : true;
+    const room = req.query.room ? req.query.room === 'true' : true;
+    const services = req.query.services ? req.query.services === 'true' : true;
+    const voucher = req.query.voucher ? req.query.voucher === 'true' : true;
+
+    try {
+        const result = await getBookingService({
+            id,
+            hotel,
+            user,
+            room,
+            services,
+            voucher,
+        });
+
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
     }
 };
