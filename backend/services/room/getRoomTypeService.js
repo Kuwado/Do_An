@@ -1,7 +1,7 @@
 import models from '../../models/index.js';
 import { Op } from 'sequelize';
 import { formatCheckIn, formatCheckOut } from '../../utils/formatDateTime.js';
-import { isRoomAvailable } from '../room/isRoomAvailable.js';
+import { isRoomAvailable } from './roomAvailable.js';
 
 export const getRoomTypeService = async (id, checkIn, checkOut) => {
     let roomTypeInstance = await models.RoomType.findByPk(id, {

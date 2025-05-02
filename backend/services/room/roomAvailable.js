@@ -12,7 +12,7 @@ export const isRoomAvailable = async (roomId, checkIn, checkOut) => {
     const overlappingBooking = await models.Booking.findOne({
         where: {
             room_id: roomId,
-            status: { [Op.not]: 'cancelled' },
+            status: { [Op.notIn]: ['cancelled', 'expired'] },
             [Op.and]: [
                 {
                     check_in: {
@@ -29,4 +29,35 @@ export const isRoomAvailable = async (roomId, checkIn, checkOut) => {
     });
 
     return !overlappingBooking;
+};
+
+export const hasRoomAvailable = async (roomTypeId, checkIn, checkOut) => {
+    const rooms = await models.Room.findAll({
+        where: { room_type_id: roomTypeId },
+    });
+
+    for (const room of rooms) {
+        const available = await isRoomAvailable(room.id, checkIn, checkOut);
+        if (available) return true;
+    }
+
+    return false;
+};
+
+export const getRoomAvailableIds = async (roomTypeId, checkIn, checkOut) => {
+    const ids = [];
+
+    const rooms = await models.Room.findAll({
+        where: { room_type_id: roomTypeId },
+        attributes: ['id'],
+    });
+
+    for (const room of rooms) {
+        const available = await isRoomAvailable(room.id, checkIn, checkOut);
+        if (available) {
+            ids.push(room.id);
+        }
+    }
+
+    return ids;
 };

@@ -1,7 +1,7 @@
 import models from '../../models/index.js';
 import { Op } from 'sequelize';
 import { formatCheckIn, formatCheckOut } from '../../utils/formatDateTime.js';
-import { isRoomAvailable } from '../room/isRoomAvailable.js';
+import { isRoomAvailable } from '../room/roomAvailable.js';
 
 export const getHotelService = async (id, checkIn, checkOut) => {
     const include = [];

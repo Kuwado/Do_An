@@ -14,6 +14,7 @@ import reviewRoute from './routes/ReviewRoute.js';
 import userRoute from './routes/UserRoute.js';
 import adminRoute from './routes/AdminRoute.js';
 import bookingRoute from './routes/BookingRoute.js';
+import { startCronJobs } from './cronJobs/index.js';
 
 dotenv.config();
 const app = express();
@@ -48,3 +49,5 @@ app.use('/api/bookings', bookingRoute);
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại http://localhost:${PORT}`);
 });
+
+// startCronJobs();

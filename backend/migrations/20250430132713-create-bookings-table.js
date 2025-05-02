@@ -78,11 +78,16 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.ENUM(
                 'pending',
                 'confirmed',
+                'expired',
                 'cancelled',
                 'completed',
             ),
             allowNull: false,
             defaultValue: 'pending',
+        },
+        expired_at: {
+            type: Sequelize.DATE,
+            allowNull: true,
         },
         created_at: {
             type: Sequelize.DATE,
