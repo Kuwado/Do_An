@@ -50,13 +50,9 @@ Voucher.init(
             type: DataTypes.DATEONLY,
             allowNull: false,
         },
-        usage_limit: {
-            type: DataTypes.INTEGER,
+        status: {
+            type: DataTypes.ENUM('upcoming', 'active', 'end'),
             allowNull: false,
-        },
-        used_count: {
-            type: DataTypes.INTEGER,
-            defaultValue: 0,
         },
         hotel_id: {
             type: DataTypes.INTEGER,
