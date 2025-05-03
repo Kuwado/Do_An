@@ -1,4 +1,4 @@
-import { applyVoucherService } from '../services/voucher/applyVocuherService.js';
+import { applyVoucherService } from '../services/voucher/applyVoucherService.js';
 import { getVouchersService } from '../services/voucher/getVouchersService.js';
 
 export const getVouchers = async (req, res) => {

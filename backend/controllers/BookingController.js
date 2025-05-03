@@ -1,10 +1,13 @@
+import models from '../models/index.js';
 import { createBookingService } from '../services/booking/createBookingService.js';
 import { createServiceBookingService } from '../services/booking/createServiceBookingService.js';
 import { getBookingService } from '../services/booking/getBookingService.js';
+import { updateBookingService } from '../services/booking/updateBookingService.js';
 import {
     getRoomAvailableIds,
     isRoomAvailable,
 } from '../services/room/roomAvailable.js';
+import { canApplyVoucher } from '../services/voucher/applyVoucherService.js';
 import { formatCheckIn, formatCheckOut } from '../utils/formatDateTime.js';
 
 export const createBooking = async (req, res) => {
@@ -81,5 +84,46 @@ export const getBookingById = async (req, res) => {
         return res.status(200).json(result);
     } catch (error) {
         return res.status(400).json({ message: error.message });
+    }
+};
+
+export const updateBooking = async (req, res) => {
+    try {
+        const bookingId = req.params.id;
+        const updateData = req.body;
+
+        console.log(bookingId);
+
+        const booking = await models.Booking.findByPk(bookingId);
+        if (!booking) {
+            return res
+                .status(404)
+                .json({ success: false, message: 'Không tìm thấy booking' });
+        }
+
+        if (updateData.voucher_id !== booking.voucher_id) {
+            const apply = await canApplyVoucher({
+                bookingId,
+                voucherId: updateData.voucher_id,
+                type: 'room',
+            });
+            if (!apply) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Voucher áp dụng không hợp lệ',
+                });
+            }
+        }
+
+        const result = await updateBookingService(booking, updateData);
+
+        res.status(200).json({
+            success: true,
+            message: 'Cập nhật booking thành công',
+            booking: result,
+        });
+    } catch (error) {
+        console.error('Update booking error:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 };

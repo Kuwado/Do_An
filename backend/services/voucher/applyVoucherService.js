@@ -74,3 +74,55 @@ export const applyVoucherService = async ({
         final_amount,
     };
 };
+
+export const canApplyVoucher = async ({
+    bookingId,
+    voucherId,
+    type = 'room',
+}) => {
+    const booking = await models.Booking.findByPk(bookingId);
+
+    if (!booking) {
+        console.log(bookingId);
+        return false;
+    }
+
+    const voucher = await models.Voucher.findByPk(voucherId);
+
+    if (!voucher) {
+        console.log('--b--');
+        return false;
+    }
+
+    if (
+        voucher.hotel_id !== null &&
+        Number(voucher.hotel_id) !== Number(booking.hotel_id)
+    ) {
+        console.log('--c--');
+        return false;
+    }
+
+    const userVoucher = await models.UserVoucher.findOne({
+        where: { user_id: booking.user_id, voucher_id: voucherId },
+    });
+
+    if (userVoucher) {
+        console.log('--d--');
+        return false;
+    }
+
+    if (voucher.type !== type) {
+        console.log('--e--');
+        return false;
+    }
+
+    if (voucher.status === 'upcoming') {
+        console.log('--f--');
+        return false;
+    } else if (voucher.status === 'end') {
+        console.log('--g--');
+        return false;
+    }
+
+    return true;
+};
