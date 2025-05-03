@@ -31,3 +31,26 @@ export const getVouchers = async ({
         return { success: false, message: errorMessage };
     }
 };
+
+export const checkVoucher = async ({ hotelId = '', code = '', type = '', originalPrice = 0 }) => {
+    const token = localStorage.getItem('user_token');
+
+    try {
+        const response = await axios.get(`${API_URL}/vouchers/check`, {
+            params: { hotelId, code, type, originalPrice },
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        response.data.success = true;
+        return response.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};

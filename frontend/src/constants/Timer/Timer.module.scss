@@ -1,0 +1,29 @@
+.timer {
+    position: relative;
+    width: 80px;
+    height: 40px;
+    display: flex;
+    border-radius: 10px;
+    background-color: var(--primary);
+    border: 2px solid var(--secondary);
+    font-weight: bold;
+
+    &::after {
+        position: absolute;
+        content: '';
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 20px;
+        width: 1px;
+        background-color: var(--secondary);
+    }
+}
+
+.timer div {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

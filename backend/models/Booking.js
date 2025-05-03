@@ -65,6 +65,10 @@ Booking.init(
             type: DataTypes.DECIMAL(10, 2),
             allowNull: true,
         },
+        total_room_price: {
+            type: DataTypes.DECIMAL(10, 2),
+            allowNull: true,
+        },
         voucher_id: {
             type: DataTypes.INTEGER,
             allowNull: true,
@@ -148,7 +152,7 @@ Booking.init(
                     parseFloat(booking.service_amount || 0);
 
                 const now = new Date();
-                booking.expired_at = addMinutes(now, 30);
+                booking.expired_at = new Date().getTime() + 30 * 60 * 1000;
             },
 
             async beforeUpdate(booking, options) {

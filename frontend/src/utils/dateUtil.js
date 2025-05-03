@@ -27,3 +27,19 @@ export const getDaysBetween = (startDate, endDate) => {
 
     return Math.floor(diffTime / millisecondsPerDay);
 };
+
+export const formatTimeMinuteAndSecond = (seconds) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+};
+
+export const formatTimeMinute = (seconds) => {
+    const m = Math.floor(seconds / 60);
+    return `${m.toString().padStart(2, '0')}`;
+};
+
+export const formatTimeSecond = (seconds) => {
+    const s = seconds % 60;
+    return `${s.toString().padStart(2, '0')}`;
+};

@@ -33,9 +33,6 @@ const Hotel = () => {
     const [loading, setLoading] = useState('');
     const [error, setError] = useState('');
 
-    console.log('change day');
-    console.log(rooms);
-
     useEffect(() => {
         const fetchHotelData = async () => {
             setLoading(true);

@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import styles from './BookingUser.module.scss';
 import useProfile from '@/hooks/profile/useProfile';
 import { Input } from '@/components/Input';
 import { Button } from '@/components/Button';
-import { useNavigate } from 'react-router-dom';
-import config from '@/config';
 
 const cx = classNames.bind(styles);
 
-const BookingUser = ({ hotelId }) => {
+const BookingUser = ({ hotelId, handlePayment, countDownTime }) => {
     const navigate = useNavigate();
     const { user } = useProfile();
     const [first_name, setFirstName] = useState('');
@@ -20,12 +19,26 @@ const BookingUser = ({ hotelId }) => {
 
     useEffect(() => {
         if (user) {
-            setFirstName(user.first_name);
-            setLastName(user.last_name);
-            setPhone(user.phone);
-            setEmail(user.email);
+            setFirstName(user.first_name || '');
+            setLastName(user.last_name || '');
+            setPhone(user.phone || '');
+            setEmail(user.email || '');
         }
     }, [user]);
+
+    const nextStep = async () => {
+        const pendingBookingId = localStorage.getItem('pending_booking_id');
+        const createdAt = localStorage.getItem('booking_created_at');
+        const expireAt = new Date(createdAt).getTime() + countDownTime * 60 * 1000;
+        const now = new Date().getTime();
+        const diff = expireAt - now;
+        if (pendingBookingId && diff > 0) {
+            alert('Bạn đang có phòng được giữ');
+        } else {
+            await handlePayment();
+        }
+        navigate(`/hotels/${hotelId}/payment`);
+    };
 
     return (
         <div className={cx('booking-user')}>
@@ -47,7 +60,7 @@ const BookingUser = ({ hotelId }) => {
                     <Button primaryBorder transparent width="130px" onClick={() => navigate(-1)}>
                         Quay lại
                     </Button>
-                    <Button secondary width="130px" to={`/hotels/${hotelId}/payment`}>
+                    <Button secondary width="130px" onClick={nextStep}>
                         Thanh toán
                     </Button>
                 </div>

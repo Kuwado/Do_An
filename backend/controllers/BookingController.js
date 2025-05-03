@@ -101,7 +101,10 @@ export const updateBooking = async (req, res) => {
                 .json({ success: false, message: 'Không tìm thấy booking' });
         }
 
-        if (updateData.voucher_id !== booking.voucher_id) {
+        if (
+            updateData.voucher_id &&
+            updateData.voucher_id !== booking.voucher_id
+        ) {
             const apply = await canApplyVoucher({
                 bookingId,
                 voucherId: updateData.voucher_id,

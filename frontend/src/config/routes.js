@@ -6,7 +6,9 @@ const routes = {
         hotel: '/hotels/:id',
         booking: '/hotels/:hotelId/booking/:roomTypeId',
         payment: '/hotels/:hotelId/payment',
-        confirm: '/hotels/:hotelId/booking-confirm/:bookingId',
+        completed: '/hotels/:hotelId/booking-completed',
+        bookingList: '/bookings',
+        bookingDetail: '/bookings/:id',
 
         about: '/about',
         vouchers: '/vouchers',
