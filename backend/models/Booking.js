@@ -121,14 +121,71 @@ Booking.init(
                 const checkIn = new Date(booking.check_in);
                 const checkOut = new Date(booking.check_out);
 
-                const numDays = differenceInDays(checkOut, checkIn);
-                booking.room_amount =
-                    parseFloat(booking.room_price) * (numDays || 1); // đảm bảo ít nhất 1 ngày
+                const numDays = differenceInDays(checkOut, checkIn) + 1;
+                booking.total_room_price =
+                    parseFloat(booking.room_price) * numDays;
+
+                booking.room_amount = booking.total_room_price;
+
+                if (booking.voucher_id) {
+                    const voucher = await models.Voucher.findByPk(
+                        booking.voucher_id,
+                    );
+                    if (voucher.discount_type === 'percent') {
+                        booking.room_amount = Math.round(
+                            (booking.room_amount * (100 - voucher.discount)) /
+                                100,
+                        );
+                    } else if (voucher.discount_type === 'fixed') {
+                        booking.room_amount =
+                            booking.room_amount - voucher.discount;
+                    }
+                }
 
                 // Tính lại tổng nếu cần:
                 booking.total_amount =
                     parseFloat(booking.room_amount) +
                     parseFloat(booking.service_amount || 0);
+
+                const now = new Date();
+                booking.expired_at = addMinutes(now, 30);
+            },
+
+            async beforeUpdate(booking, options) {
+                if (
+                    booking.changed('status') &&
+                    booking.status !== 'pending' &&
+                    booking.expired_at !== null
+                ) {
+                    booking.expired_at = null;
+                }
+
+                if (booking.voucher_id && booking.changed('voucher_id')) {
+                    const voucher = await models.Voucher.findByPk(
+                        booking.voucher_id,
+                    );
+                    if (voucher.discount_type === 'percent') {
+                        booking.room_amount = Math.round(
+                            (booking.room_amount * (100 - voucher.discount)) /
+                                100,
+                        );
+                    } else if (voucher.discount_type === 'fixed') {
+                        booking.room_amount =
+                            booking.room_amount - voucher.discount;
+                    }
+                }
+
+                if (
+                    booking.changed('room_amount') ||
+                    booking.changed('service_amount') ||
+                    booking.changed('voucher_id')
+                ) {
+                    const roomAmount = parseFloat(booking.room_amount || 0);
+                    const serviceAmount = parseFloat(
+                        booking.service_amount || 0,
+                    );
+                    booking.total_amount = roomAmount + serviceAmount;
+                }
             },
         },
     },

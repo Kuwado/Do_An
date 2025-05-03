@@ -119,3 +119,30 @@ export const authAdminOrStaffMiddleware = async (req, res, next) => {
         return res.status(401).json({ message: 'Token không hợp lệ' });
     }
 };
+
+export const authAllMiddleware = async (req, res, next) => {
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+    if (!token) {
+        return res.status(401).json({ message: 'Truy cập bị từ chối' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        req.user = decoded;
+
+        // Kiểm tra User
+        const user = await models.User.findByPk(req.user.id);
+        if (!user) {
+            const staff = await models.Staff.findByPk(req.user.id);
+            if (!staff) {
+                return res
+                    .status(401)
+                    .json({ message: 'Người dùng hoặc admin không tồn tại' });
+            }
+        }
+
+        next();
+    } catch (error) {
+        return res.status(401).json({ message: 'Token không hợp lệ' });
+    }
+};
