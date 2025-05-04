@@ -4,8 +4,10 @@ import LogoGoogle from './Google__G__logo.svg.webp';
 import NoImage from './noimage.png';
 import Hotel from './hotel.jpg';
 import Room from './room.jpg';
+import Service from './service.webp';
 import Home1 from './home1.webp';
 import Home2 from './home2.webp';
+import QR from './QR.jpg';
 
 const images = {
     avatar: Avatar,
@@ -14,8 +16,10 @@ const images = {
     noImage: NoImage,
     hotel: Hotel,
     room: Room,
+    service: Service,
     home1: Home1,
     home2: Home2,
+    qr: QR,
 };
 
 export default images;

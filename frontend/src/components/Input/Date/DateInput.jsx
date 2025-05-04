@@ -21,7 +21,8 @@ const DateInput = ({
     className,
     onFocus,
     onBlur,
-    min = true,
+    min = getDate(0),
+    max = undefined,
 }) => {
     const handleChangeValue = (e) => {
         setValue(e.target.value);
@@ -38,7 +39,8 @@ const DateInput = ({
                 autoComplete={autoComplete}
                 onFocus={onFocus}
                 onBlur={onBlur}
-                min={min ? getDate(0) : undefined}
+                min={min}
+                max={max}
             />
             <label htmlFor={`date-input-${id}`}>
                 {label}

@@ -102,7 +102,7 @@ const BookingInfo = ({ hotel, room, voucher, setVoucher, checkIn, checkOut, vouc
                 </div>
             )}
 
-            {codeError && <div>{codeError}</div>}
+            {codeError && <div style={{ color: 'red' }}>{codeError}</div>}
 
             <div className={cx('total')}>
                 <div className={cx('title')}>Tổng tiền:</div>

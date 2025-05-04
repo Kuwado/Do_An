@@ -1,5 +1,6 @@
 .avatar-bar {
     position: relative;
+    user-select: none;
 
     &.active .body {
         display: flex;

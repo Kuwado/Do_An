@@ -19,7 +19,6 @@ const Sidebar = () => {
     const [show, setShow] = useState(true);
     const { admin, fetchAdmin } = useProfile();
     const [role, setRole] = useState('admin');
-    console.log(admin);
 
     return (
         <div className={cx('sidebar', { hide: !show })}>

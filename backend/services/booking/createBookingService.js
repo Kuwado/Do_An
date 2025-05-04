@@ -20,5 +20,12 @@ export const createBookingService = async (data) => {
 
     const booking = await models.Booking.create(data);
 
+    if (data.voucher_id) {
+        const voucher = await models.UserVoucher.create({
+            voucher_id: data.voucher_id,
+            user_id: data.user_id,
+        });
+    }
+
     return booking;
 };

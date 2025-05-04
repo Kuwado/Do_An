@@ -71,6 +71,7 @@ export const createBooking = async (req, res) => {
 export const createServiceBooking = async (req, res) => {
     try {
         const serviceBookingData = req.body;
+        serviceBookingData.user_id = req.user.id;
 
         const booking = await models.Booking.findByPk(
             serviceBookingData.booking_id,
@@ -199,23 +200,29 @@ export const getBookingsByUserId = async (req, res) => {
     const userId = req.params.id;
     const hotel = req.query.hotel ? req.query.hotel === 'true' : true;
     const room = req.query.room ? req.query.room === 'true' : true;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
 
     if (req.user.id != userId) {
         return res.status(401).json({ message: 'Bạn không có quyền truy cập' });
     }
 
     try {
-        const bookings = await getBookingsByUserIdService({
+        const result = await getBookingsByUserIdService({
             userId,
             hotel,
             room,
+            page,
+            limit,
         });
 
         return res.status(200).json({
             success: true,
             message: 'Lấy thành công danh sách booking của người dùng',
-            bookings,
-            totalItems: bookings.length,
+            bookings: result.bookings,
+            totalItems: result.totalItems,
+            currentPage: result.currentPage,
+            totalPages: result.totalPages,
         });
     } catch (error) {
         return res.status(400).json({ message: error.message });

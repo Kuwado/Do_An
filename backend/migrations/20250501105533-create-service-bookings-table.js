@@ -44,6 +44,10 @@ export async function up(queryInterface, Sequelize) {
             },
             onDelete: 'SET NULL',
         },
+        total_amount: {
+            type: Sequelize.DECIMAL(10, 2),
+            allowNull: true,
+        },
         final_amount: {
             type: Sequelize.DECIMAL(10, 2),
             allowNull: true,

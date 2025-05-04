@@ -9,6 +9,7 @@ const routes = {
         completed: '/hotels/:hotelId/booking-completed',
         bookingList: '/bookings',
         bookingDetail: '/bookings/:id',
+        profile: '/profile',
 
         about: '/about',
         vouchers: '/vouchers',

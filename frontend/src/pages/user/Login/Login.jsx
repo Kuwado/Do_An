@@ -25,18 +25,6 @@ const Login = () => {
         logout();
     }, []);
 
-    console.log(error);
-
-    // const handleLogin = async () => {
-    //     const res = await loginUser(username, password);
-    //     if (res.success) {
-    //         const nextUrl = localStorage.getItem('next');
-    //         navigate(nextUrl ?? config.routes.user.home);
-    //     } else {
-    //         setError(res.message);
-    //     }
-    // };
-
     return (
         <div className={cx('user-login-page')}>
             <div className={cx('login-content')}>

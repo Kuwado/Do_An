@@ -61,7 +61,7 @@
     transform: translateY(-50%);
     font-size: calc(var(--font-size) - 2px);
     font-weight: bold;
-    background-color: var(--primary-background);
+    background-color: var(--primary);
     opacity: 1;
 }
 
@@ -109,7 +109,7 @@
     border-radius: 10px;
     overflow: hidden;
     overflow-y: auto;
-    background-color: var(--primary-background);
+    background-color: var(--primary);
     box-shadow: 0 0 8px rgba(0, 40, 100, 0.6);
 }
 

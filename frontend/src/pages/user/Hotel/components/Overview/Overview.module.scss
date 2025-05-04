@@ -19,10 +19,10 @@
 .hotel-name {
     position: relative;
     padding-bottom: 5px;
-    font-size: 32px;
+    font-size: var(--font-header-1);
     font-weight: bold;
     flex-wrap: wrap;
-    color: #073e68;
+    color: var(--header-color);
 }
 
 .out-of-rooms {

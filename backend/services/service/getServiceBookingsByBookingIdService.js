@@ -13,12 +13,15 @@ export const getServiceBookingsByBookingIdService = async ({
 
     let serviceBookingsInstance = await models.ServiceBooking.findAll({
         where: whereClause,
-        include: [{ model: models.Service, as: 'service' }],
+        include: [
+            { model: models.Service, as: 'service' },
+            { model: models.Voucher, as: 'voucher' },
+        ],
         order: [['date', 'desc']],
     });
 
     if (!serviceBookingsInstance || serviceBookingsInstance.length === 0) {
-        throw new Error(`Booking ${bookingId} chưa có dịch vụ nào`);
+        return [];
     }
 
     const uniqueServicesMap = new Map();

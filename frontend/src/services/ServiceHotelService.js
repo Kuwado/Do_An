@@ -17,14 +17,14 @@ export const getServicesByHotelId = async ({ hotelId = '' }) => {
     }
 };
 
-export const getServiceBookingsByBookingId = async ({ bookinglId = '', status = '', type = '' }) => {
+export const getServiceBookingsByBookingId = async ({ bookingId = '', status = '', type = '' }) => {
     try {
         const query = new URLSearchParams({
             status,
             type,
         }).toString();
 
-        const res = await axios.get(`${API_URL}/services/booking/${bookinglId}?${query}`);
+        const res = await axios.get(`${API_URL}/services/booking/${bookingId}?${query}`);
 
         return res.data;
     } catch (err) {
@@ -46,6 +46,21 @@ export const updateServiceBooking = async (id, updateData) => {
                 Authorization: `Bearer ${token}`,
             },
         });
+
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
+
+export const getServiceBookingsHistory = async ({ bookingId = '', serviceId = '' }) => {
+    try {
+        const res = await axios.get(`${API_URL}/services/history/${serviceId}/${bookingId}`);
 
         return res.data;
     } catch (err) {
