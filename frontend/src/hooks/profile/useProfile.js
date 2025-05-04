@@ -110,6 +110,8 @@ const useProfile = () => {
         localStorage.removeItem('admin_id');
         localStorage.removeItem('admin_token');
         localStorage.removeItem('next');
+        localStorage.removeItem('pending_booking_id');
+        localStorage.removeItem('booking_created_at');
         setUserId('');
         setAdminId('');
         setUser({});

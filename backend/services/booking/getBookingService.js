@@ -57,10 +57,6 @@ export const getBookingService = async ({
         include: include.length > 0 ? include : undefined,
     });
 
-    if (!bookingInstance) {
-        throw new Error(`Booking với id là ${id} không tồn tại`);
-    }
-
     const booking = bookingInstance.toJSON();
 
     // Phân nhóm services theo category
@@ -81,8 +77,5 @@ export const getBookingService = async ({
         booking.service_bookings = groupedServices;
     }
 
-    return {
-        message: 'Lấy thành công thông tin booking',
-        booking,
-    };
+    return booking;
 };

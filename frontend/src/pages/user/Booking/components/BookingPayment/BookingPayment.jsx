@@ -19,7 +19,7 @@ const BookingPayment = ({ countDownTime, setBookingId }) => {
         const fetchBooking = async () => {
             setLoading(true);
             try {
-                const res = await getBooking({ id: bookingId });
+                const res = await getBooking({ id: bookingId, services: false, user: false });
                 console.log(res);
                 if (res.success) {
                     setBooking(res.booking);
