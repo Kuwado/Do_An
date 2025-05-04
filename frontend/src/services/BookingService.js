@@ -49,12 +49,12 @@ export const getBooking = async ({
     const token = localStorage.getItem('user_token');
 
     try {
-        const res = await axios.get(`${API_URL}/bookings/${id}?${query.toString()}`, {
+        const res = await axios.get(`${API_URL}/bookings/detail/${id}?${query.toString()}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
-        res.data.success = true;
+
         return res.data;
     } catch (err) {
         const errorMessage =
