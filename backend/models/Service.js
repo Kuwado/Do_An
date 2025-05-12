@@ -7,6 +7,11 @@ class Service extends Model {
             foreignKey: 'hotel_id',
             as: 'hotel',
         });
+
+        Service.hasMany(models.ServiceBooking, {
+            foreignKey: 'service_id',
+            as: 'service_bookings',
+        });
     }
 }
 
