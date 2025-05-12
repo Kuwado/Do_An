@@ -92,13 +92,11 @@ export const getBookingById = async (req, res) => {
             voucher,
         });
 
-        return res
-            .status(200)
-            .json({
-                success: true,
-                message: 'Lấy thành công thông tin booking',
-                booking,
-            });
+        return res.status(200).json({
+            success: true,
+            message: 'Lấy thành công thông tin booking',
+            booking,
+        });
     } catch (error) {
         return res.status(400).json({ message: error.message });
     }
@@ -108,8 +106,6 @@ export const updateBooking = async (req, res) => {
     try {
         const bookingId = req.params.id;
         const updateData = req.body;
-
-        console.log(bookingId);
 
         const booking = await models.Booking.findByPk(bookingId);
         if (!booking) {
