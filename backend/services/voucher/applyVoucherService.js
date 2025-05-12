@@ -80,20 +80,40 @@ export const applyVoucherService = async ({
 
 export const canApplyVoucher = async ({
     bookingId,
+    serviceBookingId,
     voucherId,
     type = 'room',
 }) => {
-    const booking = await models.Booking.findByPk(bookingId);
+    let booking = {};
+    if (bookingId) {
+        booking = await models.Booking.findByPk(bookingId);
 
-    if (!booking) {
-        console.log(bookingId);
-        return false;
+        if (!booking) {
+            return false;
+        }
+    }
+
+    if (serviceBookingId) {
+        const serviceBooking = await models.ServiceBooking.findByPk(
+            serviceBookingId,
+            {
+                include: {
+                    model: models.Booking,
+                    as: 'booking',
+                },
+            },
+        );
+
+        if (!serviceBooking) {
+            return false;
+        }
+
+        booking = serviceBooking.booking;
     }
 
     const voucher = await models.Voucher.findByPk(voucherId);
 
     if (!voucher) {
-        console.log('--b--');
         return false;
     }
 
@@ -101,7 +121,6 @@ export const canApplyVoucher = async ({
         voucher.hotel_id !== null &&
         Number(voucher.hotel_id) !== Number(booking.hotel_id)
     ) {
-        console.log('--c--');
         return false;
     }
 
@@ -110,20 +129,16 @@ export const canApplyVoucher = async ({
     });
 
     if (userVoucher) {
-        console.log('--d--');
         return false;
     }
 
     if (voucher.type !== type) {
-        console.log('--e--');
         return false;
     }
 
     if (voucher.status === 'upcoming') {
-        console.log('--f--');
         return false;
     } else if (voucher.status === 'end') {
-        console.log('--g--');
         return false;
     }
 

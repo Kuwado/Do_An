@@ -36,3 +36,24 @@ export const getServiceBookingsByBookingId = async ({ bookinglId = '', status = 
         return { success: false, message: errorMessage };
     }
 };
+
+export const updateServiceBooking = async (id, updateData) => {
+    const token = localStorage.getItem('user_token') || localStorage.getItem('admin_token');
+
+    try {
+        const res = await axios.post(`${API_URL}/services/booking/update/${id}`, updateData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
