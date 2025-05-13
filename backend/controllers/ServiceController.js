@@ -1,6 +1,7 @@
 import models from '../models/index.js';
 
 import { getServiceBookingsByBookingIdService } from '../services/service/getServiceBookingsByBookingIdService.js';
+import { getServiceBookingsHistoryService } from '../services/service/getServiceBookingsHistoryService.js';
 import { getServicesByHotelIdService } from '../services/service/getServicesByHotelIdService.js';
 import { updateServiceBookingService } from '../services/service/updateServiceBookingService.js';
 import { canApplyVoucher } from '../services/voucher/applyVoucherService.js';
@@ -91,5 +92,25 @@ export const updateServiceBooking = async (req, res) => {
     } catch (error) {
         console.error('Update service booking error:', error);
         res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+export const getServiceBookingsHistory = async (req, res) => {
+    const bookingId = req.params.bookingId;
+    const serviceId = req.params.serviceId;
+
+    try {
+        const services = await getServiceBookingsHistoryService({
+            bookingId,
+            serviceId,
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: `Lấy thành công danh sách dịch vụ đã được đặt`,
+            services,
+        });
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
     }
 };
