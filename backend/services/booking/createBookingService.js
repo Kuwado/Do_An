@@ -20,5 +20,5 @@ export const createBookingService = async (data) => {
 
     const booking = await models.Booking.create(data);
 
-    return { message: 'Đặt phòng thành công', booking };
+    return booking;
 };

@@ -144,3 +144,43 @@ export const canApplyVoucher = async ({
 
     return true;
 };
+
+export const checkVoucher = async ({
+    hotelId,
+    userId,
+    voucherId,
+    type = 'room',
+}) => {
+    const voucher = await models.Voucher.findByPk(voucherId);
+
+    if (!voucher) {
+        return false;
+    }
+
+    if (
+        voucher.hotel_id !== null &&
+        Number(voucher.hotel_id) !== Number(hotelId)
+    ) {
+        return false;
+    }
+
+    const userVoucher = await models.UserVoucher.findOne({
+        where: { user_id: userId, voucher_id: voucherId },
+    });
+
+    if (userVoucher) {
+        return false;
+    }
+
+    if (voucher.type !== type) {
+        return false;
+    }
+
+    if (voucher.status === 'upcoming') {
+        return false;
+    } else if (voucher.status === 'end') {
+        return false;
+    }
+
+    return true;
+};

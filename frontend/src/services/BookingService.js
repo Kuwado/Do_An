@@ -18,7 +18,35 @@ export const createBooking = async ({ roomTypeId, checkIn, checkOut, voucherId }
             },
         });
 
-        res.data.success = true;
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
+
+export const createServiceBooking = async ({ bookingId, serviceId, quantity, voucherId, date }) => {
+    try {
+        const token = localStorage.getItem('user_token');
+
+        const data = {
+            booking_id: bookingId,
+            service_id: serviceId,
+            quantity,
+            voucher_id: voucherId || null,
+            date,
+        };
+
+        const res = await axios.post(`${API_URL}/bookings/service/create`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
         return res.data;
     } catch (err) {
         const errorMessage =

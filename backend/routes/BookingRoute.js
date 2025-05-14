@@ -16,7 +16,7 @@ const router = express.Router();
 
 router.post('/create', authUserMiddleware, createBooking);
 router.post('/update/:id', authAllMiddleware, updateBooking);
-router.post('/services/create', createServiceBooking);
+router.post('/service/create', authUserMiddleware, createServiceBooking);
 router.get('/user/:id', authUserMiddleware, getBookingsByUserId);
 router.get('/detail/:id', authUserMiddleware, getBookingById);
 
