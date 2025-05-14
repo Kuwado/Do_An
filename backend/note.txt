@@ -27,6 +27,7 @@ npm install node-cron
 npx sequelize-cli db:drop
 npx sequelize-cli db:create
 npx sequelize-cli migration:generate --name create-***-table
+npx sequelize-cli db:migrate:undo:all
 npx sequelize-cli db:migrate 
 npx sequelize-cli seed:generate --name ***
 npx sequelize-cli db:seed:undo:all

@@ -65,6 +65,7 @@ export const getBooking = async ({
     room = true,
     services = true,
     voucher = true,
+    review = true,
 }) => {
     const query = new URLSearchParams({
         user,
