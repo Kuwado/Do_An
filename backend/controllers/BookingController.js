@@ -8,13 +8,15 @@ import {
     getRoomAvailableIds,
     isRoomAvailable,
 } from '../services/room/roomAvailable.js';
-import { canApplyVoucher } from '../services/voucher/applyVoucherService.js';
+import {
+    canApplyVoucher,
+    checkVoucher,
+} from '../services/voucher/applyVoucherService.js';
 import { formatCheckIn, formatCheckOut } from '../utils/formatDateTime.js';
 
 export const createBooking = async (req, res) => {
     try {
         const bookingData = req.body;
-        // console.log(req);
 
         bookingData.check_in = formatCheckIn(bookingData.check_in);
         bookingData.check_out = formatCheckOut(bookingData.check_out);
@@ -32,12 +34,31 @@ export const createBooking = async (req, res) => {
             });
         }
 
+        if (bookingData.voucher_id) {
+            const apply = await checkVoucher({
+                hotelId: bookingData.hotel_id,
+                userId: req.user.id,
+                voucherId: bookingData.voucher_id,
+                type: 'room',
+            });
+            if (!apply) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Voucher áp dụng không hợp lệ',
+                });
+            }
+        }
+
         // Tạo booking
         bookingData.room_id = availableRoomIds[0];
         bookingData.user_id = req.user.id;
-        const result = await createBookingService(bookingData);
+        const booking = await createBookingService(bookingData);
 
-        return res.status(201).json(result);
+        res.status(201).json({
+            success: true,
+            message: 'Tạo thành công booking',
+            booking,
+        });
     } catch (error) {
         console.error(error);
         return res.status(500).json({
@@ -51,10 +72,40 @@ export const createServiceBooking = async (req, res) => {
     try {
         const serviceBookingData = req.body;
 
-        // Tạo booking
-        const result = await createServiceBookingService(serviceBookingData);
+        const booking = await models.Booking.findByPk(
+            serviceBookingData.booking_id,
+        );
+        if (!booking) {
+            return res.status(400).json({
+                success: false,
+                message: `Booking ${serviceBookingData.booking_id} không tồn tại`,
+            });
+        }
 
-        return res.status(201).json(result);
+        if (serviceBookingData.voucher_id) {
+            const apply = await checkVoucher({
+                hotelId: booking.hotel_id,
+                userId: req.user.id,
+                voucherId: serviceBookingData.voucher_id,
+                type: 'service',
+            });
+            if (!apply) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Voucher áp dụng không hợp lệ',
+                });
+            }
+        }
+        // Tạo booking
+        const service_booking = await createServiceBookingService(
+            serviceBookingData,
+        );
+
+        res.status(201).json({
+            success: true,
+            message: 'Tạo thành công service booking',
+            service_booking,
+        });
     } catch (error) {
         console.error(error);
         return res.status(500).json({
