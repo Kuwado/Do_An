@@ -6,7 +6,7 @@ import styles from './Search.module.scss';
 import SearchBar from '@/constants/Search';
 import { HotelItem, HotelCard } from '@/constants/Card';
 import { PriceRangeSlider } from '@/constants/Filter';
-import Pagination from '@/constants/Pagiantion';
+import Pagination from '@/constants/Pagination';
 import { Button } from '@/components/Button';
 import SortBy from './components/SortBy';
 import AmenityFilter from './components/AmenityFilter';
@@ -50,7 +50,6 @@ const Search = () => {
 
     useEffect(() => {
         const queryParams = getQueryParams();
-        console.log(queryParams);
         const fetchHotels = async () => {
             setLoading(true);
             try {

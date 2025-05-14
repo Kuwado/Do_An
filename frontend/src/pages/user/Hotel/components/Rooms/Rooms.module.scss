@@ -8,9 +8,9 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 26px;
+    font-size: var(--font-header-2);
     font-weight: bold;
-    color: #073e68;
+    color: var(--header-color);
 }
 
 .content {

@@ -1,0 +1,124 @@
+.booking-card {
+    width: 100%;
+    height: 165px;
+    display: flex;
+    background-color: var(--primary);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        transform: scale(1.02);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.avatar {
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+}
+
+.booking-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.booking-info-detail {
+    position: relative;
+    display: flex;
+    gap: 10px;
+
+    &::after {
+        position: absolute;
+        content: '';
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 90%;
+        width: 2px;
+        background-color: var(--primary-text-25);
+    }
+}
+
+.detail-content {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 10px;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 18px;
+    text-overflow: ellipsis;
+    padding-left: 5px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    .icon {
+        width: 30px;
+        justify-content: center;
+        font-size: calc(var(--font-size) + 2px);
+    }
+}
+
+.item-title {
+    font-weight: bold;
+}
+
+.price .info-item {
+    justify-content: space-between;
+}
+
+.discount {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.original {
+    font-size: calc(var(--font-size) - 2px);
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.actions {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.status {
+    padding: 5px 15px;
+    border-radius: 999px;
+    width: fit-content;
+    font-weight: bold;
+
+    &.pending {
+        background-color: #facc15;
+    }
+
+    &.cancelled {
+        background-color: #f87171;
+    }
+
+    &.confirmed {
+        background-color: #38bdf8;
+    }
+
+    &.completed {
+        background-color: #34d399;
+    }
+}

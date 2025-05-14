@@ -42,7 +42,7 @@ export const applyVoucherService = async ({
         return {
             susscess: false,
             message: `Voucher này chỉ áp dụng cho ${
-                type === 'room' ? 'đặt phòng' : 'dịch vụ'
+                voucher.type === 'room' ? 'đặt phòng' : 'dịch vụ'
             }.`,
         };
     }

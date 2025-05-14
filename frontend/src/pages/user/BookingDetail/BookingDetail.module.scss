@@ -1,0 +1,18 @@
+.booking-detail-page {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 95px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.title {
+    font-size: var(--font-header-1);
+    font-weight: bold;
+    color: var(--header-color);
+}

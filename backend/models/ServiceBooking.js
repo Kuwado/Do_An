@@ -49,6 +49,10 @@ ServiceBooking.init(
             type: DataTypes.INTEGER,
             allowNull: true,
         },
+        total_amount: {
+            type: DataTypes.DECIMAL(10, 2),
+            allowNull: true,
+        },
         final_amount: {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: true,
@@ -91,7 +95,25 @@ ServiceBooking.init(
                 // Tính final_amount
                 const price = parseFloat(serviceBooking.price || 0);
                 const quantity = parseInt(serviceBooking.quantity || 1);
-                serviceBooking.final_amount = price * quantity;
+                serviceBooking.total_amount = price * quantity;
+
+                if (serviceBooking.voucher_id) {
+                    const voucher = await models.Voucher.findByPk(
+                        serviceBooking.voucher_id,
+                    );
+                    if (voucher.discount_type === 'percent') {
+                        serviceBooking.final_amount = Math.round(
+                            (serviceBooking.total_amount *
+                                (100 - voucher.discount)) /
+                                100,
+                        );
+                    } else if (voucher.discount_type === 'fixed') {
+                        serviceBooking.final_amount =
+                            serviceBooking.total_amount - voucher.discount;
+                    }
+                } else {
+                    serviceBooking.final_amount = serviceBooking.total_amount;
+                }
             },
 
             async beforeUpdate(serviceBooking) {

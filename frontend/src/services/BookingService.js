@@ -95,6 +95,34 @@ export const getBooking = async ({
     }
 };
 
+export const getBookingsByUserId = async ({ userId = '', hotel = true, room = true, page = 1, limit = 10 }) => {
+    const query = new URLSearchParams({
+        hotel,
+        room,
+        page,
+        limit,
+    });
+
+    const token = localStorage.getItem('user_token');
+
+    try {
+        const res = await axios.get(`${API_URL}/bookings/user/${userId}?${query.toString()}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
+
 export const updateBooking = async (id, updateData) => {
     const token = localStorage.getItem('user_token') || localStorage.getItem('admin_token');
 

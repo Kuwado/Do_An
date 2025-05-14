@@ -22,6 +22,7 @@ const Input = ({
     className,
     onFocus,
     onBlur,
+    readOnly = false,
 }) => {
     const handleChangeValue = (e) => {
         setValue(e.target.value);
@@ -38,6 +39,7 @@ const Input = ({
                 autoComplete={autoComplete}
                 onFocus={onFocus}
                 onBlur={onBlur}
+                readOnly={readOnly}
             />
             <label htmlFor={`default-input-${id}`}>
                 {label}

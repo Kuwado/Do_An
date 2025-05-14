@@ -36,7 +36,6 @@ const useProfile = () => {
         setLoading(true);
         try {
             const res = await getAdmin(adminId);
-            console.log(res);
             setAdmin(res.admin);
             setError('');
         } catch (err) {
@@ -82,7 +81,6 @@ const useProfile = () => {
             if (res.success) {
                 setAdminId(res.data.admin.id);
                 setAdmin(res.data.admin);
-                console.log(res);
                 setError('');
                 localStorage.setItem('admin_id', res.data.admin.id);
                 localStorage.setItem('admin_token', res.data.token);

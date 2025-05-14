@@ -40,7 +40,8 @@ const HotelItemSlider = ({ hotels = [] }) => {
                 infinite={true}
                 removeArrowOnDeviceType={['minitablet', 'mobile']}
             >
-                {hotels.length > 0 && hotels.map((hotel) => <HotelCard key={`hotel-${hotel.id}`} hotel={hotel} />)}
+                {hotels.length > 0 &&
+                    hotels.map((hotel) => <HotelCard className={cx('card')} key={`hotel-${hotel.id}`} hotel={hotel} />)}
             </Carousel>
         </div>
     );

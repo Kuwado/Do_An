@@ -11,9 +11,9 @@ import Rating from '@/constants/Rating';
 
 const cx = classNames.bind(styles);
 
-const HotelCard = ({ hotel = {} }) => {
+const HotelCard = ({ hotel = {}, className }) => {
     return (
-        <div className={cx('hotel-card')}>
+        <div className={cx('hotel-card', { [className]: className })}>
             <div className={cx('avatar')}>
                 <img src={hotel.avatar ?? images.hotel} alt="hotel-avatar" />
                 <div className={cx('city')}>

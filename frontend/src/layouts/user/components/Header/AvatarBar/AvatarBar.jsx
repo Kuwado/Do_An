@@ -69,7 +69,7 @@ const AvatarBar = () => {
                     <span className={cx('item-title')}>Thông tin người dùng</span>
                 </Link>
 
-                <Link to="/" className={cx('avatar-item')}>
+                <Link to={config.routes.user.bookingList} className={cx('avatar-item')}>
                     <div className={cx('item-icon')}>
                         <FontAwesomeIcon icon={faClipboardList} />
                     </div>
