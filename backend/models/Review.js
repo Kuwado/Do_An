@@ -8,9 +8,15 @@ class Review extends Model {
             foreignKey: 'hotel_id',
             as: 'hotel',
         });
+
         Review.belongsTo(models.User, {
             foreignKey: 'user_id',
             as: 'user',
+        });
+
+        Review.belongsTo(models.Booking, {
+            foreignKey: 'booking_id',
+            as: 'booking',
         });
     }
 }
@@ -33,6 +39,13 @@ Review.init(
             type: DataTypes.INTEGER,
             references: {
                 model: 'users',
+                key: 'id',
+            },
+        },
+        booking_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'bookings',
                 key: 'id',
             },
         },

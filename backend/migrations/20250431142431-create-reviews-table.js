@@ -26,6 +26,15 @@ export async function up(queryInterface, Sequelize) {
             },
             onDelete: 'CASCADE',
         },
+        booking_id: {
+            type: Sequelize.INTEGER,
+            allowNull: true,
+            references: {
+                model: 'bookings',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
+        },
         rating: {
             type: Sequelize.INTEGER,
             allowNull: false,

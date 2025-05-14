@@ -26,6 +26,11 @@ class Booking extends Model {
             as: 'voucher',
         });
 
+        Booking.hasOne(models.Review, {
+            foreignKey: 'booking_id',
+            as: 'review',
+        });
+
         //
         Booking.hasMany(models.ServiceBooking, {
             foreignKey: 'booking_id',

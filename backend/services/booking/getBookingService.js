@@ -7,6 +7,7 @@ export const getBookingService = async ({
     room = true,
     services = true,
     voucher = true,
+    review = true,
 }) => {
     const include = [];
 
@@ -50,6 +51,12 @@ export const getBookingService = async ({
         include.push({
             model: models.Voucher,
             as: 'voucher',
+        });
+    }
+    if (review) {
+        include.push({
+            model: models.Review,
+            as: 'review',
         });
     }
 
