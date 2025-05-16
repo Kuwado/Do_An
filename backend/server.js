@@ -15,6 +15,7 @@ import userRoute from './routes/UserRoute.js';
 import adminRoute from './routes/AdminRoute.js';
 import bookingRoute from './routes/BookingRoute.js';
 import serviceRoute from './routes/ServiceRoute.js';
+import staffRoute from './routes/StaffRoute.js';
 import { startCronJobs } from './cronJobs/index.js';
 
 dotenv.config();
@@ -44,6 +45,7 @@ app.use('/api/amenities', amenityRoute);
 app.use('/api/vouchers', voucherRoute);
 app.use('/api/reviews', reviewRoute);
 app.use('/api/users', userRoute);
+app.use('/api/staffs', staffRoute);
 app.use('/api/admins', adminRoute);
 app.use('/api/bookings', bookingRoute);
 app.use('/api/services', serviceRoute);
