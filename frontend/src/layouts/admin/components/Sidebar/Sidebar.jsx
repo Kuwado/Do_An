@@ -43,18 +43,6 @@ const Sidebar = () => {
                     </div>
                     <div className={cx('sidebar-title')}>Đăng xuất</div>
                 </Link>
-
-                <div className={cx('info-container')}>
-                    <img src={admin && admin.avatar ? admin.avatar : images.avatar} alt="avatar" />
-                    <div className={cx('info')}>
-                        <div className={cx('full-name')}>
-                            {admin.first_name} {admin.last_name}
-                        </div>
-                        <div className={cx('role')}>
-                            Vai trò: <span>{admin.role === 'admin' ? 'Quản trị viên' : 'Nhân viên'}</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     );

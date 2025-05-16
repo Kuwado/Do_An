@@ -1,0 +1,67 @@
+.admin-header {
+    --min-width: 60px;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 20px;
+    gap: 10px;
+    border-bottom: 1px solid var(--primary-text-25);
+    background-color: var(--primary);
+}
+
+.info-container {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    img {
+        width: calc(var(--min-width) - 20px);
+        height: calc(var(--min-width) - 20px);
+        border-radius: 50%;
+        border: 1px solid var(--secondary);
+        object-fit: cover;
+    }
+}
+
+.info {
+    position: relative;
+    width: 160px;
+    height: calc(var(--min-width) - 20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: var(--secondary);
+    color: var(--secondary-text);
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
+}
+
+.info::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-75%, -50%);
+    width: calc((var(--min-width) - 20px) * 4 / 3);
+    height: calc((var(--min-width) - 20px) * 4 / 3);
+    border-radius: 50%;
+    background-color: var(--primary);
+}
+
+.full-name {
+    font-weight: 600;
+}
+
+.role {
+    font-size: calc(var(--font-size) - 3px);
+
+    span {
+        color: var(--primary-text);
+        font-weight: 600;
+    }
+}

@@ -13,13 +13,14 @@ const fn = () => {};
 
 const Dropdown = ({
     title = 'Title',
-    label = 'Label',
+    label = '',
     id = 'id',
     selected,
     required,
     className,
     left = false,
     right = true,
+    outline = false,
     width = '',
     children,
 }) => {
@@ -42,7 +43,7 @@ const Dropdown = ({
 
     return (
         <div
-            className={cx('dropdown', { active: show, [className]: className, left, right })}
+            className={cx('dropdown', { active: show, [className]: className, left, right, outline })}
             ref={dropRef}
             onClick={() => setShow((prev) => !prev)}
         >

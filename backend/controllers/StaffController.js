@@ -71,7 +71,7 @@ export const getStaffsByHotelId = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: `Lấy thành công danh sách nhân viên của khách sạn ${hotel.name}`,
+            message: 'Lấy thành công danh sách nhân viên của khách sạn',
             staffs: result.staffs,
             totalItems: result.totalItems,
             currentPage: result.currentPage,

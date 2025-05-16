@@ -16,7 +16,11 @@ const publicRoutes = [
     { path: config.routes.user.about, element: pages.user.about },
     { path: config.routes.other.test, element: pages.other.test },
 
+    // Admin
     { path: config.routes.admin.dashboard, element: pages.admin.dashboard, layout: layouts.admin.default },
+    { path: config.routes.admin.hotel, element: pages.admin.hotel, layout: layouts.admin.default },
+    { path: config.routes.admin.staffs, element: pages.admin.staffs, layout: layouts.admin.default },
+
     { path: config.routes.staff.dashboard, element: pages.staff.dashboard, layout: layouts.admin.default },
     { path: config.routes.admin.login, element: pages.admin.login, layout: layouts.other.fullScreen },
     { path: config.routes.admin.login2, element: pages.admin.login, layout: layouts.other.fullScreen },
