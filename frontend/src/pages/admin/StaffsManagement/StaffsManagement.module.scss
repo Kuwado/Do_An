@@ -1,0 +1,119 @@
+.staffs-management-page {
+    height: 100%;
+    background-color: var(--primary);
+    padding: 10px 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.search-bar {
+    width: 240px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #f7f6fe;
+    padding: 12px 8px;
+    text-align: left;
+}
+
+td {
+    padding: 8px;
+    text-align: left;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f7f6fe;
+}
+
+.staffs-table td:nth-child(1) {
+    width: 50px;
+    text-align: center;
+}
+
+.staffs-table td:nth-child(2) {
+    width: 180px;
+}
+
+.staffs-table td:nth-child(3) {
+    width: 120px;
+}
+
+.staffs-table td:nth-child(4) {
+    width: 200px;
+}
+
+.staffs-table td:nth-child(5) {
+    text-wrap: wrap;
+}
+
+.staffs-table td:nth-child(6) {
+    width: 140px;
+}
+
+.staffs-table td:nth-child(7) {
+    width: 150px;
+}
+
+.staffs-table .admin {
+    width: fit-content;
+    padding: 5px 15px;
+    border-radius: 999px;
+    color: white;
+    background-color: #d32f2f;
+}
+
+.staffs-table .staff {
+    width: fit-content;
+    padding: 5px 15px;
+    border-radius: 999px;
+    color: white;
+    background-color: #1976d2;
+}
+
+.action-btns {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.edit-btn {
+    background-color: #1976d2;
+    color: white;
+    svg {
+        font-size: 20px;
+    }
+}
+
+.delete-btn {
+    background-color: #d32f2f;
+    color: white;
+    svg {
+        font-size: 20px;
+    }
+}
+
+.pagination-container {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+}

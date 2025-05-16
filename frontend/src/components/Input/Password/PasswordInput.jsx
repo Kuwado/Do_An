@@ -18,6 +18,7 @@ const PasswordInput = ({
     small = false,
     medium = false,
     large = false,
+    autoComplete = 'off',
 }) => {
     const [show, setShow] = useState(false);
     const handleChangePassword = (e) => {
@@ -32,6 +33,7 @@ const PasswordInput = ({
                 value={password}
                 onChange={handleChangePassword}
                 placeholder=" "
+                autoComplete={autoComplete}
             />
             <label htmlFor={`password-input-${id}`}>
                 {label}

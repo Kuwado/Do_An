@@ -12,7 +12,7 @@ const Pagination = ({ total }) => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const navigate = useNavigate();
-    const [currentPage, setCurrentPage] = useState(params.get('page') ?? 1);
+    const [currentPage, setCurrentPage] = useState(Number(params.get('page')) || 1);
 
     const arrayPages = Array.from({ length: total }, (_, index) => index + 1);
     const pages =
@@ -23,6 +23,8 @@ const Pagination = ({ total }) => {
             : currentPage > total - 3
             ? arrayPages.slice(total - 5, total)
             : arrayPages.slice(currentPage - 3, currentPage + 2);
+
+    console.log(pages);
 
     const handlePaginate = (page) => {
         setCurrentPage(page);

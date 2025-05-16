@@ -27,6 +27,12 @@
     cursor: pointer;
 }
 
+.outline .dropdown-container {
+    background-color: transparent;
+    border: 1px solid var(--primary-text-25);
+    box-shadow: unset;
+}
+
 .selected {
     user-select: none;
 }
@@ -35,6 +41,7 @@
     position: absolute;
     top: 110%;
     max-height: 50vh;
+    min-width: 100%;
     width: max-content;
     max-width: 30vw;
     display: flex;

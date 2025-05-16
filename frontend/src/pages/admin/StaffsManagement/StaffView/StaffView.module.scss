@@ -1,0 +1,78 @@
+.view-btn {
+    background-color: #1976d2;
+    color: white;
+    svg {
+        font-size: 20px;
+    }
+}
+
+.staff-view {
+    position: relative;
+    width: 720px;
+    height: 480px;
+    background-color: var(--primary);
+    border-radius: 20px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.role-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.role-tag.admin {
+    width: fit-content;
+    padding: 5px 15px;
+    border-radius: 999px;
+    color: white;
+    background-color: #d32f2f;
+}
+
+.role-tag.staff {
+    width: fit-content;
+    padding: 5px 15px;
+    border-radius: 999px;
+    color: white;
+    background-color: #1976d2;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+}
+
+.title {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-header-2);
+    font-weight: bold;
+    color: var(--header-color);
+}
+
+.info-item {
+    display: flex;
+    gap: 10px;
+    font-size: 18px;
+}
+
+.item-title {
+    font-weight: bold;
+    width: max-content;
+}
+
+.item-content {
+    flex: 1;
+}
