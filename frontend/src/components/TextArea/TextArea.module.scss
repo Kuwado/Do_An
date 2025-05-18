@@ -1,0 +1,63 @@
+.text-area {
+    --padding: 15px;
+    --input-bg: transparent;
+    position: relative;
+    min-width: 100px;
+    width: 100%;
+    background-color: var(--input-bg);
+    margin-top: 10px;
+    padding: 10px 0 10px var(--padding);
+    border-radius: 20px;
+    border: 1px solid var(--primary-text-25);
+
+    .required-note {
+        color: red;
+        font-size: var(--font-size);
+    }
+
+    &:focus-within {
+        border-color: var(--primary-text);
+    }
+}
+
+.text-area label {
+    position: absolute;
+    top: 10px;
+    left: var(--padding);
+    padding: 0 3px;
+    opacity: 0.5;
+    color: var(--primary-text);
+    transition: top 0.2s ease, transform 0.2s ease, font-size 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.text-area textarea {
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: var(--font-size);
+    background-color: transparent;
+    overflow: auto;
+
+    &:focus {
+        outline: none;
+        border-color: inherit;
+    }
+}
+
+.label-active {
+    top: 0;
+    left: calc(var(--padding) + 5px);
+    transform: translateY(-50%);
+    font-size: calc(var(--font-size) - 2px);
+    font-weight: bold;
+    background-color: var(--primary);
+    opacity: 1;
+}
+
+.text-area textarea:not(:placeholder-shown) + label {
+    @extend .label-active;
+}
+
+.text-area:focus-within label {
+    @extend .label-active;
+}

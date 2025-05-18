@@ -1,0 +1,107 @@
+.room-type-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.room-type-title-container {
+    display: flex;
+    gap: 10px;
+    padding-left: 10px;
+}
+
+.room-type-title {
+    font-size: var(--font-header-2);
+    font-weight: bold;
+    color: var(--header-color);
+}
+
+.back-btn {
+    font-size: 20px;
+    color: var(--header-color);
+    background-color: var(--primary);
+
+    &:hover {
+        background-color: var(--header-color);
+        color: var(--primary);
+    }
+}
+
+.room-content {
+    position: relative;
+    height: 100%;
+    margin-top: 50px;
+}
+
+.sections {
+    position: absolute;
+    left: 0;
+    top: 0px;
+    transform: translateY(-100%);
+    height: 50px;
+    display: flex;
+    gap: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 1;
+
+    .section-item:first-child {
+        padding-left: 30px;
+    }
+
+    .section-item:nth-child(2) {
+        padding-right: 30px;
+    }
+
+    &:has(.section-item:hover) {
+        background-color: var(--header-color);
+
+        .section-item {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        .section-item.active {
+            color: var(--header-color);
+        }
+    }
+}
+
+.section-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--header-color);
+    opacity: 0.25;
+    background-color: transparent;
+    cursor: pointer;
+
+    &.active {
+        opacity: 1;
+        padding: 0 30px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        background-color: var(--primary);
+        pointer-events: none;
+    }
+}
+
+.content {
+    position: relative;
+    height: 100%;
+    padding: 10px 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 20px;
+    border-top-left-radius: 0;
+    background-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+}

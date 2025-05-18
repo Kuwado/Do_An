@@ -3,7 +3,7 @@ import { deleteImagesService } from '../upload/deleteImagesService.js';
 import { uploadImagesService } from '../upload/uploadImagesService.js';
 
 export const updateRoomTypeService = async (roomType, updateData) => {
-    if (updateData.images) {
+    if (updateData.images && updateData.images.length > 0) {
         const oldImages = JSON.parse(roomType.images);
         if (oldImages && oldImages != []) {
             deleteImagesService(oldImages);
@@ -13,6 +13,8 @@ export const updateRoomTypeService = async (roomType, updateData) => {
             throw new Error(`Lỗi upload ảnh`);
         }
         updateData.images = JSON.stringify(imageUrls);
+    } else {
+        updateData.images = roomType.images;
     }
     Object.entries(updateData).forEach(([key, value]) => {
         if (roomType[key] !== undefined) {
