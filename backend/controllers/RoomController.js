@@ -28,11 +28,15 @@ export const getRoomTypes = async (req, res) => {
 
 export const getRoomTypeById = async (req, res) => {
     const id = req.params.id;
-    const checkIn = req.query.check_in;
-    const checkOut = req.query.check_out;
+    const checkIn = req.query.checkIn;
+    const checkOut = req.query.checkOut;
     try {
-        const result = await getRoomTypeService(id, checkIn, checkOut);
-        return res.status(200).json(result);
+        const room_type = await getRoomTypeService({ id, checkIn, checkOut });
+        return res.status(200).json({
+            success: true,
+            message: 'Lấy thành công thông tin loại phòng',
+            room_type,
+        });
     } catch (error) {
         return res.status(400).json({ message: error.message });
     }

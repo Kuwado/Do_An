@@ -5,11 +5,15 @@ import { searchHotelsService } from '../services/hotel/searchHotelsService.js';
 
 export const getHotelById = async (req, res) => {
     const id = req.params.id;
-    const checkIn = req.query.check_in;
-    const checkOut = req.query.check_out;
+    const checkIn = req.query.checkIn;
+    const checkOut = req.query.checkOut;
     try {
-        const result = await getHotelService(id, checkIn, checkOut);
-        return res.status(200).json(result);
+        const hotel = await getHotelService({ id, checkIn, checkOut });
+        return res.status(200).json({
+            success: true,
+            message: 'Lấy thành công thông tin khách sạn',
+            hotel,
+        });
     } catch (error) {
         return res.status(400).json({ message: error.message });
     }

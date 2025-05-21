@@ -40,8 +40,5 @@ export const getAmenitiesService = async () => {
         }
     });
 
-    return {
-        message: 'Lấy thành công danh sách tiện nghi',
-        amenities,
-    };
+    return amenities;
 };

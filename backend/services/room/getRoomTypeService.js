@@ -3,7 +3,7 @@ import { Op } from 'sequelize';
 import { formatCheckIn, formatCheckOut } from '../../utils/formatDateTime.js';
 import { isRoomAvailable } from './roomAvailable.js';
 
-export const getRoomTypeService = async (id, checkIn, checkOut) => {
+export const getRoomTypeService = async ({ id, checkIn, checkOut }) => {
     let roomTypeInstance = await models.RoomType.findByPk(id, {
         include: {
             model: models.Amenity,
@@ -19,6 +19,9 @@ export const getRoomTypeService = async (id, checkIn, checkOut) => {
     }
 
     const roomType = roomTypeInstance.toJSON();
+
+    const amenityIds = roomType.amenities.map((a) => a.id);
+    roomType.amenity_ids = amenityIds;
 
     // Phân nhóm amenities theo category
     const groupedAmenities = {
@@ -38,29 +41,25 @@ export const getRoomTypeService = async (id, checkIn, checkOut) => {
     roomType.amenities = groupedAmenities;
 
     // Tính toán số lượng phòng và phòng trống
-    let total_rooms = 0;
-    let available_rooms = 0;
-
     const rooms = await models.Room.findAll({
         where: { room_type_id: roomType.id },
     });
 
     roomType.total_rooms = rooms.length;
 
-    checkIn = formatCheckIn(checkIn);
-    checkOut = formatCheckOut(checkOut);
-    let availableRooms = 0;
-    for (const room of rooms) {
-        const available = await isRoomAvailable(room.id, checkIn, checkOut);
-        if (available) {
-            availableRooms++;
+    if (checkIn && checkOut) {
+        checkIn = formatCheckIn(checkIn);
+        checkOut = formatCheckOut(checkOut);
+        let availableRooms = 0;
+        for (const room of rooms) {
+            const available = await isRoomAvailable(room.id, checkIn, checkOut);
+            if (available) {
+                availableRooms++;
+            }
         }
+
+        roomType.available_rooms = availableRooms;
     }
 
-    roomType.available_rooms = availableRooms;
-
-    return {
-        message: 'Lấy thành công thông tin loại phòng',
-        room_type: roomType,
-    };
+    return roomType;
 };

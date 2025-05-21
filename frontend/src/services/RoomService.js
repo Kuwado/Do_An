@@ -36,8 +36,8 @@ export const getRoomTypes = async ({
 
 export const getRoomType = async ({ id, checkIn, checkOut }) => {
     const query = new URLSearchParams({
-        check_in: checkIn,
-        check_out: checkOut,
+        checkIn,
+        checkOut,
     });
 
     try {
