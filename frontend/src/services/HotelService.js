@@ -77,8 +77,8 @@ export const searchHotels = async ({
 
 export const getHotel = async ({ id, checkIn, checkOut }) => {
     const query = new URLSearchParams({
-        check_in: checkIn,
-        check_out: checkOut,
+        checkIn,
+        checkOut,
     });
 
     try {

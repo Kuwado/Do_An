@@ -3,7 +3,7 @@ import { Op } from 'sequelize';
 import { formatCheckIn, formatCheckOut } from '../../utils/formatDateTime.js';
 import { isRoomAvailable } from '../room/roomAvailable.js';
 
-export const getHotelService = async (id, checkIn, checkOut) => {
+export const getHotelService = async ({ id, checkIn, checkOut }) => {
     const include = [];
 
     include.push({
@@ -39,6 +39,9 @@ export const getHotelService = async (id, checkIn, checkOut) => {
 
     const hotel = hotelInstance.toJSON();
     hotel.total_services = hotel.services.length;
+
+    const amenityIds = hotel.amenities.map((a) => a.id);
+    hotel.amenity_ids = amenityIds;
 
     // Phân nhóm amenities theo category
     const groupedAmenities = {
@@ -81,18 +84,24 @@ export const getHotelService = async (id, checkIn, checkOut) => {
         rt.total_rooms = rooms.length;
         total += rooms.length;
 
-        checkIn = formatCheckIn(checkIn);
-        checkOut = formatCheckOut(checkOut);
-        let availableRooms = 0;
-        for (const room of rooms) {
-            const available = await isRoomAvailable(room.id, checkIn, checkOut);
-            if (available) {
-                availableRooms++;
+        if (checkIn && checkOut) {
+            checkIn = formatCheckIn(checkIn);
+            checkOut = formatCheckOut(checkOut);
+            let availableRooms = 0;
+            for (const room of rooms) {
+                const available = await isRoomAvailable(
+                    room.id,
+                    checkIn,
+                    checkOut,
+                );
+                if (available) {
+                    availableRooms++;
+                }
             }
-        }
 
-        rt.available_rooms = availableRooms;
-        available += availableRooms;
+            rt.available_rooms = availableRooms;
+            available += availableRooms;
+        }
     }
 
     hotel.total_room_types = hotel.room_types.length;
@@ -101,8 +110,8 @@ export const getHotelService = async (id, checkIn, checkOut) => {
 
     hotel.total_reviews = hotel.reviews.length;
 
-    return {
-        message: 'Lấy thành công thông tin khách sạn',
-        hotel: hotel,
-    };
+    delete hotel.reviews;
+    delete hotel.room_types;
+
+    return hotel;
 };

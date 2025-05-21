@@ -4,7 +4,7 @@ import { formatCheckIn, formatCheckOut } from '../../utils/formatDateTime.js';
 import { isRoomAvailable } from './roomAvailable.js';
 
 export const getRoomTypesService = async ({
-    hotelId,
+    hotelId = '',
     name = '',
     checkIn = '',
     checkOut = '',
