@@ -49,6 +49,12 @@ export const getRoomTypesService = async ({
 
     const roomTypes = rows.map((rt) => rt.toJSON());
 
+    for (const roomType of roomTypes) {
+        if (roomType.images) {
+            roomType.images = JSON.parse(roomType.images);
+        }
+    }
+
     // Phân nhóm amenities theo category
     for (const roomType of roomTypes) {
         const groupedAmenities = {
@@ -69,36 +75,43 @@ export const getRoomTypesService = async ({
     }
 
     // Tính toán số lượng phòng và phòng trống
-    let total_rooms = 0;
-    let available_rooms = 0;
-
     for (const rt of roomTypes) {
         const rooms = await models.Room.findAll({
             where: { room_type_id: rt.id },
         });
 
+        const activeRooms = await models.Room.findAll({
+            where: { room_type_id: rt.id, status: 'active' },
+        });
+
+        const maintenanceRooms = await models.Room.findAll({
+            where: { room_type_id: rt.id, status: 'maintenance' },
+        });
+
         rt.total_rooms = rooms.length;
-        total_rooms += rooms.length;
+        rt.active_rooms = activeRooms.length;
+        rt.maintenance_rooms = maintenanceRooms.length;
 
-        checkIn = formatCheckIn(checkIn);
-        checkOut = formatCheckOut(checkOut);
-        let availableRooms = 0;
-        for (const room of rooms) {
-            const available = await isRoomAvailable(room.id, checkIn, checkOut);
-            if (available) {
-                availableRooms++;
+        if (checkIn && checkOut) {
+            checkIn = formatCheckIn(checkIn);
+            checkOut = formatCheckOut(checkOut);
+            let availableRooms = 0;
+            for (const room of activeRooms) {
+                const available = await isRoomAvailable(
+                    room.id,
+                    checkIn,
+                    checkOut,
+                );
+                if (available) {
+                    availableRooms++;
+                }
             }
-        }
 
-        rt.available_rooms = availableRooms;
-        available_rooms += availableRooms;
+            rt.available_rooms = availableRooms;
+        }
     }
 
-    roomTypes.total_rooms = total_rooms;
-    roomTypes.available_rooms = available_rooms;
-
     return {
-        message: 'Lấy thành công danh sách các loại phòng khách sạn',
         currentPage: page,
         totalPages: Math.ceil(count / limit),
         totalItems: count,

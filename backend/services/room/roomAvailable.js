@@ -33,7 +33,7 @@ export const isRoomAvailable = async (roomId, checkIn, checkOut) => {
 
 export const hasRoomAvailable = async (roomTypeId, checkIn, checkOut) => {
     const rooms = await models.Room.findAll({
-        where: { room_type_id: roomTypeId },
+        where: { room_type_id: roomTypeId, status: 'active' },
     });
 
     for (const room of rooms) {
@@ -48,7 +48,7 @@ export const getRoomAvailableIds = async (roomTypeId, checkIn, checkOut) => {
     const ids = [];
 
     const rooms = await models.Room.findAll({
-        where: { room_type_id: roomTypeId },
+        where: { room_type_id: roomTypeId, status: 'active' },
         attributes: ['id'],
     });
 

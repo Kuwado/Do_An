@@ -74,6 +74,8 @@ export const getHotelService = async ({ id, checkIn, checkOut }) => {
 
     // Tính toán số lượng phòng và phòng trống
     let total = 0;
+    let active_rooms = 0;
+    let maintenance_rooms = 0;
     let available = 0;
 
     for (const rt of hotel.room_types) {
@@ -81,14 +83,23 @@ export const getHotelService = async ({ id, checkIn, checkOut }) => {
             where: { room_type_id: rt.id },
         });
 
-        rt.total_rooms = rooms.length;
+        const activeRooms = await models.Room.findAll({
+            where: { room_type_id: rt.id, status: 'active' },
+        });
+
+        const maintenanceRooms = await models.Room.findAll({
+            where: { room_type_id: rt.id, status: 'maintenance' },
+        });
+
+        active_rooms += activeRooms.length;
+        maintenance_rooms += maintenanceRooms.length;
         total += rooms.length;
 
         if (checkIn && checkOut) {
             checkIn = formatCheckIn(checkIn);
             checkOut = formatCheckOut(checkOut);
             let availableRooms = 0;
-            for (const room of rooms) {
+            for (const room of activeRooms) {
                 const available = await isRoomAvailable(
                     room.id,
                     checkIn,
@@ -99,13 +110,14 @@ export const getHotelService = async ({ id, checkIn, checkOut }) => {
                 }
             }
 
-            rt.available_rooms = availableRooms;
             available += availableRooms;
         }
     }
 
     hotel.total_room_types = hotel.room_types.length;
     hotel.total_rooms = total;
+    hotel.active_rooms = active_rooms;
+    hotel.maintenance_rooms = maintenance_rooms;
     hotel.available_rooms = available;
 
     hotel.total_reviews = hotel.reviews.length;

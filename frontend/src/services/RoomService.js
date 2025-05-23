@@ -13,10 +13,10 @@ export const getRoomTypes = async ({
 }) => {
     try {
         const query = new URLSearchParams({
-            hotel_id: hotelId,
+            hotelId,
             name,
-            check_in: checkIn,
-            check_out: checkOut,
+            checkIn,
+            checkOut,
             rooms: rooms.toString(),
             page: page.toString(),
             limit: limit.toString(),
@@ -34,10 +34,11 @@ export const getRoomTypes = async ({
     }
 };
 
-export const getRoomType = async ({ id, checkIn, checkOut }) => {
+export const getRoomType = async ({ id, checkIn, checkOut, rooms = false }) => {
     const query = new URLSearchParams({
         checkIn,
         checkOut,
+        rooms,
     });
 
     try {

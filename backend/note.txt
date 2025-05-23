@@ -22,6 +22,9 @@ npm install cors
 npm install date-fns-tz
 npm install node-cron
 
+# upload
+npm install multer
+npm install uuid
 
 
 npx sequelize-cli db:drop
