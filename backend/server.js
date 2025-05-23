@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import path from 'path';
 
 import sequelize from './config/db.js';
 import otherRoute from './routes/OtherRoute.js';
@@ -16,6 +17,7 @@ import adminRoute from './routes/AdminRoute.js';
 import bookingRoute from './routes/BookingRoute.js';
 import serviceRoute from './routes/ServiceRoute.js';
 import staffRoute from './routes/StaffRoute.js';
+import uploadRoute from './routes/UploadRoute.js';
 import { startCronJobs } from './cronJobs/index.js';
 
 dotenv.config();
@@ -36,6 +38,9 @@ sequelize
         console.error('Không thể kết nối đến database:', err);
     });
 
+// Dùng thư mục /uploads như static file
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+
 // Routes
 app.use('/api', otherRoute);
 app.use('/api/auth', authRoute);
@@ -49,6 +54,7 @@ app.use('/api/staffs', staffRoute);
 app.use('/api/admins', adminRoute);
 app.use('/api/bookings', bookingRoute);
 app.use('/api/services', serviceRoute);
+app.use('/api/uploads', uploadRoute);
 
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại http://localhost:${PORT}`);

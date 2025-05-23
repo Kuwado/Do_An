@@ -3,15 +3,30 @@ import { Op } from 'sequelize';
 import { formatCheckIn, formatCheckOut } from '../../utils/formatDateTime.js';
 import { isRoomAvailable } from './roomAvailable.js';
 
-export const getRoomTypeService = async ({ id, checkIn, checkOut }) => {
-    let roomTypeInstance = await models.RoomType.findByPk(id, {
-        include: {
-            model: models.Amenity,
-            as: 'amenities',
-            through: {
-                attributes: [],
-            },
+export const getRoomTypeService = async ({
+    id,
+    checkIn,
+    checkOut,
+    rooms = false,
+}) => {
+    const include = [];
+    include.push({
+        model: models.Amenity,
+        as: 'amenities',
+        through: {
+            attributes: [],
         },
+    });
+
+    if (rooms) {
+        include.push({
+            model: models.Room,
+            as: 'rooms',
+        });
+    }
+
+    let roomTypeInstance = await models.RoomType.findByPk(id, {
+        include,
     });
 
     if (!roomTypeInstance) {
@@ -19,6 +34,10 @@ export const getRoomTypeService = async ({ id, checkIn, checkOut }) => {
     }
 
     const roomType = roomTypeInstance.toJSON();
+
+    if (roomType.images) {
+        roomType.images = JSON.parse(roomType.images);
+    }
 
     const amenityIds = roomType.amenities.map((a) => a.id);
     roomType.amenity_ids = amenityIds;
@@ -41,17 +60,17 @@ export const getRoomTypeService = async ({ id, checkIn, checkOut }) => {
     roomType.amenities = groupedAmenities;
 
     // Tính toán số lượng phòng và phòng trống
-    const rooms = await models.Room.findAll({
+    const roomList = await models.Room.findAll({
         where: { room_type_id: roomType.id },
     });
 
-    roomType.total_rooms = rooms.length;
+    roomType.total_rooms = roomList.length;
 
     if (checkIn && checkOut) {
         checkIn = formatCheckIn(checkIn);
         checkOut = formatCheckOut(checkOut);
         let availableRooms = 0;
-        for (const room of rooms) {
+        for (const room of roomList) {
             const available = await isRoomAvailable(room.id, checkIn, checkOut);
             if (available) {
                 availableRooms++;

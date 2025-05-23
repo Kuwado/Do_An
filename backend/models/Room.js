@@ -22,6 +22,11 @@ Room.init(
             allowNull: false,
             unique: true,
         },
+        status: {
+            type: DataTypes.ENUM('active', 'maintenance'),
+            allowNull: false,
+            defaultValue: 'active',
+        },
         room_type_id: {
             type: DataTypes.INTEGER,
             allowNull: false,

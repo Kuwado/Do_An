@@ -14,6 +14,11 @@ export async function up(queryInterface, Sequelize) {
             allowNull: false,
             unique: true,
         },
+        status: {
+            type: Sequelize.ENUM('active', 'maintenance'),
+            allowNull: false,
+            defaultValue: 'active',
+        },
         room_type_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
