@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './StaffCreate.module.scss';
-import Popup from '../../../../components/Popup';
+import Popup from '@/components/Popup';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Button } from '@/components/Button';
 import images from '@/assets/images';
@@ -11,7 +11,7 @@ import useProfile from '@/hooks/profile/useProfile';
 import { Input, PasswordInput } from '@/components/Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { createStaff } from '../../../../services/StaffService';
+import { createStaff } from '@/services/StaffService';
 
 const cx = classNames.bind(styles);
 
@@ -24,8 +24,6 @@ const StaffCreate = ({ fetchStaffs }) => {
         setStaff((prev) => ({ ...prev, [field]: value }));
     };
 
-    console.log(staff);
-
     const handleAddStaff = async () => {
         if (!staff.username) {
             alert('Vui lòng nhập tên đăng nhập của nhân viên');
@@ -35,20 +33,20 @@ const StaffCreate = ({ fetchStaffs }) => {
             alert('Vui lòng nhập họ của nhân viên');
         } else if (!staff.last_name) {
             alert('Vui lòng nhập tên của nhân viên');
-        }
+        } else {
+            const res = await createStaff({
+                username: staff.username,
+                password: staff.password,
+                firstName: staff.first_name,
+                lastName: staff.last_name,
+                hotelId: admin.hotel_id,
+            });
 
-        const res = await createStaff({
-            username: staff.username,
-            password: staff.password,
-            firstName: staff.first_name,
-            lastName: staff.last_name,
-            hotelId: admin.hotel_id,
-        });
-
-        alert(res.message);
-        if (res.success) {
-            fetchStaffs();
-            setStaff({ first_name: '', last_name: '', username: '', password: '' });
+            alert(res.message);
+            if (res.success) {
+                fetchStaffs();
+                setStaff({ first_name: '', last_name: '', username: '', password: '' });
+            }
         }
     };
 

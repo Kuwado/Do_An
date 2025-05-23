@@ -1,18 +1,17 @@
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import styles from './StaffsManagement.module.scss';
-import { useEffect, useState } from 'react';
-import SearchOneValue from '../../../constants/SearchOneValue';
-import useProfile from '@/hooks/profile/useProfile';
-import { useLocation } from 'react-router-dom';
-import { deleteStaff, getStaffsByHotelId } from '../../../services/StaffService';
-import { Button } from '@/components/Button';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import SearchOneValue from '@/constants/SearchOneValue';
+import useProfile from '@/hooks/profile/useProfile';
+import { Button } from '@/components/Button';
+import Dropdown from '@/components/Dropdown/Dropdown';
+import Pagination from '@/constants/Pagination/Pagination';
 import StaffView from './StaffView/StaffView';
 import StaffCreate from './StaffCreate/StaffCreate';
-import Dropdown from '../../../components/Dropdown/Dropdown';
-import Pagination from '../../../constants/Pagination/Pagination';
+import { deleteStaff, getStaffsByHotelId } from '@/services/StaffService';
 
 const cx = classNames.bind(styles);
 
@@ -34,7 +33,6 @@ const StaffsManagement = () => {
         const currentPage = params.get('page') || 1;
         setPage(currentPage);
         const res = await getStaffsByHotelId({ hotelId: admin.hotel_id, name, role, page: currentPage, limit });
-        console.log(res);
         if (!res.success) {
             setError(res.message);
         } else {
@@ -47,8 +45,6 @@ const StaffsManagement = () => {
 
     useEffect(() => {
         if (admin.hotel_id) fetchStaffs();
-        // const page = params.get('page') || 1;
-        // setCurrentPage(page);
     }, [admin, name, role, location.search]);
 
     const handleDeleteStaff = async (staff = {}) => {

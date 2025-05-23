@@ -88,18 +88,18 @@ export const updateStaff = async (id, updateData) => {
     } catch (err) {
         const errorMessage =
             err.response && err.response.data && err.response.data.message
-                ? err.response.data.message
+                ? err.response.data.error
                 : 'Đã có lỗi xảy ra. Vui lòng thử lại';
 
         return { success: false, message: errorMessage };
     }
 };
 
-export const deleteStaff = async (id, updateData) => {
+export const deleteStaff = async (id) => {
     const token = localStorage.getItem('admin_token');
 
     try {
-        const res = await axios.delete(`${API_URL}/staffs/delete/${id}`, updateData, {
+        const res = await axios.delete(`${API_URL}/staffs/delete/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

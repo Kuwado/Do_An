@@ -20,6 +20,8 @@ const publicRoutes = [
     { path: config.routes.admin.dashboard, element: pages.admin.dashboard, layout: layouts.admin.default },
     { path: config.routes.admin.hotel, element: pages.admin.hotel, layout: layouts.admin.default },
     { path: config.routes.admin.staffs, element: pages.admin.staffs, layout: layouts.admin.default },
+    { path: config.routes.admin.rooms, element: pages.admin.rooms, layout: layouts.admin.default },
+    { path: config.routes.admin.room, element: pages.admin.room, layout: layouts.admin.default },
 
     { path: config.routes.staff.dashboard, element: pages.staff.dashboard, layout: layouts.admin.default },
     { path: config.routes.admin.login, element: pages.admin.login, layout: layouts.other.fullScreen },

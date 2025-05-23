@@ -74,6 +74,9 @@ export const getRoomTypesService = async ({
         roomType.amenities = groupedAmenities;
     }
 
+    let total_rooms = 0;
+    let available_rooms = 0;
+
     // Tính toán số lượng phòng và phòng trống
     for (const rt of roomTypes) {
         const rooms = await models.Room.findAll({
@@ -92,6 +95,7 @@ export const getRoomTypesService = async ({
         rt.active_rooms = activeRooms.length;
         rt.maintenance_rooms = maintenanceRooms.length;
 
+        total_rooms += rooms.length;
         if (checkIn && checkOut) {
             checkIn = formatCheckIn(checkIn);
             checkOut = formatCheckOut(checkOut);
@@ -108,8 +112,12 @@ export const getRoomTypesService = async ({
             }
 
             rt.available_rooms = availableRooms;
+
+            available_rooms += availableRooms;
         }
+        roomTypes.available_rooms = available_rooms;
     }
+    roomTypes.total_rooms = total_rooms;
 
     return {
         currentPage: page,

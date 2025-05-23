@@ -24,8 +24,6 @@ const Pagination = ({ total }) => {
             ? arrayPages.slice(total - 5, total)
             : arrayPages.slice(currentPage - 3, currentPage + 2);
 
-    console.log(pages);
-
     const handlePaginate = (page) => {
         setCurrentPage(page);
     };

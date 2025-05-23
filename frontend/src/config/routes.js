@@ -25,6 +25,8 @@ const routes = {
         dashboard: '/admin',
         hotel: '/hotel-management',
         staffs: '/staffs-management',
+        rooms: '/rooms-management',
+        room: '/rooms/:id',
         login: '/admin/login',
         login2: '/admin/login/second-step',
     },
