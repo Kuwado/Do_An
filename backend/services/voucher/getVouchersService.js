@@ -5,9 +5,10 @@ export const getVouchersService = async ({
     hotelId = '',
     type = '',
     discountType = '',
-    status = 'active',
+    status = '',
+    sortDate = '',
     page = 1,
-    limit = 10,
+    limit,
 }) => {
     const whereClause = {};
     if (hotelId) {
@@ -34,20 +35,36 @@ export const getVouchersService = async ({
         whereClause.end_date = { [Op.lte]: now };
     }
 
-    const offset = (page - 1) * limit;
-
-    const { count, rows } = await models.Voucher.findAndCountAll({
+    const options = {
         where: whereClause,
-        offset,
-        limit,
-        order: [['start_date', 'DESC']],
-    });
+        distinct: true,
+    };
+
+    if (sortDate === 'asc' || sortDate === 'desc') {
+        options.order = [['start_date', sortDate]];
+    }
+
+    if (limit && limit !== null && limit !== undefined) {
+        options.offset = (page - 1) * limit;
+        options.limit = limit;
+    }
+
+    const { count, rows } = await models.Voucher.findAndCountAll(options);
+
+    const vouchers = rows.map((rt) => rt.toJSON());
+
+    for (const voucher of vouchers) {
+        const usedCount = await models.UserVoucher.findAll({
+            where: { voucher_id: voucher.id },
+        });
+
+        voucher.used_count = usedCount.length || 0;
+    }
 
     return {
-        message: 'Lấy thành công danh sách Voucher',
+        vouchers,
         currentPage: page,
         totalPages: Math.ceil(count / limit),
         totalItems: count,
-        vouchers: rows,
     };
 };
