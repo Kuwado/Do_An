@@ -1,5 +1,6 @@
 .dropdown {
     --padding-left-dropdown: 10px;
+    --padding: 15px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -19,7 +20,7 @@
     display: flex;
     gap: 15px;
     justify-content: space-between;
-    padding: var(--padding-left-dropdown);
+    padding: 10px 10px 10px var(--padding);
     color: var(primary-text);
     border-radius: 999px;
     background-color: var(--primary);
@@ -79,4 +80,25 @@
 
 .dropdown.active {
     border-color: var(--secondary);
+}
+
+.label {
+    position: absolute;
+    top: 50%;
+    left: var(--padding);
+    padding: 0 3px;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    color: var(--primary-text);
+    transition: top 0.2s ease, transform 0.2s ease, font-size 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.label-active {
+    top: 0;
+    left: calc(var(--padding) + 5px);
+    transform: translateY(-50%);
+    font-size: calc(var(--font-size) - 2px);
+    font-weight: bold;
+    background-color: var(--primary);
+    opacity: 1;
 }

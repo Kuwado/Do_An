@@ -92,7 +92,7 @@ const RoomList = () => {
                         />
                     </div>
 
-                    <Dropdown selected={FILTER_LABELS[filter]} width="150px" outline>
+                    <Dropdown label="Trạng thái" selected={FILTER_LABELS[filter]} width="150px" outline>
                         <div onClick={() => setFilter('active')}>{FILTER_LABELS['active']}</div>
                         <div onClick={() => setFilter('maintenance')}>{FILTER_LABELS['maintenance']}</div>
                         <div onClick={() => setFilter('available')}>{FILTER_LABELS['available']}</div>
