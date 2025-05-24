@@ -56,16 +56,13 @@ const UploadImages = ({ images = [], setImages, id = 'images', limit = 9, submit
             <div className={cx('images')}>
                 {images &&
                     images.length > 0 &&
-                    images.map((image, index) => {
-                        console.log(image instanceof File ? URL.createObjectURL(image) : `${IMAGE_URL}${image}`);
-                        return (
-                            <Image
-                                key={index}
-                                src={image instanceof File ? URL.createObjectURL(image) : `${IMAGE_URL}${image}`}
-                                alt={`image${index}`}
-                            />
-                        );
-                    })}
+                    images.map((image, index) => (
+                        <Image
+                            key={index}
+                            src={image instanceof File ? URL.createObjectURL(image) : `${IMAGE_URL}${image}`}
+                            alt={`image${index}`}
+                        />
+                    ))}
             </div>
             {append && images.length > 0 && (
                 <IconButton className={cx('delete-btn')} onClick={() => setImages([])}>

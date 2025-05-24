@@ -57,3 +57,15 @@ export const formatTimeSecond = (seconds) => {
     const s = seconds % 60;
     return `${s.toString().padStart(2, '0')}`;
 };
+
+export const getNextDate = (dateInput) => {
+    const date = new Date(dateInput);
+    date.setDate(date.getDate() + 1);
+    return date.toISOString().split('T')[0];
+};
+
+export const getPreviousDate = (dateInput) => {
+    const date = new Date(dateInput);
+    date.setDate(date.getDate() - 1);
+    return date.toISOString().split('T')[0];
+};

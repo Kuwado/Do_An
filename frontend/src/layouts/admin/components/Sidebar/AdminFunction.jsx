@@ -6,6 +6,7 @@ import HotelIcon from '@mui/icons-material/Hotel';
 import GroupIcon from '@mui/icons-material/Group';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import RoomServiceIcon from '@mui/icons-material/RoomService';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import BarChartIcon from '@mui/icons-material/BarChart';
 
@@ -62,6 +63,13 @@ const AdminFunction = () => {
                     <RoomServiceIcon />
                 </div>
                 <div className={cx('sidebar-title')}>Quản lý dịch vụ</div>
+            </NavLink>
+
+            <NavLink className={cx('sidebar-item')} to={config.routes.staff.dashboard}>
+                <div className={cx('sidebar-icon')}>
+                    <LocalActivityIcon />
+                </div>
+                <div className={cx('sidebar-title')}>Quản lý voucher</div>
             </NavLink>
 
             <NavLink className={cx('sidebar-item')} to={config.routes.staff.dashboard}>

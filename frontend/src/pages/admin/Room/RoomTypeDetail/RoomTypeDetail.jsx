@@ -1,26 +1,20 @@
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './RoomTypeDetail.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import useProfile from '@/hooks/profile/useProfile';
-import Popup from '@/components/Popup';
 import { Button } from '@/components/Button';
 import { Input, QuantityInput } from '@/components/Input';
 import TextArea from '@/components/TextArea/TextArea';
 import UploadImages from '@/constants/UploadImages';
-import { createRoomType } from '@/services/RoomService';
+import { updateRoomType } from '@/services/RoomService';
 import { getAmenitiesByHotelId, updateRoomTypeAmenities } from '@/services/AmenityService';
-import { useEffect, useState } from 'react';
-import { updateRoomType } from '../../../../services/RoomService';
 
 const cx = classNames.bind(styles);
 
 const RoomTypeDetail = ({ roomType, setRoomTypeValue, fetchRoomType }) => {
     const { admin } = useProfile();
     const [amenities, setAmenities] = useState([]);
-
-    console.log(roomType);
 
     const fetchAmenities = async () => {
         if (admin.hotel_id) {

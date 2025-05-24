@@ -11,9 +11,10 @@ import useProfile from '@/hooks/profile/useProfile';
 import { Button } from '@/components/Button';
 import SearchOneValue from '@/constants/SearchOneValue';
 import Pagination from '@/constants/Pagination';
-import { getRoomTypes } from '../../../services/RoomService';
+import { getRoomTypes } from '@/services/RoomService';
 import { formatPrice } from '@/utils/stringUtil';
 import RoomCreate from './RoomCreate/RoomCreate';
+import { deleteRoomType } from '../../../services/RoomService';
 
 const cx = classNames.bind(styles);
 
@@ -35,7 +36,6 @@ const RoomsManagement = () => {
         const currentPage = params.get('page') || 1;
         setPage(currentPage);
         const res = await getRoomTypes({ hotelId: admin.hotel_id, name, page: currentPage, limit });
-        console.log(res);
         if (!res.success) {
             setError(res.message);
         } else {
@@ -49,11 +49,26 @@ const RoomsManagement = () => {
 
     useEffect(() => {
         if (admin.hotel_id) fetchRoomTypes();
-    }, [admin, name, location.search]);
+    }, [admin, name, page]);
+
+    useEffect(() => {
+        setPage(params.get('page') || 1);
+    }, [location.search]);
 
     useEffect(() => {
         if (error) alert(error);
     }, [error]);
+
+    const handleDeleteRoomType = async (room = {}) => {
+        const confirmed = confirm(`Bạn có chắc muốn xóa loại phòng ${room.name} không`);
+        if (confirmed) {
+            const res = await deleteRoomType(room.id);
+            alert(res.message);
+            if (res.success) {
+                fetchRoomTypes();
+            }
+        }
+    };
 
     return (
         <div className={cx('rooms-management-page')}>
@@ -101,7 +116,7 @@ const RoomsManagement = () => {
                                         <Button
                                             className={cx('delete-btn')}
                                             small
-                                            // onClick={() => handleDeleteStaff(staff)}
+                                            onClick={() => handleDeleteRoomType(rt)}
                                         >
                                             <DeleteForeverIcon />
                                         </Button>

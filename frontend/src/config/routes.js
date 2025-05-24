@@ -27,6 +27,7 @@ const routes = {
         staffs: '/staffs-management',
         rooms: '/rooms-management',
         room: '/rooms/:id',
+        roomList: '/rooms/:id/list',
         login: '/admin/login',
         login2: '/admin/login/second-step',
     },
