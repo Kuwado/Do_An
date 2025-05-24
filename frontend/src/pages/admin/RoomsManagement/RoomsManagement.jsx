@@ -14,7 +14,7 @@ import Pagination from '@/constants/Pagination';
 import { getRoomTypes } from '@/services/RoomService';
 import { formatPrice } from '@/utils/stringUtil';
 import RoomCreate from './RoomCreate/RoomCreate';
-import { deleteRoomType } from '../../../services/RoomService';
+import { deleteRoomType } from '@/services/RoomService';
 
 const cx = classNames.bind(styles);
 
@@ -33,9 +33,7 @@ const RoomsManagement = () => {
 
     const fetchRoomTypes = async () => {
         setLoading(true);
-        const currentPage = params.get('page') || 1;
-        setPage(currentPage);
-        const res = await getRoomTypes({ hotelId: admin.hotel_id, name, page: currentPage, limit });
+        const res = await getRoomTypes({ hotelId: admin.hotel_id, name, page, limit });
         if (!res.success) {
             setError(res.message);
         } else {

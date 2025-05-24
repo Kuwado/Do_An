@@ -1,0 +1,56 @@
+.edit-btn {
+    background-color: #1976d2;
+    color: white;
+    svg {
+        font-size: 20px;
+    }
+}
+
+.service-edit {
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background-color: var(--primary);
+    border-radius: 20px;
+}
+
+.title {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-header-2);
+    font-weight: bold;
+    color: var(--header-color);
+}
+
+.add-btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    box-shadow: 0 0 0 1000px white inset !important;
+    -webkit-text-fill-color: #000 !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.category {
+    margin-top: 10px;
+}
+
+.upload-container {
+    margin-top: 10px;
+}

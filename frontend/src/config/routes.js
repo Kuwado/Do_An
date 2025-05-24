@@ -22,14 +22,15 @@ const routes = {
     },
 
     admin: {
+        login: '/admin/login',
+        login2: '/admin/login/second-step',
         dashboard: '/admin',
         hotel: '/hotel-management',
         staffs: '/staffs-management',
         rooms: '/rooms-management',
         room: '/rooms/:id',
         roomList: '/rooms/:id/list',
-        login: '/admin/login',
-        login2: '/admin/login/second-step',
+        services: '/services',
     },
 
     other: {

@@ -75,21 +75,23 @@ const StaffsManagement = () => {
     return (
         <div className={cx('staffs-management-page')}>
             <div className={cx('header')}>
-                <div className={cx('search-bar')}>
-                    <SearchOneValue
-                        id="search"
-                        label="Tên nhân viên"
-                        value={name}
-                        setValue={setName}
-                        onClick={fetchStaffs}
-                    />
-                </div>
+                <div className={cx('left-header')}>
+                    <div className={cx('search-bar')}>
+                        <SearchOneValue
+                            id="search"
+                            label="Tên nhân viên"
+                            value={name}
+                            setValue={setName}
+                            onClick={fetchStaffs}
+                        />
+                    </div>
 
-                <Dropdown selected={getRole()} width="150px" outline>
-                    <div onClick={() => setRole('staff')}>Nhân viên</div>
-                    <div onClick={() => setRole('admin')}>Quản trị viên</div>
-                    <div onClick={() => setRole('')}>Tất cả</div>
-                </Dropdown>
+                    <Dropdown label="Vai trò" selected={getRole()} width="150px" outline>
+                        <div onClick={() => setRole('staff')}>Nhân viên</div>
+                        <div onClick={() => setRole('admin')}>Quản trị viên</div>
+                        <div onClick={() => setRole('')}>Tất cả</div>
+                    </Dropdown>
+                </div>
 
                 <StaffCreate fetchStaffs={fetchStaffs} />
             </div>

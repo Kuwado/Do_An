@@ -47,13 +47,13 @@ const Dropdown = ({
             ref={dropRef}
             onClick={() => setShow((prev) => !prev)}
         >
-            {label && (
-                <div className={cx('label')}>
-                    {label}
-                    {required && <span className={cx('required-note')}>*</span>}
-                </div>
-            )}
             <div className={cx('dropdown-container')} style={{ width }}>
+                {label && (
+                    <div className={cx('label', { 'label-active': selected })}>
+                        {label}
+                        {required && <span className={cx('required-note')}>*</span>}
+                    </div>
+                )}
                 <div className={cx('selected')}>{selected ? selected : title}</div>
                 <div className={cx('icon')}>
                     <FontAwesomeIcon icon={show ? faChevronUp : faChevronDown} />
