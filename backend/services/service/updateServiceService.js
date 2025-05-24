@@ -1,9 +1,9 @@
 import { deleteImagesService } from '../upload/deleteImagesService.js';
 import { uploadImagesService } from '../upload/uploadImagesService.js';
 
-export const updateRoomTypeService = async (roomType, updateData) => {
+export const updateServiceService = async (service, updateData) => {
     if (updateData.images && updateData.images.length > 0) {
-        const oldImages = JSON.parse(roomType.images);
+        const oldImages = JSON.parse(service.images);
         if (oldImages && oldImages != []) {
             deleteImagesService(oldImages);
         }
@@ -13,15 +13,15 @@ export const updateRoomTypeService = async (roomType, updateData) => {
         }
         updateData.images = JSON.stringify(imageUrls);
     } else {
-        updateData.images = roomType.images;
+        updateData.images = service.images;
     }
     Object.entries(updateData).forEach(([key, value]) => {
-        if (roomType[key] !== undefined) {
-            roomType[key] = value;
+        if (service[key] !== undefined) {
+            service[key] = value;
         }
     });
 
-    await roomType.save();
+    await service.save();
 
-    return roomType;
+    return service;
 };
