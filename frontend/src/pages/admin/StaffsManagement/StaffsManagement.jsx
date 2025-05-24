@@ -45,7 +45,11 @@ const StaffsManagement = () => {
 
     useEffect(() => {
         if (admin.hotel_id) fetchStaffs();
-    }, [admin, name, role, location.search]);
+    }, [admin, name, role, page]);
+
+    useEffect(() => {
+        setPage(params.get('page') || 1);
+    }, [location.search]);
 
     const handleDeleteStaff = async (staff = {}) => {
         const confirmed = confirm(`Bạn có chắc muốn xóa nhân viên ${staff.first_name} ${staff.last_name} không`);

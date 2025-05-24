@@ -26,11 +26,6 @@ export const getRoomsService = async ({
         where: whereClause,
     };
 
-    if (limit && limit !== null && limit !== undefined) {
-        options.offset = (page - 1) * limit;
-        options.limit = limit;
-    }
-
     const roomInstances = await models.Room.findAll(options);
 
     let rooms = roomInstances.map((rt) => rt.toJSON());
@@ -54,7 +49,10 @@ export const getRoomsService = async ({
         }
     }
 
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
     const count = rooms.length || 0;
+    rooms = rooms.slice(startIndex, endIndex);
 
     return {
         currentPage: page,

@@ -178,9 +178,6 @@ export const updateRoomType = async (id, updateData) => {
         }
     }
 
-    for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
-    }
     try {
         const res = await axios.post(`${API_URL}/rooms/types/update/${id}`, formData, {
             headers: {
