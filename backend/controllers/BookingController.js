@@ -1,6 +1,8 @@
 import models from '../models/index.js';
 import { createBookingService } from '../services/booking/createBookingService.js';
 import { createServiceBookingService } from '../services/booking/createServiceBookingService.js';
+import { getBookingByAdminService } from '../services/booking/getBookingByAdminService.js';
+import { getBookingsByHotelIdService } from '../services/booking/getBookingsByHotelIdService.js';
 import { getBookingsByUserIdService } from '../services/booking/getBookingsByUserIdService.js';
 import { getBookingService } from '../services/booking/getBookingService.js';
 import { updateBookingService } from '../services/booking/updateBookingService.js';
@@ -116,44 +118,6 @@ export const createServiceBooking = async (req, res) => {
     }
 };
 
-export const getBookingById = async (req, res) => {
-    const id = req.params.id;
-    const user = req.query.user ? req.query.user === 'true' : true;
-    const hotel = req.query.hotel ? req.query.hotel === 'true' : true;
-    const room = req.query.room ? req.query.room === 'true' : true;
-    const services = req.query.services ? req.query.services === 'true' : true;
-    const voucher = req.query.voucher ? req.query.voucher === 'true' : true;
-
-    const booking = await models.Booking.findByPk(id);
-    if (!booking) {
-        return res
-            .status(400)
-            .json({ message: `Không tìm thấy booking ${id}` });
-    }
-    if (req.user.id != booking.user_id) {
-        return res.status(401).json({ message: 'Bạn không có quyền truy cập' });
-    }
-
-    try {
-        const booking = await getBookingService({
-            id,
-            hotel,
-            user,
-            room,
-            services,
-            voucher,
-        });
-
-        return res.status(200).json({
-            success: true,
-            message: 'Lấy thành công thông tin booking',
-            booking,
-        });
-    } catch (error) {
-        return res.status(400).json({ message: error.message });
-    }
-};
-
 export const updateBooking = async (req, res) => {
     try {
         const bookingId = req.params.id;
@@ -191,8 +155,11 @@ export const updateBooking = async (req, res) => {
             booking: result,
         });
     } catch (error) {
-        console.error('Update booking error:', error);
-        res.status(500).json({ message: 'Internal server error' });
+        console.error(error);
+        return res.status(500).json({
+            message: 'Cập nhật booking thất bại',
+            error: error.message,
+        });
     }
 };
 
@@ -225,6 +192,105 @@ export const getBookingsByUserId = async (req, res) => {
             totalPages: result.totalPages,
         });
     } catch (error) {
-        return res.status(400).json({ message: error.message });
+        console.error(error);
+        return res.status(500).json({
+            message: 'Lấy danh sách booking của người dùng thất bại',
+            error: error.message,
+        });
+    }
+};
+
+export const getBookingsByHotelId = async (req, res) => {
+    const hotelId = req.params.hotelId;
+    const name = req.query.name;
+    const status = req.query.status;
+    const sortDate = req.query.sortDate;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit);
+
+    try {
+        const result = await getBookingsByHotelIdService({
+            hotelId,
+            name,
+            status,
+            sortDate,
+            page,
+            limit,
+        });
+        return res.status(200).json({
+            success: true,
+            message: 'Lấy thành công danh sách booking',
+            bookings: result.bookings,
+            totalItems: result.totalItems,
+            currentPage: result.currentPage,
+            totalPages: result.totalPages,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Lấy danh sách booking thất bại',
+            error: error.message,
+        });
+    }
+};
+
+export const getBookingById = async (req, res) => {
+    const id = req.params.id;
+    const user = req.query.user ? req.query.user === 'true' : true;
+    const hotel = req.query.hotel ? req.query.hotel === 'true' : true;
+    const room = req.query.room ? req.query.room === 'true' : true;
+    const services = req.query.services ? req.query.services === 'true' : true;
+    const voucher = req.query.voucher ? req.query.voucher === 'true' : true;
+
+    const booking = await models.Booking.findByPk(id);
+    if (!booking) {
+        return res
+            .status(400)
+            .json({ message: `Không tìm thấy booking ${id}` });
+    }
+
+    try {
+        const booking = await getBookingService({
+            id,
+            hotel,
+            user,
+            room,
+            services,
+            voucher,
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: 'Lấy thành công thông tin booking',
+            booking,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Lấy thông tin booking thất bại',
+            error: error.message,
+        });
+    }
+};
+
+export const getBookingByAdmin = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const booking = await getBookingByAdminService({
+            id,
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: 'Lấy thành công thông tin booking',
+            booking,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Lấy thông tin booking thất bại',
+            error: error.message,
+        });
     }
 };
