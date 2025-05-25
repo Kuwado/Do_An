@@ -258,6 +258,7 @@ export const getServiceBookingsByHotelId = async (req, res) => {
     const hotelId = req.params.hotelId;
     const name = req.query.name;
     const status = req.query.status;
+    const category = req.query.category;
     const sortDate = req.query.sortDate;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit);
@@ -267,6 +268,7 @@ export const getServiceBookingsByHotelId = async (req, res) => {
             hotelId,
             name,
             status,
+            category,
             sortDate,
             page,
             limit,

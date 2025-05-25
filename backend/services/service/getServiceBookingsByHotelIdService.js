@@ -4,6 +4,7 @@ import { Op } from 'sequelize';
 export const getServiceBookingsByHotelIdService = async ({
     hotelId = '',
     name = '',
+    category = '',
     status = '',
     sortDate = '',
     page = 1,
@@ -11,7 +12,6 @@ export const getServiceBookingsByHotelIdService = async ({
 }) => {
     const whereClause = {};
 
-    // Lọc theo trạng thái nếu có
     if (status) {
         whereClause.status = status;
     }
@@ -42,6 +42,12 @@ export const getServiceBookingsByHotelIdService = async ({
         {
             model: models.Service,
             as: 'service',
+            required: !!category,
+            where: category
+                ? {
+                      category: category,
+                  }
+                : undefined,
         },
     ];
 

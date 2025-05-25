@@ -1,0 +1,183 @@
+.service-bookings-management-page {
+    height: 100%;
+    background-color: var(--primary);
+    padding: 10px 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.left-header {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.search-bar {
+    width: 240px;
+}
+
+.total {
+    height: 100%;
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #f7f6fe;
+    padding: 12px 8px;
+    text-align: left;
+}
+
+td {
+    padding: 8px;
+    text-align: left;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f7f6fe;
+}
+
+.service-bookings-table td:nth-child(1) {
+    width: 50px;
+    text-align: center;
+}
+
+.service-bookings-table td:nth-child(2),
+.service-bookings-table th:nth-child(2) {
+    width: 200px;
+}
+
+.service-bookings-table td:nth-child(4),
+.service-bookings-table th:nth-child(4) {
+    width: 130px;
+    text-align: center;
+}
+
+.service-bookings-table th:nth-child(5),
+.service-bookings-table td:nth-child(5) {
+    width: 100px;
+    text-align: center;
+}
+
+.service-bookings-table td:nth-child(6) {
+    width: 130px;
+}
+
+.service-bookings-table td:nth-child(7),
+.service-bookings-table th:nth-child(7) {
+    width: 180px;
+    text-align: center;
+}
+
+.service-bookings-table td:nth-child(8),
+.service-bookings-table th:nth-child(8),
+.service-bookings-table td:nth-child(9),
+.service-bookings-table th:nth-child(9) {
+    width: 75px;
+    text-align: center;
+}
+
+.status {
+    width: fit-content;
+    margin: auto;
+    padding: 5px 15px;
+    border-radius: 999px;
+    font-weight: bold;
+    color: #333;
+
+    &.pending {
+        background-color: #facc15;
+    }
+
+    &.cancelled {
+        background-color: #f87171;
+    }
+
+    &.confirmed {
+        background-color: #38bdf8;
+    }
+
+    &.completed {
+        background-color: #34d399;
+    }
+}
+
+.category {
+    width: fit-content;
+    margin: auto;
+    padding: 5px 15px;
+    border-radius: 999px;
+    font-weight: bold;
+    color: #333;
+
+    &.facilities {
+        background-color: #facc15;
+    }
+
+    &.entertainment {
+        background-color: #f87171;
+    }
+
+    &.dining {
+        background-color: #38bdf8;
+    }
+}
+
+.action-btns {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.view-btn {
+    background-color: #1976d2;
+    color: white;
+    svg {
+        font-size: 20px;
+    }
+}
+
+.confirm-btn {
+    background-color: #38bdf8;
+    color: white;
+    svg {
+        font-size: 20px;
+    }
+}
+
+.cancel-btn {
+    background-color: #f87171;
+    color: white;
+    svg {
+        font-size: 20px;
+    }
+}
+
+.pagination-container {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+}

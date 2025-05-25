@@ -21,6 +21,7 @@ const routes = {
         dashboard: '/staff/dashboard',
         bookings: '/staff/bookings',
         booking: '/staff/bookings/:id',
+        serviceBookings: '/staff/service-bookings',
     },
 
     admin: {
