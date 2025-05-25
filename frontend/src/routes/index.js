@@ -17,6 +17,9 @@ const publicRoutes = [
     { path: config.routes.other.test, element: pages.other.test },
 
     // Admin
+    { path: config.routes.admin.login, element: pages.admin.login, layout: layouts.other.fullScreen },
+    { path: config.routes.admin.login2, element: pages.admin.login, layout: layouts.other.fullScreen },
+
     { path: config.routes.admin.dashboard, element: pages.admin.dashboard, layout: layouts.admin.default },
     { path: config.routes.admin.hotel, element: pages.admin.hotel, layout: layouts.admin.default },
     { path: config.routes.admin.staffs, element: pages.admin.staffs, layout: layouts.admin.default },
@@ -27,8 +30,8 @@ const publicRoutes = [
     { path: config.routes.admin.vouchers, element: pages.admin.vouchers, layout: layouts.admin.default },
 
     { path: config.routes.staff.dashboard, element: pages.staff.dashboard, layout: layouts.admin.default },
-    { path: config.routes.admin.login, element: pages.admin.login, layout: layouts.other.fullScreen },
-    { path: config.routes.admin.login2, element: pages.admin.login, layout: layouts.other.fullScreen },
+    { path: config.routes.staff.bookings, element: pages.staff.bookings, layout: layouts.admin.default },
+    { path: config.routes.staff.booking, element: pages.staff.booking, layout: layouts.admin.default },
 ];
 
 const privateRoutes = [];

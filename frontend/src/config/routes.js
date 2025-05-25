@@ -18,7 +18,9 @@ const routes = {
     },
 
     staff: {
-        dashboard: '/staff',
+        dashboard: '/staff/dashboard',
+        bookings: '/staff/bookings',
+        booking: '/staff/bookings/:id',
     },
 
     admin: {

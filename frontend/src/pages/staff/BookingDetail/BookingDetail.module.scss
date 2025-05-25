@@ -1,0 +1,177 @@
+.booking-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.booking-title-container {
+    display: flex;
+    gap: 10px;
+}
+
+.booking-title {
+    font-size: var(--font-header-2);
+    font-weight: bold;
+    color: var(--header-color);
+}
+
+.back-btn {
+    font-size: 20px;
+    color: var(--header-color);
+    background-color: var(--primary);
+
+    &:hover {
+        background-color: var(--header-color);
+        color: var(--primary);
+    }
+}
+
+.booking-content {
+    flex: 1;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 20px;
+}
+
+.left-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.booking-part {
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 20px;
+    background-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.part-title {
+    font-size: var(--font-header-3);
+    font-weight: bold;
+    color: var(--header-color);
+}
+
+.part-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.part-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.part-label {
+    font-weight: bold;
+}
+
+// User
+.user {
+    .top {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .top-right {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .top-left {
+        width: 20%;
+    }
+}
+
+// Booking-info
+.booking-info {
+    position: relative;
+}
+
+.status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: fit-content;
+    padding: 5px 15px;
+    border-radius: 999px;
+    font-weight: bold;
+    color: #333;
+
+    &.pending {
+        background-color: #facc15;
+    }
+
+    &.cancelled {
+        background-color: #f87171;
+    }
+
+    &.confirmed {
+        background-color: #38bdf8;
+    }
+
+    &.completed {
+        background-color: #34d399;
+    }
+}
+
+.action-btns {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+.confirm-btn {
+    background-color: #38bdf8;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #f87171;
+    color: white;
+}
+
+// Service
+.service-table {
+    border-collapse: collapse;
+}
+
+.service-table th,
+.service-table td {
+    border: 1px solid #000;
+    padding: 8px;
+}
+
+.service-table th {
+    text-align: center;
+    background-color: #f2f2f2;
+}
+
+.service-table td:nth-child(1),
+.service-table th:nth-child(1),
+.service-table td:nth-child(4),
+.service-table th:nth-child(4) {
+    text-align: center;
+    width: 50px;
+}
+
+.service-table td:nth-child(3),
+.service-table th:nth-child(3) {
+    width: 100px;
+}

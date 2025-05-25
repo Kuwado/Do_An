@@ -31,6 +31,16 @@ export const getBookingsByHotelIdService = async ({
     }
 
     include.push(userInclude);
+    include.push({
+        model: models.Room,
+        as: 'room',
+        include: [
+            {
+                model: models.RoomType,
+                as: 'room_type',
+            },
+        ],
+    });
 
     const options = {
         where: whereClause,
