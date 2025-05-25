@@ -56,13 +56,13 @@ const Room = () => {
                 <div className={cx('sections')}>
                     <div
                         className={cx('section-item', { active: useMatch(config.routes.admin.room) })}
-                        onClick={() => navigate(`/rooms/${id}`)}
+                        onClick={() => navigate(`/admin/rooms/${id}`)}
                     >
                         Thông tin loại phòng
                     </div>
                     <div
                         className={cx('section-item', { active: useMatch(config.routes.admin.roomList) })}
-                        onClick={() => navigate(`/rooms/${id}/list`)}
+                        onClick={() => navigate(`/admin/rooms/${id}/list`)}
                     >
                         Danh sách phòng
                     </div>

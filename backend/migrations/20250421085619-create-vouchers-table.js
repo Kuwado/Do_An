@@ -42,7 +42,7 @@ export async function up(queryInterface, Sequelize) {
         },
         status: {
             type: Sequelize.ENUM('upcoming', 'active', 'end'),
-            allowNull: false,
+            allowNull: true,
         },
         hotel_id: {
             type: Sequelize.INTEGER,

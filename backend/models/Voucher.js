@@ -52,7 +52,7 @@ Voucher.init(
         },
         status: {
             type: DataTypes.ENUM('upcoming', 'active', 'end'),
-            allowNull: false,
+            allowNull: true,
         },
         hotel_id: {
             type: DataTypes.INTEGER,
@@ -69,7 +69,38 @@ Voucher.init(
         modelName: 'Voucher',
         tableName: 'vouchers',
         timestamps: false,
+
+        hooks: {
+            async afterCreate(voucher) {
+                await updateStatus(voucher);
+            },
+            async afterUpdate(voucher) {
+                await updateStatus(voucher);
+            },
+        },
     },
 );
+
+async function updateStatus(voucher) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset về đầu ngày
+
+    const start = new Date(voucher.start_date);
+    const end = new Date(voucher.end_date);
+
+    let newStatus;
+
+    if (today < start) {
+        newStatus = 'upcoming';
+    } else if (today > end) {
+        newStatus = 'end';
+    } else {
+        newStatus = 'active';
+    }
+
+    if (voucher.status !== newStatus) {
+        await voucher.update({ status: newStatus });
+    }
+}
 
 export default Voucher;
