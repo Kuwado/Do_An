@@ -4,6 +4,7 @@ import { deleteServiceService } from '../services/service/deleteServiceService.j
 import { getAllServicesByHotelIdService } from '../services/service/getAllServicesByHotelIdService.js';
 
 import { getServiceBookingsByBookingIdService } from '../services/service/getServiceBookingsByBookingIdService.js';
+import { getServiceBookingsByHotelIdService } from '../services/service/getServiceBookingsByHotelIdService.js';
 import { getServiceBookingsHistoryService } from '../services/service/getServiceBookingsHistoryService.js';
 import { getServiceByIdService } from '../services/service/getServiceByIdService.js';
 import { getServicesByHotelIdService } from '../services/service/getServicesByHotelIdService.js';
@@ -247,6 +248,41 @@ export const deleteService = async (req, res) => {
         console.error(error);
         return res.status(500).json({
             message: 'Xóa dịch vụ thất bại',
+            error: error.message,
+        });
+    }
+};
+
+//
+export const getServiceBookingsByHotelId = async (req, res) => {
+    const hotelId = req.params.hotelId;
+    const name = req.query.name;
+    const status = req.query.status;
+    const sortDate = req.query.sortDate;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit);
+
+    try {
+        const result = await getServiceBookingsByHotelIdService({
+            hotelId,
+            name,
+            status,
+            sortDate,
+            page,
+            limit,
+        });
+        return res.status(200).json({
+            success: true,
+            message: 'Lấy thành công danh sách dịch vụ booking',
+            service_bookings: result.service_bookings,
+            totalItems: result.totalItems,
+            currentPage: result.currentPage,
+            totalPages: result.totalPages,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Lấy danh sách dịch vụ booking thất bại',
             error: error.message,
         });
     }

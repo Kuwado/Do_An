@@ -5,6 +5,7 @@ import {
     deleteService,
     getAllServicesByHotelId,
     getServiceBookingsByBookingId,
+    getServiceBookingsByHotelId,
     getServiceBookingsHistory,
     getServiceById,
     getServicesByHotelId,
