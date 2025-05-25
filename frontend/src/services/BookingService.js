@@ -143,3 +143,60 @@ export const updateBooking = async (id, updateData) => {
         return { success: false, message: errorMessage };
     }
 };
+
+export const getBookingsByHotelId = async ({
+    hotelId = '',
+    name = '',
+    status = '',
+    sortDate = '',
+    page = 1,
+    limit = '',
+}) => {
+    const query = new URLSearchParams({
+        name,
+        status,
+        sortDate,
+        page,
+        limit,
+    });
+
+    const token = localStorage.getItem('admin_token');
+
+    try {
+        const res = await axios.get(`${API_URL}/bookings/hotel/${hotelId}?${query.toString()}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.error
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
+
+export const getBookingsByAdmin = async ({ bookingId }) => {
+    const token = localStorage.getItem('admin_token');
+
+    try {
+        const res = await axios.get(`${API_URL}/bookings/by-admin/${bookingId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.error
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
