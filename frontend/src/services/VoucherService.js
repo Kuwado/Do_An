@@ -29,6 +29,7 @@ export const getVouchers = async ({
     hotelId = '',
     type = '',
     discountType = '',
+    name = '',
     status = 'active',
     sortDate = '',
     page = 1,
@@ -39,6 +40,7 @@ export const getVouchers = async ({
             hotelId,
             type,
             discountType,
+            name,
             status,
             sortDate,
             page: page.toString(),
@@ -75,20 +77,20 @@ export const createVoucher = async ({ code, name, type, description, discount, d
     try {
         const token = localStorage.getItem('admin_token');
 
-        const formData = new FormData();
-        formData.append('code', code);
-        formData.append('name', name);
-        formData.append('description', description);
-        formData.append('type', type);
-        formData.append('discount', discount);
-        formData.append('discount_type', discountType);
-        formData.append('start_date', startDate);
-        formData.append('end_date', endDate);
+        const data = {
+            code: code,
+            name: name,
+            description: description,
+            type: type,
+            discount: discount,
+            discount_type: discountType,
+            start_date: startDate,
+            end_date: endDate,
+        };
 
-        const res = await axios.post(`${API_URL}/vouchers/create`, formData, {
+        const res = await axios.post(`${API_URL}/vouchers/create`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data',
             },
         });
 
@@ -106,17 +108,10 @@ export const createVoucher = async ({ code, name, type, description, discount, d
 export const updateVoucher = async (id, updateData) => {
     const token = localStorage.getItem('admin_token');
 
-    const formData = new FormData();
-
-    for (const key in updateData) {
-        formData.append(key, updateData[key]);
-    }
-
     try {
-        const res = await axios.post(`${API_URL}/vouchers/update/${id}`, formData, {
+        const res = await axios.post(`${API_URL}/vouchers/update/${id}`, updateData, {
             headers: {
                 Authorization: `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data',
             },
         });
 

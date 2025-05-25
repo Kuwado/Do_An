@@ -5,6 +5,7 @@ export const getVouchersService = async ({
     hotelId = '',
     type = '',
     discountType = '',
+    name = '',
     status = '',
     sortDate = '',
     page = 1,
@@ -21,6 +22,9 @@ export const getVouchersService = async ({
     }
     if (discountType) {
         whereClause.discount_type = discountType;
+    }
+    if (name) {
+        whereClause.name = { [Op.substring]: name };
     }
 
     if (status === 'active') {

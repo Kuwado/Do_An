@@ -24,6 +24,7 @@ const publicRoutes = [
     { path: config.routes.admin.room, element: pages.admin.room, layout: layouts.admin.default },
     { path: config.routes.admin.roomList, element: pages.admin.room, layout: layouts.admin.default },
     { path: config.routes.admin.services, element: pages.admin.services, layout: layouts.admin.default },
+    { path: config.routes.admin.vouchers, element: pages.admin.vouchers, layout: layouts.admin.default },
 
     { path: config.routes.staff.dashboard, element: pages.staff.dashboard, layout: layouts.admin.default },
     { path: config.routes.admin.login, element: pages.admin.login, layout: layouts.other.fullScreen },

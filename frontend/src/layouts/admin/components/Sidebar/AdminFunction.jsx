@@ -68,7 +68,10 @@ const AdminFunction = () => {
                 <div className={cx('sidebar-title')}>Quản lý dịch vụ</div>
             </NavLink>
 
-            <NavLink className={cx('sidebar-item')} to={config.routes.staff.dashboard}>
+            <NavLink
+                to={config.routes.admin.vouchers}
+                className={({ isActive }) => cx('sidebar-item', { active: isActive })}
+            >
                 <div className={cx('sidebar-icon')}>
                     <LocalActivityIcon />
                 </div>

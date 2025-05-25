@@ -1,4 +1,4 @@
-.staffs-management-page {
+.vouchers-management-page {
     height: 100%;
     background-color: var(--primary);
     padding: 10px 20px;
@@ -28,6 +28,14 @@
     width: 240px;
 }
 
+.total {
+    height: 100%;
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -52,54 +60,61 @@ tbody tr:nth-child(even) {
     background-color: #f7f6fe;
 }
 
-.staffs-table td:nth-child(1) {
+.vouchers-table td:nth-child(1) {
     width: 50px;
     text-align: center;
 }
 
-.staffs-table td:nth-child(2) {
+.vouchers-table td:nth-child(2) {
+    text-overflow: ellipsis;
+    word-wrap: wrap;
+}
+
+.vouchers-table td:nth-child(3),
+.vouchers-table th:nth-child(3) {
     width: 180px;
 }
 
-.staffs-table td:nth-child(3) {
-    width: 120px;
-}
-
-.staffs-table td:nth-child(4) {
-    width: 200px;
-}
-
-.staffs-table td:nth-child(5) {
-    text-wrap: wrap;
-}
-
-.staffs-table td:nth-child(6) {
+.vouchers-table td:nth-child(4),
+.vouchers-table th:nth-child(4) {
     width: 140px;
-}
-
-.staffs-table td:nth-child(7) {
-    width: 150px;
-}
-
-.staffs-table th:nth-child(7) {
-    width: 150px;
     text-align: center;
 }
 
-.staffs-table .admin {
-    width: fit-content;
-    padding: 5px 15px;
-    border-radius: 999px;
-    color: white;
-    background-color: #d32f2f;
+.vouchers-table th:nth-child(5),
+.vouchers-table td:nth-child(5) {
+    width: 150px;
 }
 
-.staffs-table .staff {
+.vouchers-table td:nth-child(6),
+.vouchers-table td:nth-child(7) {
+    width: 130px;
+}
+
+.vouchers-table td:nth-child(8),
+.vouchers-table th:nth-child(8) {
+    width: 150px;
+}
+
+.vouchers-table th:nth-child(8) {
+    text-align: center;
+}
+
+.type {
     width: fit-content;
+    margin: auto;
     padding: 5px 15px;
     border-radius: 999px;
-    color: white;
-    background-color: #1976d2;
+    font-weight: bold;
+    color: #333;
+
+    &.service {
+        background-color: #facc15;
+    }
+
+    &.room {
+        background-color: #38bdf8;
+    }
 }
 
 .action-btns {
@@ -108,7 +123,7 @@ tbody tr:nth-child(even) {
     justify-content: space-around;
 }
 
-.edit-btn {
+.view-btn {
     background-color: #1976d2;
     color: white;
     svg {
