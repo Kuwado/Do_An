@@ -3,15 +3,13 @@ import classNames from 'classnames/bind';
 
 import styles from './VoucherEdit.module.scss';
 import EditIcon from '@mui/icons-material/Edit';
-import useProfile from '@/hooks/profile/useProfile';
 import Popup from '@/components/Popup';
 import { Button } from '@/components/Button';
 import { Input, DateInput } from '@/components/Input';
 import Dropdown from '@/components/Dropdown';
 import TextArea from '@/components/TextArea/TextArea';
 import { getDate } from '@/utils/dateUtil';
-
-import { getVoucher, updateVoucher } from '../../../../services/VoucherService';
+import { getVoucher, updateVoucher } from '@/services/VoucherService';
 
 const cx = classNames.bind(styles);
 

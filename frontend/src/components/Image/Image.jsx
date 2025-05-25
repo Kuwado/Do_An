@@ -7,7 +7,10 @@ import images from '@/assets/images';
 const cx = classNames.bind(styles);
 
 const Image = forwardRef(
-    ({ src, alt, width = '100%', height = ' 100%', className, fallback = images.noImage, ...props }, ref) => {
+    (
+        { src, alt, width = '100%', height = ' 100%', circle = false, className, fallback = images.noImage, ...props },
+        ref,
+    ) => {
         const [currentFallback, setCurrentFallback] = useState('');
 
         const handleError = () => {
@@ -16,9 +19,9 @@ const Image = forwardRef(
 
         return (
             <img
-                className={cx('image', { [className]: className })}
+                className={cx('image', { circle }, { [className]: className })}
                 ref={ref}
-                src={currentFallback || src}
+                src={currentFallback || src || fallback}
                 alt={alt}
                 width={width}
                 height={height}

@@ -180,7 +180,7 @@ export const getBookingsByHotelId = async ({
     }
 };
 
-export const getBookingsByAdmin = async ({ bookingId }) => {
+export const getBookingByAdmin = async ({ bookingId }) => {
     const token = localStorage.getItem('admin_token');
 
     try {
@@ -195,6 +195,81 @@ export const getBookingsByAdmin = async ({ bookingId }) => {
         const errorMessage =
             err.response && err.response.data && err.response.data.message
                 ? err.response.data.error
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
+
+export const confirmBooking = async (id) => {
+    const token = localStorage.getItem('admin_token');
+
+    try {
+        const res = await axios.post(
+            `${API_URL}/bookings/update/${id}`,
+            { status: 'confirmed' },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
+
+export const cancelBooking = async (id) => {
+    const token = localStorage.getItem('admin_token');
+
+    try {
+        const res = await axios.post(
+            `${API_URL}/bookings/update/${id}`,
+            { status: 'cancelled' },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
+
+export const completeBooking = async (id) => {
+    const token = localStorage.getItem('admin_token');
+
+    try {
+        const res = await axios.post(
+            `${API_URL}/bookings/update/${id}`,
+            { status: 'completed' },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
                 : 'Đã có lỗi xảy ra. Vui lòng thử lại';
 
         return { success: false, message: errorMessage };

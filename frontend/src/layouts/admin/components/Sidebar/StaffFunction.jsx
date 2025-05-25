@@ -1,9 +1,8 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
-
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import styles from './Sidebar.module.scss';
 import config from '@/config';
 
@@ -12,21 +11,24 @@ const cx = classNames.bind(styles);
 const StaffFunction = () => {
     return (
         <>
-            <Link
-                className={cx('sidebar-item', { active: location.pathname == config.routes.admin.dashboard })}
-                to={config.routes.admin.dashboard}
+            <NavLink
+                to={config.routes.staff.dashboard}
+                className={({ isActive }) => cx('sidebar-item', { active: isActive })}
             >
                 <div className={cx('sidebar-icon')}>
-                    <FontAwesomeIcon icon={faHome} />
-                </div>
-                <div className={cx('sidebar-title')}>Trang chủ staff</div>
-            </Link>
-            <Link className={cx('sidebar-item')} to={config.routes.staff.dashboard}>
-                <div className={cx('sidebar-icon')}>
-                    <FontAwesomeIcon icon={faHome} />
+                    <DashboardIcon />
                 </div>
                 <div className={cx('sidebar-title')}>Trang chủ</div>
-            </Link>
+            </NavLink>
+            <NavLink
+                to={config.routes.staff.bookings}
+                className={({ isActive }) => cx('sidebar-item', { active: isActive })}
+            >
+                <div className={cx('sidebar-icon')}>
+                    <ReceiptLongIcon />
+                </div>
+                <div className={cx('sidebar-title')}>Quản lý đơn đặt phòng</div>
+            </NavLink>
         </>
     );
 };

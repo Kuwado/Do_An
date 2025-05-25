@@ -1,4 +1,5 @@
 import models from '../../models/index.js';
+import { Op } from 'sequelize';
 
 export const getBookingByAdminService = async ({ id = '' }) => {
     const include = [];
@@ -22,6 +23,10 @@ export const getBookingByAdminService = async ({ id = '' }) => {
     include.push({
         model: models.ServiceBooking,
         as: 'service_bookings',
+        required: false,
+        where: {
+            status: 'confirmed',
+        },
         include: [
             {
                 model: models.Service,
@@ -45,11 +50,37 @@ export const getBookingByAdminService = async ({ id = '' }) => {
 
     const booking = bookingInstance.toJSON();
 
+    booking.service_bookings.sort((a, b) => {
+        // So sánh theo service.name trước
+        const nameCompare = a.service.name.localeCompare(b.service.name);
+        if (nameCompare !== 0) return nameCompare;
+
+        // Nếu tên giống nhau thì so sánh theo date
+        return new Date(a.date) - new Date(b.date);
+    });
+
     const bookedCount = await models.Booking.findAll({
-        where: { user_id: booking.user_id, hotel_id: booking.hotel_id },
+        where: {
+            user_id: booking.user_id,
+            hotel_id: booking.hotel_id,
+            status: {
+                [Op.or]: ['confirmed', 'completed'],
+            },
+        },
     });
 
     booking.user.booked_count = bookedCount.length || 0;
+
+    const bookedCountAll = await models.Booking.findAll({
+        where: {
+            user_id: booking.user_id,
+            status: {
+                [Op.or]: ['confirmed', 'completed'],
+            },
+        },
+    });
+
+    booking.user.booked_count_all = bookedCountAll.length || 0;
 
     return booking;
 };
