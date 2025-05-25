@@ -214,6 +214,7 @@ export const getServiceBookingsByHotelId = async ({
     hotelId = '',
     name = '',
     status = '',
+    category = '',
     sortDate = '',
     page = 1,
     limit = '',
@@ -221,6 +222,7 @@ export const getServiceBookingsByHotelId = async ({
     const query = new URLSearchParams({
         name,
         status,
+        category,
         sortDate,
         page,
         limit,
@@ -240,6 +242,56 @@ export const getServiceBookingsByHotelId = async ({
         const errorMessage =
             err.response && err.response.data && err.response.data.message
                 ? err.response.data.error
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
+
+export const confirmServiceBooking = async (id) => {
+    const token = localStorage.getItem('admin_token');
+
+    try {
+        const res = await axios.post(
+            `${API_URL}/services/booking/update/${id}`,
+            { status: 'confirmed' },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
+
+export const cancelServiceBooking = async (id) => {
+    const token = localStorage.getItem('admin_token');
+
+    try {
+        const res = await axios.post(
+            `${API_URL}/services/booking/update/${id}`,
+            { status: 'cancelled' },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
                 : 'Đã có lỗi xảy ra. Vui lòng thử lại';
 
         return { success: false, message: errorMessage };

@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 import styles from './Sidebar.module.scss';
 import config from '@/config';
 
@@ -28,6 +29,15 @@ const StaffFunction = () => {
                     <ReceiptLongIcon />
                 </div>
                 <div className={cx('sidebar-title')}>Quản lý đơn đặt phòng</div>
+            </NavLink>
+            <NavLink
+                to={config.routes.staff.serviceBookings}
+                className={({ isActive }) => cx('sidebar-item', { active: isActive })}
+            >
+                <div className={cx('sidebar-icon')}>
+                    <ReceiptIcon />
+                </div>
+                <div className={cx('sidebar-title')}>Quản lý đơn dịch vụ</div>
             </NavLink>
         </>
     );
