@@ -3,12 +3,12 @@ import classNames from 'classnames/bind';
 import styles from './Pagination.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
-const Pagination = ({ total }) => {
+const Pagination = ({ total, setPage = () => {} }) => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const navigate = useNavigate();
@@ -44,8 +44,10 @@ const Pagination = ({ total }) => {
         if (params.get('page') || currentPage > 1) {
             if (currentPage > total) {
                 setCurrentPage(1);
+                setPage(1);
             } else {
                 params.set('page', currentPage.toString());
+                setPage(currentPage);
                 navigate(`${location.pathname}?${params.toString()}`);
             }
         }

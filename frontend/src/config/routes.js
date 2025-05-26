@@ -22,6 +22,11 @@ const routes = {
         bookings: '/staff/bookings',
         booking: '/staff/bookings/:id',
         serviceBookings: '/staff/service-bookings',
+        rooms: '/staff/rooms-management',
+        room: '/staff/rooms-management/:id',
+        roomList: '/staff/rooms-management/:id/list',
+        services: '/staff/services',
+        vouchers: '/staff/vouchers',
     },
 
     admin: {
@@ -31,8 +36,8 @@ const routes = {
         hotel: '/admin/hotel-management',
         staffs: '/admin/staffs-management',
         rooms: '/admin/rooms-management',
-        room: '/admin/rooms/:id',
-        roomList: '/admin/rooms/:id/list',
+        room: '/admin/rooms-management/:id',
+        roomList: '/admin/rooms-management/:id/list',
         services: '/admin/services',
         vouchers: '/admin/vouchers',
     },

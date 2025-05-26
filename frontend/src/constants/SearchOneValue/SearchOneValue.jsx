@@ -4,26 +4,26 @@ import styles from './SearchOneValue.module.scss';
 import { Input } from '@/components/Input';
 import { IconButton } from '@/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faMagnifyingGlass, faXmark, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
 const fn = () => {};
 
-const SearchOneValue = ({ id = '', value = '', setValue = fn, label = 'Tìm kiếm', onClick = fn, click = false }) => {
+const SearchOneValue = ({ id = '', value = '', setValue = fn, label = 'Tìm kiếm' }) => {
     return (
-        <div className={cx('search-one-value', { click })}>
+        <div className={cx('search-one-value')}>
             <Input
                 id={id}
                 className={cx('search-input')}
                 value={value}
                 setValue={setValue}
                 label={label}
-                icon={!click && <FontAwesomeIcon icon={faMagnifyingGlass} />}
+                icon={<FontAwesomeIcon icon={faMagnifyingGlass} />}
             />
-            {click && (
-                <button className={cx('search-btn')} onClick={onClick}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+            {value && (
+                <button className={cx('clear-btn')} onClick={() => setValue('')}>
+                    <FontAwesomeIcon icon={faXmark} />
                 </button>
             )}
         </div>

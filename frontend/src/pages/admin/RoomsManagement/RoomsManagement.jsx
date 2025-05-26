@@ -108,7 +108,11 @@ const RoomsManagement = () => {
                                 <td>{formatPrice(rt.price)}</td>
                                 <td>
                                     <div className={cx('action-btns')}>
-                                        <Button className={cx('view-btn')} small to={`/admin/rooms/${rt.id}`}>
+                                        <Button
+                                            className={cx('view-btn')}
+                                            small
+                                            to={`/admin/rooms-management/${rt.id}`}
+                                        >
                                             <VisibilityIcon />
                                         </Button>
                                         <Button

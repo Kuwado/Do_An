@@ -102,7 +102,7 @@ const ServiceCreate = ({ fetchServices }) => {
                             required
                         />
                         <TextArea
-                            label="Mô tả về phòng"
+                            label="Mô tả về dịch vụ"
                             id="service-des"
                             value={service.description}
                             setValue={(value) => setServiceValue('description', value)}

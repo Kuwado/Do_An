@@ -16,23 +16,19 @@
     padding-right: 40px;
 }
 
-.click .search-input input {
-    padding-right: 50px;
-}
-
-.search-btn {
+.clear-btn {
     position: absolute;
-    top: 0;
-    right: 0;
-    height: 40px;
-    width: 40px;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom-right-radius: 999px;
-    border-top-right-radius: 999px;
-    color: var(--secondary);
-    background-color: transparent;
+    font-size: 12px;
+    border-radius: 50%;
+
     cursor: pointer;
 
     &:hover {
