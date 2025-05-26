@@ -32,6 +32,7 @@ export const createBooking = async (req, res) => {
 
         if (availableRoomIds.length === 0) {
             return res.status(409).json({
+                success: false,
                 message: 'Loại phòng này đã được đặt hết',
             });
         }
@@ -54,6 +55,59 @@ export const createBooking = async (req, res) => {
         // Tạo booking
         bookingData.room_id = availableRoomIds[0];
         bookingData.user_id = req.user.id;
+        const booking = await createBookingService(bookingData);
+
+        res.status(201).json({
+            success: true,
+            message: 'Tạo thành công booking',
+            booking,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Đặt phòng thất bại!',
+            error: error.message,
+        });
+    }
+};
+
+export const createBookingByAdmin = async (req, res) => {
+    try {
+        const bookingData = req.body;
+
+        bookingData.check_in = formatCheckIn(bookingData.check_in);
+        bookingData.check_out = formatCheckOut(bookingData.check_out);
+
+        // Kiểm tra phòng có khả dụng không
+        const isAvailable = await isRoomAvailable(
+            bookingData.room_id,
+            bookingData.check_in,
+            bookingData.check_out,
+        );
+
+        if (!isAvailable) {
+            return res.status(409).json({
+                success: false,
+                message: 'Phòng này đã được đặt hết',
+            });
+        }
+
+        if (bookingData.voucher_id) {
+            const apply = await checkVoucher({
+                hotelId: bookingData.hotel_id,
+                userId: req.user.id,
+                voucherId: bookingData.voucher_id,
+                type: 'room',
+            });
+            if (!apply) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Voucher áp dụng không hợp lệ',
+                });
+            }
+        }
+
+        // Tạo booking
         const booking = await createBookingService(bookingData);
 
         res.status(201).json({

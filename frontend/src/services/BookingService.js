@@ -22,6 +22,35 @@ export const createBooking = async ({ roomTypeId, checkIn, checkOut, voucherId }
     } catch (err) {
         const errorMessage =
             err.response && err.response.data && err.response.data.message
+                ? err.response.data.error
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
+
+export const createBookingByAdmin = async ({ roomId, userId, checkIn, checkOut, voucherId }) => {
+    try {
+        const token = localStorage.getItem('admin_token');
+
+        const data = {
+            room_id: roomId,
+            user_id: userId,
+            check_in: checkIn,
+            check_out: checkOut,
+            voucher_id: voucherId || null,
+        };
+
+        const res = await axios.post(`${API_URL}/bookings/create-by-admin`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
                 ? err.response.data.message
                 : 'Đã có lỗi xảy ra. Vui lòng thử lại';
 
