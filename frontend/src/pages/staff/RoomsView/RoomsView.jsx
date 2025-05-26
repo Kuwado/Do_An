@@ -17,6 +17,7 @@ import { getRooms, getRoomType } from '../../../services/RoomService';
 import { IconButton } from '../../../components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons';
+import BookingCreate from './BookingCreate/BookingCreate';
 
 const cx = classNames.bind(styles);
 
@@ -32,7 +33,7 @@ const RoomsView = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
-    const [roomName, setRoomName] = useState('');
+    const [roomType, setRoomType] = useState('');
     const [rooms, setRooms] = useState([]);
     const [number, setNumber] = useState(searchParams.get('number') || '');
     const [checkIn, setCheckIn] = useState(searchParams.get('checkIn') || getDate(0));
@@ -40,14 +41,14 @@ const RoomsView = () => {
     const [filter, setFilter] = useState(searchParams.get('filter') || 'available');
     const [page, setPage] = useState(searchParams.get('page') || 1);
     const [totalPages, setTotalPages] = useState(0);
-    const limit = 8;
+    const limit = 7;
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const fetchRoomType = async () => {
         const res = await getRoomType({ id });
         if (res.success) {
-            setRoomName(res.room_type.name);
+            setRoomType(res.room_type);
         }
     };
 
@@ -66,7 +67,7 @@ const RoomsView = () => {
         setSearchParams(params);
     }, [number, checkIn, checkOut, filter]);
 
-    const fetchRoomTypes = async () => {
+    const fetchRooms = async () => {
         setLoading(true);
         const res = await getRooms({ roomTypeId: id, number, checkIn, checkOut, filter, page, limit });
         console.log(res);
@@ -81,7 +82,7 @@ const RoomsView = () => {
     };
 
     useEffect(() => {
-        if (id) fetchRoomTypes();
+        if (id) fetchRooms();
     }, [id, number, checkIn, checkOut, filter, page]);
 
     useEffect(() => {
@@ -107,7 +108,7 @@ const RoomsView = () => {
     return (
         <div className={cx('rooms-view-page')}>
             <div className={cx('room-type-title-container')}>
-                <div className={cx('room-type-title')}>{roomName}</div>
+                <div className={cx('room-type-title')}>{roomType.name}</div>
                 <IconButton className={cx('back-btn')} onClick={handleBack}>
                     <FontAwesomeIcon icon={faAnglesLeft} />
                 </IconButton>
@@ -190,14 +191,15 @@ const RoomsView = () => {
                                         </td>
                                         <td>
                                             <div className={cx('action-btns')}>
-                                                {/* <RoomEdit fetchRooms={fetchRooms} room={room} /> */}
-                                                {/* <Button
-                                                    className={cx('delete-btn')}
-                                                    small
-                                                    onClick={() => handleDeleteRoom(room)}
-                                                >
-                                                    <DeleteForeverIcon />
-                                                </Button> */}
+                                                {!room.isBooked && (
+                                                    <BookingCreate
+                                                        room={room}
+                                                        roomType={roomType}
+                                                        fetchRooms={fetchRooms}
+                                                        checkIn={checkIn}
+                                                        checkOut={checkOut}
+                                                    />
+                                                )}
                                             </div>
                                         </td>
                                     </tr>

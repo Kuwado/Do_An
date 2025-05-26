@@ -1,5 +1,6 @@
 import models from '../models/index.js';
 import { createUserService } from '../services/user/createUserService.js';
+import { getUserByPhoneService } from '../services/user/getUserByPhoneService.js';
 import { getUserService } from '../services/user/getUserService.js';
 import { updateUserService } from '../services/user/updateUserService.js';
 
@@ -8,6 +9,7 @@ export const getUserById = async (req, res) => {
     try {
         const user = await getUserService(id);
         return res.status(200).json({
+            success: true,
             message: `Lấy thành công thông tin người dùng`,
             user,
         });
@@ -67,6 +69,24 @@ export const updateUser = async (req, res) => {
         console.error('Update staff error:', error);
         return res.status(500).json({
             message: 'Cập nhật người dùng thất bại',
+            error: error.message,
+        });
+    }
+};
+
+export const getUserByPhone = async (req, res) => {
+    const phone = req.params.phone;
+    try {
+        const user = await getUserByPhoneService(phone);
+        return res.status(200).json({
+            success: true,
+            message: `Lấy thành công thông tin người dùng`,
+            user,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Lấy thông tin người dùng thất bại',
             error: error.message,
         });
     }

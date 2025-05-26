@@ -2,6 +2,7 @@ import express from 'express';
 
 import {
     createBooking,
+    createBookingByAdmin,
     createServiceBooking,
     getBookingByAdmin,
     getBookingById,
@@ -18,6 +19,7 @@ import { getServiceBookingsByHotelId } from '../controllers/ServiceController.js
 const router = express.Router();
 
 router.post('/create', authUserMiddleware, createBooking);
+router.post('/create-by-admin', createBookingByAdmin);
 router.post('/update/:id', authAllMiddleware, updateBooking);
 router.post('/service/create', authUserMiddleware, createServiceBooking);
 router.get('/services/hotel/:hotelId', getServiceBookingsByHotelId);
