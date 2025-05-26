@@ -7,8 +7,5 @@ export const getUserService = async (id) => {
         throw new Error(`Người dùng với id là ${id} không tồn tại`);
     }
 
-    return {
-        message: `Lấy thành công thông tin người dùng ${id}`,
-        user,
-    };
+    return user;
 };

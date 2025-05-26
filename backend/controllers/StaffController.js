@@ -30,6 +30,10 @@ export const updateStaff = async (req, res) => {
         const staffId = req.params.id;
         const updateData = req.body;
 
+        if (req.file) {
+            updateData.avatar = req.file;
+        }
+
         const staff = await models.Staff.findByPk(staffId);
         if (!staff) {
             return res
