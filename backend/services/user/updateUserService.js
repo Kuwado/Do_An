@@ -3,12 +3,12 @@ import { Op } from 'sequelize';
 import { deleteImagesService } from '../upload/deleteImagesService.js';
 import { uploadImageService } from '../upload/uploadImageService.js';
 
-export const updateStaffService = async (staff, updateData) => {
-    if (updateData.username) {
-        const checkUserName = await models.Staff.findOne({
+export const updateUserService = async (user, updateData) => {
+    if (updateData.username !== user.username) {
+        const checkUserName = await models.User.findOne({
             where: {
                 username: updateData.username,
-                id: { [Op.ne]: staff.id },
+                id: { [Op.ne]: user.id },
             },
         });
 
@@ -18,7 +18,7 @@ export const updateStaffService = async (staff, updateData) => {
     }
 
     if (updateData.avatar) {
-        const oldImages = staff.avatar;
+        const oldImages = user.avatar;
         if (oldImages) {
             deleteImagesService([oldImages]);
         }
@@ -28,16 +28,16 @@ export const updateStaffService = async (staff, updateData) => {
         }
         updateData.avatar = imageUrl;
     } else {
-        updateData.avatar = staff.avatar;
+        updateData.avatar = user.avatar;
     }
 
     Object.entries(updateData).forEach(([key, value]) => {
-        if (staff[key] !== undefined) {
-            staff[key] = value;
+        if (user[key] !== undefined) {
+            user[key] = value;
         }
     });
 
-    await staff.save();
+    await user.save();
 
-    return staff;
+    return user;
 };

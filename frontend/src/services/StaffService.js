@@ -77,10 +77,17 @@ export const getStaffsByHotelId = async ({ hotelId = '', name = '', role = '', p
 export const updateStaff = async (id, updateData) => {
     const token = localStorage.getItem('admin_token');
 
+    const formData = new FormData();
+
+    for (const key in updateData) {
+        formData.append(key, updateData[key]);
+    }
+
     try {
-        const res = await axios.post(`${API_URL}/staff/update/${id}`, updateData, {
+        const res = await axios.post(`${API_URL}/staffs/update/${id}`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data',
             },
         });
 
