@@ -7,5 +7,9 @@ export const getServiceByIdService = async ({ id }) => {
         throw new Error(`Dịch vụ với id là ${id} không tồn tại`);
     }
 
+    if (service.images) {
+        service.images = JSON.parse(service.images);
+    }
+
     return service;
 };

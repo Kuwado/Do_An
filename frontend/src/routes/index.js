@@ -33,6 +33,8 @@ const publicRoutes = [
     { path: config.routes.staff.bookings, element: pages.staff.bookings, layout: layouts.admin.default },
     { path: config.routes.staff.booking, element: pages.staff.booking, layout: layouts.admin.default },
     { path: config.routes.staff.serviceBookings, element: pages.staff.serviceBookings, layout: layouts.admin.default },
+    { path: config.routes.staff.rooms, element: pages.staff.rooms, layout: layouts.admin.default },
+    { path: config.routes.staff.roomList, element: pages.staff.roomList, layout: layouts.admin.default },
 ];
 
 const privateRoutes = [];

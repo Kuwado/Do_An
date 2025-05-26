@@ -16,6 +16,14 @@ import RoomEdit from '../RoomEdit/RoomEdit';
 
 const cx = classNames.bind(styles);
 
+const FILTER_LABELS = {
+    '': 'Tất cả',
+    active: 'Hoạt động',
+    maintenance: 'Bảo trì',
+    available: 'Phòng trống',
+    booked: 'Đã được đặt',
+};
+
 const RoomList = () => {
     const { id } = useParams();
     const location = useLocation();
@@ -29,13 +37,6 @@ const RoomList = () => {
     const limit = 5;
     const [page, setPage] = useState(params.get('page') || 1);
     const [totalPages, setTotalPages] = useState(0);
-    const FILTER_LABELS = {
-        '': 'Tất cả',
-        active: 'Hoạt động',
-        maintenance: 'Bảo trì',
-        available: 'Phòng trống',
-        booked: 'Đã được đặt',
-    };
 
     const fetchRooms = async () => {
         const res = await getRooms({ roomTypeId: id, number, checkIn, checkOut, filter, page, limit });

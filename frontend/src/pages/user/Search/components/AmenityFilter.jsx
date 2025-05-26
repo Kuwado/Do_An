@@ -4,7 +4,7 @@ import styles from '../Search.module.scss';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Selection from '@/constants/Filter/Selection/Selection';
+import { Selection } from '@/constants/Filter';
 import { getAmenities } from '@/services/AmenityService';
 
 const cx = classNames.bind(styles);

@@ -81,7 +81,7 @@ const Selection = ({
                                     onChange={(e) => handleSelect(e, select.id)}
                                 />
                                 <label htmlFor={`selection-${id}-${select.id}`}>
-                                    {select.name} {count && select.count}
+                                    {select.name} ({count && select.count})
                                 </label>
                             </div>
                         ))}

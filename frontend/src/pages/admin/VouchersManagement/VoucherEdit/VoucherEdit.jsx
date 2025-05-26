@@ -156,7 +156,7 @@ const VoucherEdit = ({ voucherId, fetchVouchers }) => {
                             />
                         </div>
                         <TextArea
-                            label="Mô tả về phòng"
+                            label="Mô tả về voucher"
                             id="voucher-des"
                             value={voucher.description}
                             setValue={(value) => setVoucherValue('description', value)}
