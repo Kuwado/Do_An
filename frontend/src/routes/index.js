@@ -4,6 +4,7 @@ import layouts from '../layouts';
 
 const publicRoutes = [
     { path: config.routes.user.login, element: pages.user.login, layout: layouts.other.fullScreen },
+    { path: config.routes.user.register, element: pages.user.register, layout: layouts.other.fullScreen },
     { path: config.routes.user.home, element: pages.user.home, layout: layouts.user.home },
     { path: config.routes.user.hotels, element: pages.user.hotels },
     { path: config.routes.user.hotel, element: pages.user.hotel },

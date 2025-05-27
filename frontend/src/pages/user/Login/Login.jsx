@@ -32,13 +32,12 @@ const Login = () => {
                     <img src={images.loginPoster} alt="login-poster" />
                 </div>
                 <div className={cx('content-right')}>
-                    <h1>Đăng nhập</h1>
+                    <h1 className={cx('title')}>Đăng nhập</h1>
                     <div className={cx('login-form')}>
                         <Input
                             value={username}
                             setValue={setUsername}
                             label="Tài khoản"
-                            type="email"
                             icon={<FontAwesomeIcon icon={faKey} />}
                             required
                         />
