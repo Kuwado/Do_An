@@ -17,7 +17,7 @@ export const updateStaffService = async (staff, updateData) => {
         }
     }
 
-    if (updateData.avatar) {
+    if (updateData.avatar && updateData.avatar !== staff.avatar) {
         const oldImages = staff.avatar;
         if (oldImages) {
             deleteImagesService([oldImages]);

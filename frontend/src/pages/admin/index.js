@@ -6,6 +6,7 @@ import RoomsManagement from './RoomsManagement';
 import Room from './Room';
 import ServicesManagement from './ServicesManagement';
 import VouchersManagement from './VouchersManagement';
+import Profile from './Profile';
 
 const admin = {
     dashboard: Dashboard,
@@ -16,6 +17,7 @@ const admin = {
     room: Room,
     services: ServicesManagement,
     vouchers: VouchersManagement,
+    profile: Profile,
 };
 
 export default admin;

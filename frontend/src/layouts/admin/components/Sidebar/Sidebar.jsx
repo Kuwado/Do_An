@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-
+import { faChevronLeft, faChevronRight, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 import styles from './Sidebar.module.scss';
 import { IconButton } from '@/components/Button';
 import config from '@/config';
@@ -37,9 +38,15 @@ const Sidebar = () => {
             </div>
 
             <div className={cx('sidebar-footer')}>
+                <Link className={cx('sidebar-item')} to={config.routes.admin.profile}>
+                    <div className={cx('sidebar-icon')}>
+                        <PersonIcon />
+                    </div>
+                    <div className={cx('sidebar-title')}>Thông tin cá nhân</div>
+                </Link>
                 <Link className={cx('sidebar-item')} to={config.routes.admin.login}>
                     <div className={cx('sidebar-icon')}>
-                        <FontAwesomeIcon icon={faRightFromBracket} />
+                        <LogoutIcon />
                     </div>
                     <div className={cx('sidebar-title')}>Đăng xuất</div>
                 </Link>

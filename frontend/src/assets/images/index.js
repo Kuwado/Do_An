@@ -8,6 +8,7 @@ import Service from './service.webp';
 import Home1 from './home1.webp';
 import Home2 from './home2.webp';
 import QR from './QR.jpg';
+import ProfileBackground from './profile-background.jpg';
 
 const images = {
     avatar: Avatar,
@@ -20,6 +21,7 @@ const images = {
     home1: Home1,
     home2: Home2,
     qr: QR,
+    profileBackground: ProfileBackground,
 };
 
 export default images;

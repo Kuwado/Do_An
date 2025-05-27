@@ -53,9 +53,9 @@
     background-color: var(--secondary);
 }
 
-.body-header img {
+.body-header .avatar {
     height: calc(var(--header-height) * 3 / 4);
-    aspect-ratio: 1 / 1;
+    width: calc(var(--header-height) * 3 / 4);
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid var(--secondary);

@@ -3,19 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { getUser } from '@/services/UserService';
 import { getAdmin } from '@/services/AdminService';
-import {
-    loginUser as loginForUser,
-    loginAdminFirstStep,
-    loginAdmin as loginForAdmin,
-} from '../../services/AuthService';
+import { loginUser as loginForUser, loginAdminFirstStep, loginAdmin as loginForAdmin } from '@/services/AuthService';
 import config from '@/config';
+import { useUserContext } from '@/contexts/UserContext';
 
 const useProfile = () => {
     const navigate = useNavigate();
     const [userId, setUserId] = useState(localStorage.getItem('user_id') || '');
     const [adminId, setAdminId] = useState(localStorage.getItem('admin_id') || '');
-    const [user, setUser] = useState({});
-    const [admin, setAdmin] = useState({});
+    const { user, setUser, admin, setAdmin } = useUserContext();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -23,6 +19,7 @@ const useProfile = () => {
         setLoading(true);
         try {
             const res = await getUser(userId);
+            console.log(res);
             setUser(res.user);
             setError('');
         } catch (err) {

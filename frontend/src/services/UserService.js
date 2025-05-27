@@ -45,9 +45,12 @@ export const updateUser = async (id, updateData) => {
     const formData = new FormData();
 
     for (const key in updateData) {
-        formData.append(key, updateData[key]);
+        if (key === 'avatar' && updateData.avatar instanceof File) {
+            formData.append('avatar', updateData.avatar);
+        } else if (key !== 'avatar') {
+            formData.append(key, updateData[key]);
+        }
     }
-
     try {
         const res = await axios.post(`${API_URL}/users/update/${id}`, formData, {
             headers: {
