@@ -99,7 +99,10 @@ Staff.beforeCreate(async (staff, options) => {
 });
 
 Staff.beforeUpdate(async (staff, options) => {
-    if (staff.password) {
+    if (
+        staff.password &&
+        staff.password !== staff._previousDataValues.password
+    ) {
         staff.password = await Staff.hashPassword(staff.password);
     }
 });

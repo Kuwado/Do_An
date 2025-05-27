@@ -78,7 +78,7 @@ User.beforeCreate(async (user, options) => {
 });
 
 User.beforeUpdate(async (user, options) => {
-    if (user.password) {
+    if (user.password && user.password !== user._previousDataValues.password) {
         user.password = await User.hashPassword(user.password);
     }
 });

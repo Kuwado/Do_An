@@ -1,20 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './Header.module.scss';
 import useProfile from '@/hooks/profile/useProfile';
-import images from '@/assets/images';
+import Image from '@/components/Image';
 
 const cx = classNames.bind(styles);
+const IMAGE_URL = import.meta.env.VITE_BACKEND_URL;
 
 const Header = () => {
     const { admin, fetchAdmin } = useProfile();
     const [role, setRole] = useState('admin');
+    const [avatarUrl, setAvatarUrl] = useState('');
+
+    useEffect(() => {
+        if (admin.avatar) setAvatarUrl(`${IMAGE_URL}${admin.avatar}`);
+    }, [admin.avatar]);
 
     return (
         <div className={cx('admin-header')}>
             <div className={cx('info-container')}>
-                <img src={admin && admin.avatar ? admin.avatar : images.avatar} alt="avatar" />
+                <Image src={avatarUrl} alt="avatar" />
                 <div className={cx('info')}>
                     <div className={cx('full-name')}>
                         {admin.first_name} {admin.last_name}

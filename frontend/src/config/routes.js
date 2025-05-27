@@ -32,6 +32,7 @@ const routes = {
     admin: {
         login: '/admin/login',
         login2: '/admin/login/second-step',
+        profile: '/admin-staff/profile',
         dashboard: '/admin/dashboard',
         hotel: '/admin/hotel-management',
         staffs: '/admin/staffs-management',

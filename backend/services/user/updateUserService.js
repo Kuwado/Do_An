@@ -17,7 +17,7 @@ export const updateUserService = async (user, updateData) => {
         }
     }
 
-    if (updateData.avatar) {
+    if (updateData.avatar && updateData.avatar !== user.avatar) {
         const oldImages = user.avatar;
         if (oldImages) {
             deleteImagesService([oldImages]);

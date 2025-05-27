@@ -12,8 +12,10 @@ import config from '@/config';
 import images from '@/assets/images';
 import { loginAdminFirstStep } from '@/services/AuthService';
 import useProfile from '@/hooks/profile/useProfile';
+import Image from '@/components/Image';
 
 const cx = classNames.bind(styles);
+const IMAGE_URL = import.meta.env.VITE_BACKEND_URL;
 
 const Login = () => {
     const navigate = useNavigate();
@@ -21,10 +23,15 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const { error, setError, admin, setAdmin, loginAdmin, logout } = useProfile();
+    const [avatarUrl, setAvatarUrl] = useState('');
 
     useEffect(() => {
         logout();
     }, []);
+
+    useEffect(() => {
+        if (admin.avatar) setAvatarUrl(`${IMAGE_URL}${admin.avatar}`);
+    }, [admin.avatar]);
 
     const handleNextStep = async () => {
         const res = await loginAdminFirstStep(username);
@@ -78,7 +85,7 @@ const Login = () => {
                         </div>
                         <div className={cx('second-step')}>
                             <div className={cx('info')}>
-                                <img src={admin.avatar ? admin.avatar : images.avatar} alt="avatar" />
+                                <Image className={cx('info-img')} src={avatarUrl} alt="avatar" />
                                 <div className={cx('full-name')}>
                                     {admin.first_name} {admin.last_name}
                                 </div>

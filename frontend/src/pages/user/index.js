@@ -6,6 +6,7 @@ import Hotel from './Hotel';
 import Booking from './Booking';
 import BookingList from './BookingList';
 import BookingDetail from './BookingDetail';
+import Profile from './Profile';
 
 const user = {
     home: Home,
@@ -16,6 +17,7 @@ const user = {
     booking: Booking,
     bookingList: BookingList,
     bookingDetail: BookingDetail,
+    profile: Profile,
 };
 
 export default user;

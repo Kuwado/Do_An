@@ -8,7 +8,17 @@ const cx = classNames.bind(styles);
 
 const Image = forwardRef(
     (
-        { src, alt, width = '100%', height = ' 100%', circle = false, className, fallback = images.noImage, ...props },
+        {
+            src,
+            alt,
+            width = '100%',
+            height = ' 100%',
+            id = '',
+            circle = false,
+            className,
+            fallback = images.noImage,
+            ...props
+        },
         ref,
     ) => {
         const [currentFallback, setCurrentFallback] = useState('');
@@ -20,6 +30,7 @@ const Image = forwardRef(
         return (
             <img
                 className={cx('image', { circle }, { [className]: className })}
+                id={id}
                 ref={ref}
                 src={currentFallback || src || fallback}
                 alt={alt}
