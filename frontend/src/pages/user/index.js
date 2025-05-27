@@ -1,6 +1,7 @@
 import About from './About';
 import Home from './Home';
 import Login from './Login';
+import Register from './Register';
 import Search from './Search';
 import Hotel from './Hotel';
 import Booking from './Booking';
@@ -12,6 +13,7 @@ const user = {
     home: Home,
     about: About,
     login: Login,
+    register: Register,
     hotels: Search,
     hotel: Hotel,
     booking: Booking,
