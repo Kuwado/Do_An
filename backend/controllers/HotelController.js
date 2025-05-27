@@ -1,7 +1,9 @@
+import models from '../models/index.js';
 import { getCitiesService } from '../services/city/getCitiesService.js';
 import { getHotelService } from '../services/hotel/getHotelService.js';
 import { getHotelsService } from '../services/hotel/getHotelsService.js';
 import { searchHotelsService } from '../services/hotel/searchHotelsService.js';
+import { updateHotelService } from '../services/hotel/updateHotelService.js';
 
 export const getHotelById = async (req, res) => {
     const id = req.params.id;
@@ -85,5 +87,42 @@ export const getCities = async (req, res) => {
         res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+export const updateHotel = async (req, res) => {
+    try {
+        const hotelId = req.params.id;
+        const updateData = req.body;
+
+        if (req.files?.images) {
+            updateData.images = req.files.images;
+        }
+
+        if (req.files?.avatar && req.files.avatar.length > 0) {
+            updateData.avatar = req.files.avatar[0];
+        }
+
+        const hotel = await models.Hotel.findByPk(hotelId);
+        if (!hotel) {
+            return res.status(404).json({
+                success: false,
+                message: 'Không tìm thấy khách sạn này',
+            });
+        }
+
+        const result = await updateHotelService(hotel, updateData);
+
+        res.status(200).json({
+            success: true,
+            message: 'Cập nhật khách sạn thành công',
+            room_type: result,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: 'Cập nhật khách sạn thất bại',
+            error: error.message,
+        });
     }
 };

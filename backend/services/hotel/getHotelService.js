@@ -121,6 +121,7 @@ export const getHotelService = async ({ id, checkIn, checkOut }) => {
     hotel.available_rooms = available;
 
     hotel.total_reviews = hotel.reviews.length;
+    hotel.images = JSON.parse(hotel.images);
 
     delete hotel.reviews;
     delete hotel.room_types;

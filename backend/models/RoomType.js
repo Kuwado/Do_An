@@ -102,4 +102,26 @@ RoomType.init(
     },
 );
 
+const updateHotelMinPrice = async (roomType, options) => {
+    const { hotel_id } = roomType;
+
+    const min = await RoomType.min('price', {
+        where: { hotel_id },
+    });
+
+    await sequelize.models.Hotel.update(
+        { min_price: min },
+        { where: { id: hotel_id } },
+    );
+};
+
+// Hook sau khi tạo mới RoomType
+RoomType.afterCreate(updateHotelMinPrice);
+
+// Hook sau khi cập nhật RoomType
+RoomType.afterUpdate(updateHotelMinPrice);
+
+// Hook sau khi xoá RoomType (tuỳ chọn)
+RoomType.afterDestroy(updateHotelMinPrice);
+
 export default RoomType;

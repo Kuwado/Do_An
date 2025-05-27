@@ -107,3 +107,41 @@ export const getCities = async () => {
         return { success: false, message: errorMessage };
     }
 };
+
+export const updateHotel = async (id, updateData) => {
+    const token = localStorage.getItem('admin_token');
+
+    const formData = new FormData();
+
+    for (const key in updateData) {
+        if (key === 'images' && updateData.images?.length > 0) {
+            updateData.images.forEach((img) => {
+                if (img instanceof File) {
+                    formData.append('images', img);
+                }
+            });
+        } else if (key === 'avatar' && updateData.avatar instanceof File) {
+            formData.append(avatar, updateData.avatar);
+        } else {
+            formData.append(key, updateData[key]);
+        }
+    }
+
+    try {
+        const res = await axios.post(`${API_URL}/hotels/update/${id}`, formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.error
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
