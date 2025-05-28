@@ -58,6 +58,13 @@ export const getHotelService = async ({ id, checkIn, checkOut }) => {
 
     hotel.amenities = groupedAmenities;
 
+    // const bathroomIds = hotel.amenities.bathroom.map((a) => a.id);
+    // const viewIds = hotel.amenities.view.map((a) => a.id);
+    // const generalIds = hotel.amenities.general.map((a) => a.id);
+    // hotel.bathroom_ids = bathroomIds;
+    // hotel.view_ids = viewIds;
+    // hotel.general_ids = generalIds;
+
     const groupedServices = {
         dining: [],
         entertainment: [],

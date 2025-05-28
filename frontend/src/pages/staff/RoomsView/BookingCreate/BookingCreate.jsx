@@ -26,8 +26,6 @@ const BookingCreate = ({ room, roomType, fetchRooms, checkIn, checkOut }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    console.log(room);
-
     const handleSearchUser = async () => {
         setLoading(true);
         const res = await getUserByPhone(phone);

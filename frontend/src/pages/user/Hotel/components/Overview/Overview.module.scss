@@ -111,9 +111,10 @@
     bottom: 10%;
     transform: translate(50%, 50%);
 }
-
-img {
-    object-fit: fill !important;
+.gallery-right {
+    img {
+        object-fit: cover;
+    }
 }
 
 .information {

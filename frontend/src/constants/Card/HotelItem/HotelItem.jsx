@@ -14,14 +14,16 @@ const cx = classNames.bind(styles);
 const IMAGES = [images.hotel, images.hotel, images.hotel, images.hotel];
 
 const HotelItem = ({ hotel, className }) => {
+    console.log(hotel.images);
     return (
         <div className={cx('hotel-item-card', { [className]: className })}>
             <div className={cx('left')}>
                 <FullScreenSlider
                     className="hover card"
-                    images={hotel.images || IMAGES}
+                    images={hotel.images || []}
                     height="100%"
                     autoPlay={false}
+                    link={true}
                 />
             </div>
             <div className={cx('center')}>

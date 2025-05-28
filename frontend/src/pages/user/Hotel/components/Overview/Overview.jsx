@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './Overview.module.scss';
@@ -8,18 +9,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDoorOpen, faEnvelope, faImages, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 import Rating from '@/constants/Rating';
 import background from '@/assets/background';
-import { useEffect, useRef, useState } from 'react';
 
 const cx = classNames.bind(styles);
+const IMAGE_URL = import.meta.env.VITE_BACKEND_URL;
 
 const Overview = ({ hotel = {}, forwardedRef }) => {
     const [showReadMore, setShowReadMore] = useState(false);
     const descriptionRef = useRef(null);
-    const galleryImages = hotel.images?.length > 0 ? hotel.images.slice(1, 5) : [];
+    const [galleryImages, setGalleryImages] = useState([]);
+    const [avatar, setAvatar] = useState('');
 
-    while (galleryImages.length < 4) {
-        galleryImages.push(images.hotel);
-    }
+    useEffect(() => {
+        if (hotel.images) {
+            setGalleryImages(hotel.images.length > 4 ? hotel.images.slice(0, 4) : hotel.images);
+        }
+    }, [hotel.images]);
+
+    useEffect(() => {
+        if (hotel.avatar) setAvatar(hotel.avatar);
+    }, [hotel.avatar]);
 
     useEffect(() => {
         const desc = descriptionRef.current;
@@ -58,11 +66,11 @@ const Overview = ({ hotel = {}, forwardedRef }) => {
 
             <div className={cx('gallery')}>
                 <div className={cx('gallery-left')}>
-                    <Image src={galleryImages[0]} />
+                    {avatar && <Image src={`${IMAGE_URL}${avatar}`} alt="avatar" />}
                 </div>
                 <div className={cx('gallery-right')}>
                     {galleryImages.map((img, index) => (
-                        <Image key={`gallert-image-${index}`} src={img} alt={`Small ${index}`} />
+                        <Image key={`gallert-image-${index}`} src={`${IMAGE_URL}${img}`} alt={`Small ${index}`} />
                     ))}
                     {hotel.images && hotel.images.length > 5 && (
                         <Button
