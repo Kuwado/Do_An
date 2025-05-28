@@ -76,11 +76,17 @@ export const searchHotels = async ({
 };
 
 export const getHotel = async ({ id, checkIn, checkOut }) => {
-    const query = new URLSearchParams({
-        checkIn,
-        checkOut,
-    });
+    const params = {};
 
+    if (checkIn) {
+        params.checkIn = checkIn;
+    }
+
+    if (checkOut) {
+        params.checkOut = checkOut;
+    }
+
+    const query = new URLSearchParams(params);
     try {
         const res = await axios.get(`${API_URL}/hotels/${id}?${query.toString()}`);
         return res.data;
@@ -121,8 +127,8 @@ export const updateHotel = async (id, updateData) => {
                 }
             });
         } else if (key === 'avatar' && updateData.avatar instanceof File) {
-            formData.append(avatar, updateData.avatar);
-        } else {
+            formData.append('avatar', updateData.avatar);
+        } else if (key !== 'avatar') {
             formData.append(key, updateData[key]);
         }
     }

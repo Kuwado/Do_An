@@ -93,6 +93,7 @@ export const searchHotelsService = async ({
         }
 
         hotel.amenities = groupedAmenities;
+        hotel.images = JSON.parse(hotel.images);
     }
 
     return {

@@ -35,12 +35,20 @@ const Profile = () => {
     }, [avatar]);
 
     const handleUpdateUser = async () => {
-        const res = await updateUser(user.id, currentUser);
-        console.log(res);
-        alert(res.message);
-        if (res.success) {
-            setAvatar(null);
-            fetchUser();
+        if (!currentUser.firstName) {
+            alert('Vui lòng nhập họ');
+        } else if (!currentUser.lastName) {
+            alert('Vui lòng nhập tên');
+        } else if (!currentUser.phone) {
+            alert('Vui lòng nhập số điện thoại');
+        } else {
+            const res = await updateUser(user.id, currentUser);
+            console.log(res);
+            alert(res.message);
+            if (res.success) {
+                setAvatar(null);
+                fetchUser();
+            }
         }
     };
 

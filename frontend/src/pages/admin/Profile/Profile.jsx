@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './Profile.module.scss';
-import useProfile from '../../../hooks/profile/useProfile';
+import useProfile from '@/hooks/profile/useProfile';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Image from '@/components/Image';
@@ -11,8 +11,8 @@ import { Input } from '@/components/Input';
 import images from '@/assets/images';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import TextArea from '@/components/TextArea';
-import Starfall from '../../../constants/Animations/Starfall/Starfall';
-import { updateStaff } from '../../../services/StaffService';
+import Starfall from '@/constants/Animations/Starfall/Starfall';
+import { updateStaff } from '@/services/StaffService';
 
 const cx = classNames.bind(styles);
 const IMAGE_URL = import.meta.env.VITE_BACKEND_URL;
@@ -26,8 +26,6 @@ const Profile = () => {
         setCurrentAdmin((prev) => ({ ...prev, [field]: value }));
     };
 
-    console.log(avatar ? URL.createObjectURL(avatar) : `${IMAGE_URL}${admin.avatar}`);
-
     useEffect(() => {
         setCurrentAdmin(admin);
     }, [admin]);
@@ -37,12 +35,20 @@ const Profile = () => {
     }, [avatar]);
 
     const handleUpdateUser = async () => {
-        const res = await updateStaff(admin.id, currentAdmin);
-        console.log(res);
-        alert(res.message);
-        if (res.success) {
-            setAvatar(null);
-            fetchAdmin();
+        if (!currentUser.firstName) {
+            alert('Vui lòng nhập họ');
+        } else if (!currentUser.lastName) {
+            alert('Vui lòng nhập tên');
+        } else if (!currentUser.phone) {
+            alert('Vui lòng nhập số điện thoại');
+        } else {
+            const res = await updateStaff(admin.id, currentAdmin);
+            console.log(res);
+            alert(res.message);
+            if (res.success) {
+                setAvatar(null);
+                fetchAdmin();
+            }
         }
     };
 
