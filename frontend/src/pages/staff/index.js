@@ -4,6 +4,8 @@ import BookingDetail from './BookingDetail';
 import ServiceBookingsManagement from './ServiceBookingsManagement';
 import RoomTypesView from './RoomTypesView';
 import RoomsView from './RoomsView';
+import ServicesManagement from './ServicesManagement';
+import VouchersManagement from './VouchersManagement';
 
 const staff = {
     dashboard: Dashboard,
@@ -12,6 +14,8 @@ const staff = {
     serviceBookings: ServiceBookingsManagement,
     rooms: RoomTypesView,
     roomList: RoomsView,
+    services: ServicesManagement,
+    vouchers: VouchersManagement,
 };
 
 export default staff;

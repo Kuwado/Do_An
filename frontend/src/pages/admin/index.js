@@ -8,17 +8,21 @@ import ServicesManagement from './ServicesManagement';
 import VouchersManagement from './VouchersManagement';
 import Profile from './Profile';
 import Revenue from './Revenue';
+import BookingsManagement from './BookingsManegement';
+import BookingDetail from './BookingDetail';
 
 const admin = {
-    dashboard: Dashboard,
     login: Login,
+    profile: Profile,
+    dashboard: Dashboard,
     hotel: Hotel,
     staffs: StaffsManagement,
     rooms: RoomsManagement,
     room: Room,
     services: ServicesManagement,
     vouchers: VouchersManagement,
-    profile: Profile,
+    bookings: BookingsManagement,
+    booking: BookingDetail,
     revenue: Revenue,
 };
 
