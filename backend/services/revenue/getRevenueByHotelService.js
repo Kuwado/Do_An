@@ -20,7 +20,7 @@ export async function getRevenueByHotelService({ hotelId, start, end }) {
 
     const revenues = await models.Revenue.findAll({
         where,
-        order: [['report_date', 'DESC']],
+        order: [['report_date', 'ASC']],
     });
 
     // Tách revenues theo từng type
