@@ -54,11 +54,7 @@ const RoomTypeView = ({ roomType = {} }) => {
 
                     <div className={cx('item', 'des')}>
                         <div className={cx('item-title')}>Mô tả về phòng:</div>
-                        <div className={cx('item-content')}>
-                            {roomType.description} {roomType.description} {roomType.description} {roomType.description}{' '}
-                            {roomType.description} {roomType.description} {roomType.description} {roomType.description}{' '}
-                            {roomType.description}
-                        </div>
+                        <div className={cx('item-content')}>{roomType.description}</div>
                     </div>
                 </div>
             </Popup>
