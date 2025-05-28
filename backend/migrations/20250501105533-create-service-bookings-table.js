@@ -32,7 +32,7 @@ export async function up(queryInterface, Sequelize) {
             defaultValue: 1,
         },
         price: {
-            type: Sequelize.DECIMAL(10, 2),
+            type: Sequelize.DECIMAL(10, 0),
             allowNull: true,
         },
         voucher_id: {
@@ -45,11 +45,11 @@ export async function up(queryInterface, Sequelize) {
             onDelete: 'SET NULL',
         },
         total_amount: {
-            type: Sequelize.DECIMAL(10, 2),
+            type: Sequelize.DECIMAL(10, 0),
             allowNull: true,
         },
         final_amount: {
-            type: Sequelize.DECIMAL(10, 2),
+            type: Sequelize.DECIMAL(10, 0),
             allowNull: true,
         },
         status: {

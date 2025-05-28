@@ -62,6 +62,12 @@ const Hotel = () => {
         if (images) setHotelValue('images', images);
     }, [images]);
 
+    const handleReset = () => {
+        setAvatar(null);
+        setImages([]);
+        fetchHotel();
+    };
+
     const handleUpdateHotel = async () => {
         if (!hotel.name) {
             alert('Vui lòng nhập tên khách sạn');
@@ -205,8 +211,11 @@ const Hotel = () => {
                     </div>
                 </div>
 
-                <div className={cx('hotel-container')}>
-                    <Button secondary onClick={handleUpdateHotel}>
+                <div className={cx('hotel-container', 'action-btns')}>
+                    <Button primaryBorder onClick={handleReset} width="120px">
+                        Cài lại
+                    </Button>
+                    <Button secondary onClick={handleUpdateHotel} width="120px">
                         Cập nhật
                     </Button>
                 </div>

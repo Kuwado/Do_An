@@ -25,7 +25,7 @@ export async function up(queryInterface, Sequelize) {
             allowNull: false,
         },
         price: {
-            type: Sequelize.DECIMAL(10, 2),
+            type: Sequelize.DECIMAL(10, 0),
             allowNull: false,
         },
         hotel_id: {

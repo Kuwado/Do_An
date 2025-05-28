@@ -67,11 +67,11 @@ Booking.init(
             allowNull: false,
         },
         room_price: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.DECIMAL(10, 0),
             allowNull: true,
         },
         total_room_price: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.DECIMAL(10, 0),
             allowNull: true,
         },
         voucher_id: {
@@ -79,20 +79,20 @@ Booking.init(
             allowNull: true,
         },
         room_amount: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.DECIMAL(10, 0),
             allowNull: true,
         },
         service_amount: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.DECIMAL(10, 0),
             allowNull: true,
             defaultValue: 0,
         },
         total_amount: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.DECIMAL(10, 0),
             allowNull: true,
         },
         paid_amount: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.DECIMAL(10, 0),
             allowNull: true,
             defaultValue: 0,
         },

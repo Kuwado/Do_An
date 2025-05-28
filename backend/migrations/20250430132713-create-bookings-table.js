@@ -44,11 +44,11 @@ export async function up(queryInterface, Sequelize) {
             allowNull: false,
         },
         room_price: {
-            type: Sequelize.DECIMAL(10, 2),
+            type: Sequelize.DECIMAL(10, 0),
             allowNull: true,
         },
         total_room_price: {
-            type: Sequelize.DECIMAL(10, 2),
+            type: Sequelize.DECIMAL(10, 0),
             allowNull: true,
         },
         voucher_id: {
@@ -61,20 +61,20 @@ export async function up(queryInterface, Sequelize) {
             onDelete: 'SET NULL',
         },
         room_amount: {
-            type: Sequelize.DECIMAL(10, 2),
+            type: Sequelize.DECIMAL(10, 0),
             allowNull: true,
         },
         service_amount: {
-            type: Sequelize.DECIMAL(10, 2),
+            type: Sequelize.DECIMAL(10, 0),
             allowNull: true,
             defaultValue: 0,
         },
         total_amount: {
-            type: Sequelize.DECIMAL(10, 2),
+            type: Sequelize.DECIMAL(10, 0),
             allowNull: true,
         },
         paid_amount: {
-            type: Sequelize.DECIMAL(10, 2),
+            type: Sequelize.DECIMAL(10, 0),
             allowNull: true,
             defaultValue: 0,
         },

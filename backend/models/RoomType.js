@@ -47,7 +47,7 @@ RoomType.init(
             allowNull: true,
         },
         price: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.DECIMAL(10, 0),
             allowNull: false,
         },
         capacity: {
