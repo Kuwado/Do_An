@@ -46,7 +46,7 @@ export async function up(queryInterface, Sequelize) {
             },
         },
         min_price: {
-            type: Sequelize.DECIMAL(10, 2),
+            type: Sequelize.DECIMAL(10, 0),
             allowNull: false,
         },
         rating: {

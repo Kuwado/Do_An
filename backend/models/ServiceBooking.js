@@ -42,7 +42,7 @@ ServiceBooking.init(
             defaultValue: 1,
         },
         price: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.DECIMAL(10, 0),
             allowNull: true,
         },
         voucher_id: {
@@ -50,11 +50,11 @@ ServiceBooking.init(
             allowNull: true,
         },
         total_amount: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.DECIMAL(10, 0),
             allowNull: true,
         },
         final_amount: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.DECIMAL(10, 0),
             allowNull: true,
         },
         status: {

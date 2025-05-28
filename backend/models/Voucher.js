@@ -35,7 +35,7 @@ Voucher.init(
             allowNull: true,
         },
         discount: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.DECIMAL(10, 0),
             allowNull: false,
         },
         discount_type: {

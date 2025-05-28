@@ -12,6 +12,7 @@ import Review from './Review.js';
 import Booking from './Booking.js';
 import UserVoucher from './UserVoucher.js';
 import ServiceBooking from './ServiceBooking.js';
+import Revenue from './Revenue.js';
 
 const models = {
     Hotel,
@@ -28,6 +29,7 @@ const models = {
     Booking,
     ServiceBooking,
     UserVoucher,
+    Revenue,
 };
 
 // Gọi associate sau khi các model đã có mặt

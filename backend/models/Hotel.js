@@ -103,7 +103,7 @@ Hotel.init(
             },
         },
         min_price: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.DECIMAL(10, 0),
             allowNull: false,
         },
         rating: {

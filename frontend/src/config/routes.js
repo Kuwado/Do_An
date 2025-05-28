@@ -41,6 +41,7 @@ const routes = {
         roomList: '/admin/rooms-management/:id/list',
         services: '/admin/services',
         vouchers: '/admin/vouchers',
+        revenue: '/admin/revenue',
     },
 
     other: {

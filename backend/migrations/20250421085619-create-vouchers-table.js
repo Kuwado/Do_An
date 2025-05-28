@@ -25,7 +25,7 @@ export async function up(queryInterface, Sequelize) {
             allowNull: true,
         },
         discount: {
-            type: Sequelize.DECIMAL(10, 2),
+            type: Sequelize.DECIMAL(10, 0),
             allowNull: false,
         },
         discount_type: {
