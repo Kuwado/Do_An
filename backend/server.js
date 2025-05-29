@@ -19,6 +19,7 @@ import serviceRoute from './routes/ServiceRoute.js';
 import staffRoute from './routes/StaffRoute.js';
 import uploadRoute from './routes/UploadRoute.js';
 import revenueRoute from './routes/RevenueRoute.js';
+import paymentRoute from './routes/PaymentRoute.js';
 import { startCronJobs } from './cronJobs/index.js';
 
 dotenv.config();
@@ -57,6 +58,7 @@ app.use('/api/bookings', bookingRoute);
 app.use('/api/services', serviceRoute);
 app.use('/api/uploads', uploadRoute);
 app.use('/api/revenues', revenueRoute);
+app.use('/api/vnpay', paymentRoute);
 
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại http://localhost:${PORT}`);

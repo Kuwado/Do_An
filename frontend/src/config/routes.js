@@ -48,6 +48,7 @@ const routes = {
 
     other: {
         test: '/test',
+        paymentSuccess: '/payment-success',
     },
 };
 

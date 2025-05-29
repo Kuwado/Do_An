@@ -13,7 +13,7 @@ import { Button } from '@/components/Button';
 
 const cx = classNames.bind(styles);
 
-const BookingOrder = ({ countDownTime }) => {
+const BookingOrder = ({ countDownTime, setTotal }) => {
     const navigate = useNavigate();
     const params = new URLSearchParams(location.search);
     const { hotelId, roomTypeId } = useParams();
@@ -52,12 +52,14 @@ const BookingOrder = ({ countDownTime }) => {
         setLoading(true);
         try {
             const res = await createBooking({ roomTypeId, checkIn, checkOut, voucherId: voucher.id });
+            console.log(res);
             if (!res.success) {
                 setError(res.message);
             } else {
                 setError(null);
                 localStorage.setItem('pending_booking_id', res.booking.id);
                 localStorage.setItem('booking_created_at', res.booking.created_at);
+                setTotal(res.booking.total_amount);
             }
         } catch (err) {
             setError(err);

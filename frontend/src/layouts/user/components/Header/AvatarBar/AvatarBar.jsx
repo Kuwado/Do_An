@@ -65,7 +65,7 @@ const AvatarBar = () => {
             </div>
             <div className={cx('body')}>
                 <div className={cx('body-header')}>
-                    <Image className={cx('avatar')} src={avatarUrl} alt="avatar" curved />
+                    <Image className={cx('avatar')} src={avatarUrl} alt="avatar" circle />
                     <span className={cx('user-name')}>
                         {user.first_name} {user.last_name}
                     </span>
