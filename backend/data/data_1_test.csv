@@ -1,4 +1,4 @@
-Date,Lunar_date,Day_of_week,Month,Is_holiday,Weather_condition,Temperature,Voucher_active,Number_of_guests
+date,lunar_date,day_of_week,month,is_holiday,weather_condition,temperature,voucher_active,number_of_guests
 2024-02-02,1/1,Friday,2,0,Clouds,36.6,0,26
 2024-02-03,2/1,Saturday,2,0,Clouds,33.5,1,41
 2024-02-04,3/1,Sunday,2,0,Rain,28.0,0,16

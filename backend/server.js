@@ -20,6 +20,7 @@ import staffRoute from './routes/StaffRoute.js';
 import uploadRoute from './routes/UploadRoute.js';
 import revenueRoute from './routes/RevenueRoute.js';
 import paymentRoute from './routes/PaymentRoute.js';
+import predictRoute from './routes/PredictRoute.js';
 import { startCronJobs } from './cronJobs/index.js';
 import { collectData } from './cronJobs/collectData.js';
 
@@ -60,6 +61,7 @@ app.use('/api/services', serviceRoute);
 app.use('/api/uploads', uploadRoute);
 app.use('/api/revenues', revenueRoute);
 app.use('/api/vnpay', paymentRoute);
+app.use('/api/predicts', predictRoute);
 
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại http://localhost:${PORT}`);

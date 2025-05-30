@@ -7,6 +7,8 @@ import asyncio
 from gtts import gTTS
 import os
 
+from api.train_api import train_bp
+
 
 # Tạo ứng dụng Flask
 app = Flask(__name__)
@@ -14,14 +16,13 @@ CORS(app)
 
 
 # Endpoint API
-# @app.route("/chatbot", methods=["POST"])
-# def chat():
-#     return chatbot()
+app.register_blueprint(train_bp)
 
 
-# @app.route("/text-to-speech", methods=["POST"])
-# def speech():
-#     return generate_audio()
+# @app.route("/train", methods=["POST"])
+# def train_model():
+#     print("helo")
+#     return jsonify({"message": "Training started"})
 
 
 # @app.route("/text-to-image", methods=["POST"])
@@ -31,4 +32,4 @@ CORS(app)
 
 # Chạy ứng dụng Flask
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(port=5000, debug=True)
