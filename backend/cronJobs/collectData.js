@@ -14,23 +14,24 @@ import fs from 'fs/promises';
 import path from 'path';
 import csv from 'csv-parser';
 import { createObjectCsvWriter } from 'csv-writer';
+import { trainModelService } from '../services/predict/trainModelService.js';
 
 dotenv.config();
 
 export const collectData = async () => {
-    // cron.schedule('*/5 * * * *', async () => {
+    // cron.schedule(
+    //     '0 23 * * *',
+    //     async () => {
     console.log('--------------------------------------------------');
-    console.log(
-        '[CRON] Bắt đầu thu thập dữ liệu lượng khách trong ngày vừa qua',
-    );
+    console.log('[CRON] Bắt đầu thu thập dữ liệu lượng khách trong ngày');
 
-    const hotels = await models.Hotel.findAll({ where: { predict: true } });
+    const hotels = await models.Hotel.findAll({
+        where: { predict: true },
+    });
     if (hotels.length > 0) {
-        // Lấy ngày hôm qua
+        // Lấy ngày hôm nay
         const today = new Date();
-        const prevDay = new Date(today);
-        prevDay.setDate(today.getDate() - 1);
-        const yesterday = prevDay.toISOString().slice(0, 10);
+        const currentDay = today.toISOString().slice(0, 10);
         const daysOfWeek = [
             'Sunday',
             'Monday',
@@ -41,15 +42,15 @@ export const collectData = async () => {
             'Saturday',
         ];
         // Lấy ngày trong tuần
-        const dayOfWeek = daysOfWeek[prevDay.getDay()];
-        console.log(yesterday);
+        const dayOfWeek = daysOfWeek[today.getDay()];
+        console.log(currentDay);
         console.log(dayOfWeek);
 
         // Lấy lịch âm
-        const year = prevDay.getFullYear();
+        const year = today.getFullYear();
         // Lấy tháng
-        const month = prevDay.getMonth() + 1;
-        const day = prevDay.getDate();
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
         const solar = Solar.fromYmd(year, month, day);
         const lunar = solar.getLunar();
         console.log(
@@ -75,8 +76,6 @@ export const collectData = async () => {
         const solarJsonString = await readFile(solarFilePath, 'utf8');
         const lunarHolidays = JSON.parse(lunarJsonString);
         const solarHolidays = JSON.parse(solarJsonString);
-        console.log(lunarHolidays);
-        console.log(solarHolidays);
 
         // Kiểm tra ngày lễ
         const lunarDay = lunar.getDay();
@@ -110,8 +109,8 @@ export const collectData = async () => {
                 where: {
                     hotel_id: hotel.id,
                     status: 'confirmed',
-                    check_in: { [Op.lte]: prevDay },
-                    check_out: { [Op.gte]: prevDay },
+                    check_in: { [Op.lte]: today },
+                    check_out: { [Op.gte]: today },
                 },
             });
 
@@ -122,7 +121,10 @@ export const collectData = async () => {
             }
 
             // Lấy thông tin thời tiết và nhiệt độ
-            const res = await getWeather({ lat: hotel.lat, lon: hotel.lon });
+            const res = await getWeather({
+                lat: hotel.lat,
+                lon: hotel.lon,
+            });
             console.log(res);
             const weather = res.weather[0].main;
             const unRoundedtemp = res.main.temp - 273.15;
@@ -134,12 +136,10 @@ export const collectData = async () => {
             const voucher = await models.Voucher.findOne({
                 where: {
                     hotel_id: hotel.id,
-                    start_date: { [Op.lte]: prevDay },
-                    end_date: { [Op.gte]: prevDay },
+                    start_date: { [Op.lte]: today },
+                    end_date: { [Op.gte]: today },
                 },
             });
-
-            console.log(voucher);
 
             const voucherActive = voucher ? '1' : '0';
 
@@ -162,8 +162,9 @@ export const collectData = async () => {
                 }
 
                 const header =
-                    'Date,Lunar_date,Day_of_week,Month,Is_holiday,Weather_condition,Temperature,Voucher_active,Number_of_guests\n';
-                const newRow = `${yesterday},${lunar.getDay()}/${lunar.getMonth()},${dayOfWeek},${month},${isHoliday},${weather},${temp},${voucherActive},${guest}\n`;
+                    'date,lunar_date,day_of_week,month,is_holiday,weather_condition,temperature,voucher_active,number_of_guests\n';
+                const newRow = `${currentDay},${lunarDate},${dayOfWeek},${month},${isHoliday},${weather},${temp},${voucherActive},${guest}\n`;
+                console.log(newRow);
 
                 try {
                     // Kiểm tra file có tồn tại không
@@ -191,7 +192,16 @@ export const collectData = async () => {
         }
     }
 
-    // });
+    console.log('[CRON] Cập nhật dữ liệu lượng khách thành công');
+    console.log('--------------------------------------------------');
+
+    trainModelService({});
+
+    //     },
+    //     {
+    //         timezone: 'Asia/Ho_Chi_Minh',
+    //     },
+    // );
 };
 
 async function getWeather({ lat = 25.007858, lon = 65.845245 }) {
@@ -214,90 +224,3 @@ async function getWeather({ lat = 25.007858, lon = 65.845245 }) {
         console.error('Lỗi khi gọi API:', error);
     }
 }
-
-// export const updateData = async (
-//     inputPath = './data/data_1.csv',
-//     outputPath = './data/data_1_new.csv',
-// ) => {
-//     // Xác định đường dẫn tuyệt đối
-//     const __filename = fileURLToPath(import.meta.url);
-//     const __dirname = dirname(__filename);
-
-//     const lunarFilePath = join(
-//         __dirname,
-//         '../data/holidays/lunar_holidays.json',
-//     );
-//     const solarFilePath = join(
-//         __dirname,
-//         '../data/holidays/solar_holidays.json',
-//     );
-
-//     // Đọc và parse 2 file JSON ngày lễ
-//     const lunarJsonString = await readFile(lunarFilePath, 'utf8');
-//     const solarJsonString = await readFile(solarFilePath, 'utf8');
-//     const lunarHolidays = JSON.parse(lunarJsonString);
-//     const solarHolidays = JSON.parse(solarJsonString);
-
-//     const rows = [];
-
-//     // Đọc CSV
-//     await new Promise((resolve, reject) => {
-//         fs.createReadStream(inputPath)
-//             .pipe(csv())
-//             .on('data', (row) => {
-//                 const dateStr = row.Date;
-
-//                 if (
-//                     !dateStr ||
-//                     typeof dateStr !== 'string' ||
-//                     !dateStr.includes('-')
-//                 ) {
-//                     console.warn('⚠️ Dòng thiếu hoặc sai định dạng ngày:', row);
-//                     return;
-//                 }
-
-//                 const [year, month, day] = dateStr.split('-').map(Number);
-//                 const solar = Solar.fromYmd(year, month, day);
-//                 const lunar = solar.getLunar();
-//                 const lunarDay = lunar.getDay();
-//                 const lunarMonth = lunar.getMonth();
-//                 const lunarDate = `${lunarDay}/${lunarMonth}`;
-//                 row.Lunar_date = lunarDate;
-
-//                 // Kiểm tra ngày âm có trong danh sách lễ âm
-//                 const isLunarHoliday = lunarHolidays.some(
-//                     (h) => h.day === lunarDay && h.month === lunarMonth,
-//                 );
-
-//                 // Kiểm tra ngày dương có trong danh sách lễ dương
-//                 const isSolarHoliday = solarHolidays.some(
-//                     (h) => h.day === day && h.month === month,
-//                 );
-
-//                 row.Is_holiday = isLunarHoliday || isSolarHoliday ? '1' : '0';
-
-//                 rows.push(row);
-//             })
-//             .on('end', resolve)
-//             .on('error', reject);
-//     });
-
-//     if (rows.length === 0) {
-//         console.warn('❗ Không có dòng dữ liệu nào để ghi.');
-//         return;
-//     }
-
-//     // Ghi lại file CSV mới
-//     const headers = Object.keys(rows[0]).map((key) => ({
-//         id: key,
-//         title: key,
-//     }));
-
-//     const csvWriter = createObjectCsvWriter({
-//         path: outputPath,
-//         header: headers,
-//     });
-
-//     await csvWriter.writeRecords(rows);
-//     console.log('✅ Đã cập nhật file CSV:', outputPath);
-// };
