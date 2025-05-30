@@ -9,11 +9,14 @@ export async function up(queryInterface, Sequelize) {
             images: null,
             description: 'Khách sạn sang trọng gần bãi biển.',
             address: '123 Đường Biển, Quận 1',
-            city: 'Đà Nẵng',
+            city: 'Hà Nội',
             phone: '0123456789',
             email: 'sunhotel@example.com',
             min_price: 300000,
             rating: 4.5,
+            predict: true,
+            lat: 21.007858,
+            lon: 105.845245,
         },
         {
             name: 'Khách sạn Ánh Trăng',
@@ -26,6 +29,9 @@ export async function up(queryInterface, Sequelize) {
             email: 'moonhotel@example.com',
             min_price: 300000,
             rating: 4.2,
+            predict: false,
+            lat: 21.007858,
+            lon: 105.845245,
         },
         {
             name: 'Khách sạn Sông Xanh',
@@ -38,6 +44,9 @@ export async function up(queryInterface, Sequelize) {
             email: 'riverhotel@example.com',
             min_price: 300000,
             rating: 4.0,
+            predict: false,
+            lat: 21.007858,
+            lon: 105.845245,
         },
         {
             name: 'Khách sạn Núi Vàng',
@@ -50,6 +59,9 @@ export async function up(queryInterface, Sequelize) {
             email: 'goldenmountain@example.com',
             min_price: 300000,
             rating: 3.8,
+            predict: false,
+            lat: 21.007858,
+            lon: 105.845245,
         },
         {
             name: 'Khách sạn Hồ Gươm',
@@ -62,6 +74,9 @@ export async function up(queryInterface, Sequelize) {
             email: 'hoguomhotel@example.com',
             min_price: 300000,
             rating: 4.7,
+            predict: false,
+            lat: 21.007858,
+            lon: 105.845245,
         },
         {
             name: 'Khách sạn Biển Xanh',
@@ -74,6 +89,9 @@ export async function up(queryInterface, Sequelize) {
             email: 'bienxanh@example.com',
             min_price: 250000,
             rating: 4.5,
+            predict: false,
+            lat: 21.007858,
+            lon: 105.845245,
         },
         {
             name: 'Khách sạn Sông Hàn',
@@ -86,6 +104,9 @@ export async function up(queryInterface, Sequelize) {
             email: 'songhanhotel@example.com',
             min_price: 280000,
             rating: 4.6,
+            predict: false,
+            lat: 21.007858,
+            lon: 105.845245,
         },
         {
             name: 'Khách sạn Đồi Thông',
@@ -98,6 +119,9 @@ export async function up(queryInterface, Sequelize) {
             email: 'doithonghotel@example.com',
             min_price: 220000,
             rating: 4.4,
+            predict: false,
+            lat: 21.007858,
+            lon: 105.845245,
         },
         {
             name: 'Khách sạn Sài Gòn Center',
@@ -110,6 +134,9 @@ export async function up(queryInterface, Sequelize) {
             email: 'saigoncenter@example.com',
             min_price: 320000,
             rating: 4.8,
+            predict: false,
+            lat: 21.007858,
+            lon: 105.845245,
         },
         {
             name: 'Khách sạn Cần Thơ Riverside',
@@ -122,6 +149,9 @@ export async function up(queryInterface, Sequelize) {
             email: 'canthoriverside@example.com',
             min_price: 210000,
             rating: 4.3,
+            predict: false,
+            lat: 21.007858,
+            lon: 105.845245,
         },
         {
             name: 'Khách sạn Huế Imperial',
@@ -134,6 +164,9 @@ export async function up(queryInterface, Sequelize) {
             email: 'hueimperial@example.com',
             min_price: 240000,
             rating: 4.5,
+            predict: false,
+            lat: 21.007858,
+            lon: 105.845245,
         },
     ]);
 }

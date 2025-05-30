@@ -21,6 +21,7 @@ import uploadRoute from './routes/UploadRoute.js';
 import revenueRoute from './routes/RevenueRoute.js';
 import paymentRoute from './routes/PaymentRoute.js';
 import { startCronJobs } from './cronJobs/index.js';
+import { collectData } from './cronJobs/collectData.js';
 
 dotenv.config();
 const app = express();
@@ -65,3 +66,4 @@ app.listen(PORT, () => {
 });
 
 // startCronJobs();
+collectData();

@@ -1,0 +1,14 @@
+[
+    { "day": 1, "month": 1, "name": "Tết Nguyên Đán" },
+    { "day": 15, "month": 1, "name": "Tết Nguyên Tiêu (Lễ Thượng Nguyên)" },
+    { "day": 3, "month": 3, "name": "Tết Hàn Thực" },
+    { "day": 10, "month": 3, "name": "Giỗ Tổ Hùng Vương" },
+    { "day": 15, "month": 4, "name": "Lễ Phật Đản" },
+    { "day": 5, "month": 5, "name": "Tết Đoan Ngọ" },
+    { "day": 15, "month": 7, "name": "Lễ Vu Lan" },
+    { "day": 15, "month": 8, "name": "Tết Trung Thu" },
+    { "day": 9, "month": 9, "name": "Tết Trùng Cửu" },
+    { "day": 10, "month": 10, "name": "Tết Thường Tân" },
+    { "day": 15, "month": 10, "name": "Tết Hạ Nguyên" },
+    { "day": 23, "month": 12, "name": "Tiễn Táo Quân về trời" }
+]
