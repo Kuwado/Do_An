@@ -114,6 +114,19 @@ Hotel.init(
                 max: 5,
             },
         },
+        predict: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
+        },
+        lat: {
+            type: DataTypes.DECIMAL(10, 7),
+            allowNull: true,
+        },
+        lon: {
+            type: DataTypes.DECIMAL(10, 7),
+            allowNull: true,
+        },
     },
     {
         sequelize,

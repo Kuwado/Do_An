@@ -1,0 +1,16 @@
+[
+    { "day": 1, "month": 1, "name": "Tết Dương lịch" },
+    { "day": 14, "month": 2, "name": "Lễ tình nhân (Valentine)" },
+    { "day": 8, "month": 3, "name": "Ngày Quốc tế Phụ nữ" },
+    { "day": 30, "month": 4, "name": "Ngày giải phóng miền Nam" },
+    { "day": 1, "month": 5, "name": "Ngày Quốc tế Lao động" },
+    { "day": 7, "month": 5, "name": "Ngày chiến thắng Điện Biên Phủ" },
+    { "day": 1, "month": 6, "name": "Ngày Quốc tế thiếu nhi" },
+    { "day": 28, "month": 6, "name": "Ngày gia đình Việt Nam" },
+    { "day": 2, "month": 9, "name": "Ngày Quốc Khánh" },
+    { "day": 1, "month": 10, "name": "Ngày quốc tế người cao tuổi" },
+    { "day": 10, "month": 10, "name": "Ngày giải phóng thủ đô" },
+    { "day": 20, "month": 10, "name": "Ngày Phụ nữ Việt Nam" },
+    { "day": 31, "month": 10, "name": "Ngày Halloween" },
+    { "day": 24, "month": 12, "name": "Ngày lễ Giáng sinh" }
+]
