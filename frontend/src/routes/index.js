@@ -16,7 +16,7 @@ const publicRoutes = [
     { path: config.routes.user.profile, element: pages.user.profile },
 
     { path: config.routes.user.about, element: pages.user.about },
-    { path: config.routes.other.test, element: pages.other.test },
+    { path: config.routes.other.paymentSuccess, element: pages.other.paymentSuccess },
 
     // Admin
     { path: config.routes.admin.login, element: pages.admin.login, layout: layouts.other.fullScreen },

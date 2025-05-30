@@ -8,7 +8,7 @@ import Payment from './Payment';
 
 const cx = classNames.bind(styles);
 
-const BookingPayment = ({ countDownTime, setBookingId }) => {
+const BookingPayment = ({ countDownTime, setBookingId, total }) => {
     const [booking, setBooking] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -37,7 +37,7 @@ const BookingPayment = ({ countDownTime, setBookingId }) => {
 
     return (
         <div className={cx('booking-payment')}>
-            <Payment countDownTime={countDownTime} setBookingId={setBookingId} />
+            <Payment countDownTime={countDownTime} setBookingId={setBookingId} total={total} />
 
             <div className={cx('booking-right')}>
                 {booking && (

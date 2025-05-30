@@ -6,17 +6,21 @@ import styles from './BookingPayment.module.scss';
 import Timer from '@/constants/Timer/Timer';
 import { Button } from '@/components/Button';
 import { updateBooking } from '@/services/BookingService';
+import { handlePayment } from '@/services/PaymentService';
 
 const cx = classNames.bind(styles);
 
-const Payment = ({ countDownTime, setBookingId }) => {
+const Payment = ({ countDownTime, setBookingId, total }) => {
     const navigate = useNavigate();
     const { hotelId } = useParams();
     const [createdAt, setCreatedAt] = useState(localStorage.getItem('booking_created_at') || '');
     const [method, setMethod] = useState('offline');
+    const [amount, setAmount] = useState(total || 0);
     const [canNext, setCanNext] = useState(false);
     const [showQR, setShowQR] = useState(false);
     const [expired, setExpired] = useState(false);
+
+    console.log(amount);
 
     useEffect(() => {
         const createdTime = localStorage.getItem('booking_created_at');
@@ -42,10 +46,18 @@ const Payment = ({ countDownTime, setBookingId }) => {
     };
 
     const handleCancel = async () => {
-        const bookingId = localStorage.getItem('pending_booking_id');
-        localStorage.removeItem('pending_booking_id');
-        localStorage.removeItem('booking_created_at');
-        navigate(-1);
+        const cf = confirm('Bạn có chắc muốn hủy đặt phòng không?');
+        if (cf) {
+            const bookingId = localStorage.getItem('pending_booking_id');
+            const res = await updateBooking(bookingId, { status: 'expired' });
+            if (!res.success) {
+                alert(res.message);
+            } else {
+                localStorage.removeItem('pending_booking_id');
+                localStorage.removeItem('booking_created_at');
+                navigate(-1);
+            }
+        }
     };
 
     const handleComplete = async () => {
@@ -62,9 +74,11 @@ const Payment = ({ countDownTime, setBookingId }) => {
 
     useEffect(() => {
         if (method === 'online-50') {
+            if (total) setAmount(total / 2);
             setCanNext(false);
             setShowQR(true);
         } else if (method === 'online-100') {
+            if (total) setAmount(total);
             setCanNext(false);
             setShowQR(true);
         } else if (method === 'offline') {
@@ -72,6 +86,10 @@ const Payment = ({ countDownTime, setBookingId }) => {
             setCanNext(true);
         }
     }, [method]);
+
+    useEffect(() => {
+        if (total) setAmount(method === 'online-50' ? total / 2 : total);
+    }, [total]);
 
     return (
         <>
@@ -127,9 +145,20 @@ const Payment = ({ countDownTime, setBookingId }) => {
                         <Button transparent primaryBorder width="150px" onClick={handleCancel}>
                             Hủy đặt
                         </Button>
-                        <Button secondary width="150px" noClick={!canNext} onClick={handleComplete}>
-                            Hoàn thành
-                        </Button>
+                        {method === 'offline' && (
+                            <Button secondary width="150px" noClick={!canNext} onClick={handleComplete}>
+                                Hoàn thành
+                            </Button>
+                        )}
+                        {(method === 'online-50' || method === 'online-100') && (
+                            <Button
+                                secondary
+                                width="150px"
+                                onClick={() => handlePayment({ amount, next: `/hotels/${hotelId}/booking-completed` })}
+                            >
+                                Thanh toán
+                            </Button>
+                        )}
                     </div>
                 </div>
             ) : (
