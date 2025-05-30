@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Cấu hình cache của Flask, pip, Jupyter, VSCode v.v.
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Dữ liệu huấn luyện, cache model
+*.h5
+*.hdf5
+*.ckpt
+*.joblib
+*.pkl
+*.sav
+*.pt
+*.pth
+
+# Thư mục cache (nếu có dùng joblib, scikit-learn...)
+cache/
+.cache/
+.joblib/
+
+# Thư mục dữ liệu đã xử lý (ví dụ của bạn)
+data/raw/
+data/processed/
+
+# Thư mục ảo hóa Python
+env/
+venv/
+.venv/
+
+# IDE/editor config
+.vscode/
+.idea/
+.DS_Store
+
+# Jupyter Notebook checkpoint
+.ipynb_checkpoints
