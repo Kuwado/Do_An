@@ -34,6 +34,7 @@ const publicRoutes = [
     { path: config.routes.admin.bookings, element: pages.admin.bookings, layout: layouts.admin.default },
     { path: config.routes.admin.booking, element: pages.admin.booking, layout: layouts.admin.default },
     { path: config.routes.admin.revenue, element: pages.admin.revenue, layout: layouts.admin.default },
+    { path: config.routes.admin.predict, element: pages.admin.predict, layout: layouts.admin.default },
 
     { path: config.routes.staff.dashboard, element: pages.staff.dashboard, layout: layouts.admin.default },
     { path: config.routes.staff.bookings, element: pages.staff.bookings, layout: layouts.admin.default },
