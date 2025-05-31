@@ -5,6 +5,7 @@ from src.preprocess import preprocess
 from src.train_random_forest import train_random_forest
 from src.train_xgboost import train_xgboost
 from src.train_sarima import train_sarima
+from src.predict import predict_guests
 import traceback
 
 
