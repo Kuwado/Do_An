@@ -8,6 +8,7 @@ from gtts import gTTS
 import os
 
 from api.train_api import train_bp
+from api.predict_api import predict_bp
 
 
 # Tạo ứng dụng Flask
@@ -17,17 +18,7 @@ CORS(app)
 
 # Endpoint API
 app.register_blueprint(train_bp)
-
-
-# @app.route("/train", methods=["POST"])
-# def train_model():
-#     print("helo")
-#     return jsonify({"message": "Training started"})
-
-
-# @app.route("/text-to-image", methods=["POST"])
-# def image():
-#     return generate_image()
+app.register_blueprint(predict_bp)
 
 
 # Chạy ứng dụng Flask

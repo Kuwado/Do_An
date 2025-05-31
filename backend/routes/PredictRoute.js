@@ -1,15 +1,9 @@
 import express from 'express';
 
-import {
-    createStaff,
-    deleteStaff,
-    getStaffById,
-    getStaffsByHotelId,
-    updateStaff,
-} from '../controllers/StaffController.js';
+import { predictGuests } from '../controllers/PredictController.js';
 
 const router = express.Router();
 
-router.get('/:hotelId', getStaffById);
+router.get('/:hotelId', predictGuests);
 
 export default router;
