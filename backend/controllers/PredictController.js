@@ -18,7 +18,7 @@ export const predictGuests = async (req, res) => {
             message: 'Lấy dự đoán thành công',
             weather: result.weather,
             temp: result.temp,
-            icon: result.icon,
+            city: result.city,
             predicts: result.predicts,
             predictedData,
         });

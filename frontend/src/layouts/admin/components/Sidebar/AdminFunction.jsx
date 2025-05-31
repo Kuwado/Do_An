@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
@@ -9,13 +10,30 @@ import RoomServiceIcon from '@mui/icons-material/RoomService';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import OnlinePredictionIcon from '@mui/icons-material/OnlinePrediction';
 
 import styles from './Sidebar.module.scss';
 import config from '@/config';
+import useProfile from '@/hooks/profile/useProfile';
+import { getHotel } from '@/services/HotelService';
 
 const cx = classNames.bind(styles);
 
 const AdminFunction = () => {
+    const { admin } = useProfile();
+    const [canPredict, setCanPredict] = useState(false);
+
+    useEffect(() => {
+        const fetchPredict = async () => {
+            const res = await getHotel({ id: admin.hotel_id });
+            if (res.success) {
+                setCanPredict(res.hotel.predict);
+            }
+        };
+
+        fetchPredict();
+    }, [admin]);
+
     return (
         <>
             <NavLink
@@ -97,6 +115,18 @@ const AdminFunction = () => {
                 </div>
                 <div className={cx('sidebar-title')}>Doanh thu</div>
             </NavLink>
+
+            {canPredict && (
+                <NavLink
+                    to={config.routes.admin.predict}
+                    className={({ isActive }) => cx('sidebar-item', { active: isActive })}
+                >
+                    <div className={cx('sidebar-icon')}>
+                        <OnlinePredictionIcon />
+                    </div>
+                    <div className={cx('sidebar-title')}>Dự đoán</div>
+                </NavLink>
+            )}
         </>
     );
 };

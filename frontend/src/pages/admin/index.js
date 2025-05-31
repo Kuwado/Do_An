@@ -10,6 +10,7 @@ import Profile from './Profile';
 import Revenue from './Revenue';
 import BookingsManagement from './BookingsManegement';
 import BookingDetail from './BookingDetail';
+import Predict from './Predict';
 
 const admin = {
     login: Login,
@@ -24,6 +25,7 @@ const admin = {
     bookings: BookingsManagement,
     booking: BookingDetail,
     revenue: Revenue,
+    predict: Predict,
 };
 
 export default admin;

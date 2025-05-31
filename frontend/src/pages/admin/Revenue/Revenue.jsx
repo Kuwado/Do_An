@@ -5,7 +5,7 @@ import moment from 'moment';
 import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import useProfile from '@/hooks/profile/useProfile';
 import { getRevenue } from '@/services/RevenueService';
-import { formatPrice } from '../../../utils/stringUtil';
+import { formatPrice } from '@/utils/stringUtil';
 
 const cx = classNames.bind(styles);
 

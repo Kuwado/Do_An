@@ -144,11 +144,17 @@ export const predictGuestsService = async ({ hotelId = 1 }) => {
             });
         }
 
+        const returnWeather = {
+            name: weather,
+            description: res.weather[0].description,
+            icon: res.weather[0].icon,
+        };
+
         return {
             predicts,
-            weather,
+            weather: returnWeather,
             temp,
-            icon: res.weather[0].icon,
+            city: hotel.city,
         };
     } catch (err) {
         return { success: false, error: err.message };

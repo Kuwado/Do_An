@@ -44,6 +44,7 @@ const routes = {
         bookings: '/admin/bookings',
         booking: '/admin/bookings/:id',
         revenue: '/admin/revenue',
+        predict: '/admin/predict',
     },
 
     other: {
