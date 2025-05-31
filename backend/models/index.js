@@ -13,6 +13,7 @@ import Booking from './Booking.js';
 import UserVoucher from './UserVoucher.js';
 import ServiceBooking from './ServiceBooking.js';
 import Revenue from './Revenue.js';
+import Predict from './Predict.js';
 
 const models = {
     Hotel,
@@ -30,6 +31,7 @@ const models = {
     ServiceBooking,
     UserVoucher,
     Revenue,
+    Predict,
 };
 
 // Gọi associate sau khi các model đã có mặt
