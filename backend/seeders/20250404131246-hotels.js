@@ -29,7 +29,7 @@ export async function up(queryInterface, Sequelize) {
             email: 'moonhotel@example.com',
             min_price: 300000,
             rating: 4.2,
-            predict: false,
+            predict: true,
             lat: 21.007858,
             lon: 105.845245,
         },

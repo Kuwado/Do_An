@@ -1,9 +1,10 @@
-# routes/csv_routes.py
 import os
 from flask import Blueprint, request, jsonify
 import pandas as pd
 from src.preprocess import preprocess
-from src.random_forest import train_random_forest
+from src.train_random_forest import train_random_forest
+from src.train_xgboost import train_xgboost
+from src.train_sarima import train_sarima
 import traceback
 
 
@@ -41,10 +42,18 @@ def train_model():
         print(f"File saved to {save_path}, rows: {num_rows}")
 
         preprocess(hotel_id, df)
-        train_random_forest(hotel_id)
+        rf_result = train_random_forest(hotel_id)
+        xgb_result = train_xgboost(hotel_id)
+        sarima_result = train_sarima(hotel_id)
 
         return jsonify(
-            {"success": True, "message": "File received and saved", "rows": num_rows}
+            {
+                "success": True,
+                "message": "Training thành công models",
+                "random_forest": rf_result,
+                "xgboost": xgb_result,
+                "sarima": sarima_result,
+            }
         )
 
     except Exception as e:
