@@ -50,8 +50,8 @@ export const getHotels = async (req, res) => {
 
 export const searchHotels = async (req, res) => {
     const city = req.query.city;
-    const check_in = req.query.check_in;
-    const check_out = req.query.check_out;
+    const checkIn = req.query.checkIn;
+    const checkOut = req.query.checkOut;
     const quantity = parseInt(req.query.quantity);
     const people = parseInt(req.query.people);
     const from = parseInt(req.query.from);
@@ -64,8 +64,8 @@ export const searchHotels = async (req, res) => {
     try {
         const result = await searchHotelsService({
             city,
-            check_in,
-            check_out,
+            checkIn,
+            checkOut,
             quantity,
             people,
             from,
@@ -75,9 +75,20 @@ export const searchHotels = async (req, res) => {
             page,
             limit,
         });
-        return res.status(200).json(result);
+        return res.status(200).json({
+            success: true,
+            message: 'Lấy thành công danh sách khách sạn',
+            hotels: result.hotels,
+            currentPage: result.currentPage,
+            totalPages: result.totalPages,
+            totalItems: result.totalItems,
+        });
     } catch (error) {
-        return res.status(400).json({ message: error.message });
+        console.error(error);
+        return res.status(500).json({
+            message: 'Tìm kiếm khách sạn thất bại',
+            error: error.message,
+        });
     }
 };
 

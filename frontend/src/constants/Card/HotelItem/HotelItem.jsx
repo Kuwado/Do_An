@@ -20,10 +20,10 @@ const HotelItem = ({ hotel, className }) => {
             <div className={cx('left')}>
                 <FullScreenSlider
                     className="hover card"
-                    images={hotel.images || []}
+                    images={hotel.images || IMAGES}
                     height="100%"
                     autoPlay={false}
-                    link={true}
+                    link={hotel.images ? true : false}
                 />
             </div>
             <div className={cx('center')}>

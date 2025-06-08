@@ -1,10 +1,12 @@
 import models from '../../models/index.js';
 import { Op } from 'sequelize';
+import { formatCheckIn, formatCheckOut } from '../../utils/formatDateTime.js';
+import { isRoomAvailable } from '../room/roomAvailable.js';
 
 export const searchHotelsService = async ({
     city,
-    check_in,
-    check_out,
+    checkIn,
+    checkOut,
     quantity,
     people,
     from,
@@ -26,29 +28,38 @@ export const searchHotelsService = async ({
     }
 
     const include = [
-        // Join đầu tiên để lọc khách sạn theo tiện nghi được chọn
-        ...(Array.isArray(amenities) && amenities.length > 0
-            ? [
-                  {
-                      model: models.Amenity,
-                      as: 'filterAmenities',
-                      attributes: [],
-                      through: { attributes: [] },
-                      where: {
-                          id: { [Op.in]: amenities },
-                      },
-                      required: true,
-                  },
-              ]
-            : []),
-
-        // Join thứ hai để trả về toàn bộ tiện nghi của khách sạn
         {
             model: models.Amenity,
             as: 'amenities',
             through: { attributes: [] },
         },
     ];
+
+    if (checkIn && checkOut) {
+        include.push({
+            model: models.RoomType,
+            as: 'room_types',
+        });
+    }
+
+    if (amenities) {
+        include.push(
+            ...(Array.isArray(amenities) && amenities.length > 0
+                ? [
+                      {
+                          model: models.Amenity,
+                          as: 'filterAmenities',
+                          attributes: [],
+                          through: { attributes: [] },
+                          where: {
+                              id: { [Op.in]: amenities },
+                          },
+                          required: true,
+                      },
+                  ]
+                : []),
+        );
+    }
 
     const offset = (page - 1) * limit;
 
@@ -75,8 +86,80 @@ export const searchHotelsService = async ({
         distinct: true,
     });
 
-    const hotels = rows.map((h) => h.toJSON());
+    let hotels = rows.map((h) => h.toJSON());
 
+    // Kiểm tra điều kiện search
+    if (checkIn && checkOut) {
+        const filteredHotels = [];
+        const formattedCheckIn = formatCheckIn(checkIn);
+        const formattedCheckOut = formatCheckOut(checkOut);
+
+        for (const hotel of hotels) {
+            const roomCandidates = [];
+
+            for (const rt of hotel.room_types) {
+                const activeRooms = await models.Room.findAll({
+                    where: { room_type_id: rt.id, status: 'active' },
+                });
+
+                const checkPromises = activeRooms.map(async (room) => {
+                    const available = await isRoomAvailable(
+                        room.id,
+                        formattedCheckIn,
+                        formattedCheckOut,
+                    );
+                    return available
+                        ? { roomId: room.id, capacity: rt.capacity }
+                        : null;
+                });
+
+                const availableRooms = (
+                    await Promise.all(checkPromises)
+                ).filter(Boolean);
+                roomCandidates.push(...availableRooms);
+            }
+
+            if (quantity && people) {
+                // Sắp xếp giảm dần theo capacity để tối ưu
+                roomCandidates.sort((a, b) => b.capacity - a.capacity);
+
+                let selected = [];
+                let totalCapacity = 0;
+
+                for (const room of roomCandidates) {
+                    if (selected.length >= quantity) break;
+                    selected.push(room);
+                    totalCapacity += room.capacity;
+                }
+
+                if (selected.length >= quantity && totalCapacity >= people) {
+                    filteredHotels.push(hotel);
+                }
+            } else if (quantity) {
+                if (roomCandidates.length >= quantity) {
+                    filteredHotels.push(hotel);
+                }
+            } else if (people) {
+                roomCandidates.sort((a, b) => b.capacity - a.capacity);
+                let count = people;
+                for (const room of roomCandidates) {
+                    count -= room.capacity;
+                    if (count <= 0) {
+                        filteredHotels.push(hotel);
+                        break;
+                    }
+                }
+            } else {
+                if (roomCandidates.length > 0) {
+                    filteredHotels.push(hotel);
+                }
+            }
+        }
+
+        hotels = filteredHotels;
+    }
+
+    // Phân loại amenities
     for (const hotel of hotels) {
         const groupedAmenities = {
             bathroom: [],
@@ -97,7 +180,6 @@ export const searchHotelsService = async ({
     }
 
     return {
-        message: 'Lấy thành công danh sách khách sạn',
         currentPage: page,
         totalPages: Math.ceil(count / limit),
         totalItems: count,

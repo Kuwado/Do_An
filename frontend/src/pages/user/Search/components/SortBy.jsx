@@ -21,7 +21,7 @@ const SortBy = ({ sortBy = 'price-asc', setSortBy }) => {
     };
 
     return (
-        <Dropdown label="Xếp theo:" selected={selected} width="210px">
+        <Dropdown label="Xếp theo:" selected={selected} width="240px">
             <div
                 className={cx('sort-item', { active: sortBy === 'price-desc' })}
                 onClick={() => handleSort('price-desc', 'Giá từ cao xuống thấp')}
