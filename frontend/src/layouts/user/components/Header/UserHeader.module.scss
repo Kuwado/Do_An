@@ -50,14 +50,16 @@
     padding: 0 10px;
     border-radius: 10px;
     font-weight: bold;
+    border: 2px solid transparent;
 
     &:hover {
-        background-color: var(--primary-hover);
+        color: var(--secondary);
+        border: 2px solid var(--secondary);
     }
 
     &.active {
         color: var(--secondary);
-        border: 1px solid var(--secondary);
+        border: 2px solid var(--secondary);
     }
 }
 

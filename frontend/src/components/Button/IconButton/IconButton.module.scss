@@ -18,7 +18,7 @@
 // Type
 .primary {
     background-color: var(--primary);
-    color: var(--primary-text);
+    color: var(--secondary);
 
     &:hover,
     &.active {
@@ -38,7 +38,7 @@
 
 .primaryBorder {
     @extend .primary;
-    border-color: var(--primary-text);
+    border-color: var(--secondary);
 
     &:hover,
     &.active {

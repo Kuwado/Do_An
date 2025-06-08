@@ -51,6 +51,8 @@ const Pagination = ({ total, setPage = () => {} }) => {
                 navigate(`${location.pathname}?${params.toString()}`);
             }
         }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [currentPage, total]);
 
     return (

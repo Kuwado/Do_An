@@ -68,7 +68,7 @@ export const searchHotels = async ({
     } catch (err) {
         const errorMessage =
             err.response && err.response.data && err.response.data.message
-                ? err.response.data.message
+                ? err.response.data.error
                 : 'Đã có lỗi xảy ra. Vui lòng thử lại';
 
         return { success: false, message: errorMessage };
