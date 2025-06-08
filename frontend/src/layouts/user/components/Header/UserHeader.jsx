@@ -34,16 +34,16 @@ const UserHeader = ({ className = '' }) => {
                     </Link>
                     <div className={cx('header-item-list')}>
                         <Link
+                            className={cx('header-item', { active: location.pathname === config.routes.user.home })}
+                            to={config.routes.user.home}
+                        >
+                            Trang chủ
+                        </Link>
+                        <Link
                             className={cx('header-item', { active: location.pathname === config.routes.user.hotels })}
                             to={config.routes.user.hotels}
                         >
                             Khách sạn
-                        </Link>
-                        <Link
-                            className={cx('header-item', { active: location.pathname === config.routes.user.vouchers })}
-                            to={config.routes.user.vouchers}
-                        >
-                            Mã giảm giá
                         </Link>
                         <Link
                             className={cx('header-item', { active: location.pathname === config.routes.user.about })}

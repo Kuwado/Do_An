@@ -81,6 +81,7 @@ const useProfile = () => {
                 setError('');
                 localStorage.setItem('admin_id', res.data.admin.id);
                 localStorage.setItem('admin_token', res.data.token);
+                localStorage.setItem('role', res.data.admin.role);
                 const nextUrl = localStorage.getItem('next');
                 if (nextUrl) {
                     navigate(nextUrl);
@@ -104,6 +105,7 @@ const useProfile = () => {
         localStorage.removeItem('user_token');
         localStorage.removeItem('admin_id');
         localStorage.removeItem('admin_token');
+        localStorage.removeItem('role');
         localStorage.removeItem('next');
         localStorage.removeItem('pending_booking_id');
         localStorage.removeItem('booking_created_at');

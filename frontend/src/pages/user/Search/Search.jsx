@@ -97,6 +97,8 @@ const Search = () => {
     };
 
     const clearFilter = () => {
+        setAmenities([]);
+        setValues([MIN, MAX]);
         params.delete('from');
         params.delete('to');
         params.delete('amenities');

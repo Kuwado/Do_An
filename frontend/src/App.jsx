@@ -37,14 +37,20 @@ function App() {
 
                     {privateRoutes.map((route, index) => {
                         const Page = route.element;
-                        let Layout = UserDefault; // Layout mặc định cho private routes
+                        let Layout = UserDefault;
+
+                        if (route.layout) {
+                            Layout = route.layout;
+                        } else if (route.layout === null) {
+                            Layout = Fragment;
+                        }
 
                         return (
                             <Route
                                 key={index}
                                 path={route.path}
                                 element={
-                                    <PrivateRoute>
+                                    <PrivateRoute role={route.role}>
                                         <Layout>
                                             <Page />
                                         </Layout>

@@ -13,11 +13,15 @@ import background from '@/assets/background';
 const cx = classNames.bind(styles);
 const IMAGE_URL = import.meta.env.VITE_BACKEND_URL;
 
+const IMAGES = [images.hotel, images.hotel, images.hotel, images.hotel];
+
 const Overview = ({ hotel = {}, forwardedRef }) => {
     const [showReadMore, setShowReadMore] = useState(false);
     const descriptionRef = useRef(null);
     const [galleryImages, setGalleryImages] = useState([]);
     const [avatar, setAvatar] = useState('');
+
+    console.log(avatar);
 
     useEffect(() => {
         if (hotel.images) {
@@ -66,13 +70,17 @@ const Overview = ({ hotel = {}, forwardedRef }) => {
 
             <div className={cx('gallery')}>
                 <div className={cx('gallery-left')}>
-                    {avatar && <Image src={`${IMAGE_URL}${avatar}`} alt="avatar" />}
+                    <Image src={avatar ? `${IMAGE_URL}${avatar}` : images.hotel} alt="avatar" />
                 </div>
                 <div className={cx('gallery-right')}>
-                    {galleryImages.map((img, index) => (
-                        <Image key={`gallert-image-${index}`} src={`${IMAGE_URL}${img}`} alt={`Small ${index}`} />
-                    ))}
-                    {hotel.images && hotel.images.length > 5 && (
+                    {galleryImages.length > 0
+                        ? galleryImages.map((img, index) => (
+                              <Image key={`gallert-image-${index}`} src={`${IMAGE_URL}${img}`} alt={`Small ${index}`} />
+                          ))
+                        : IMAGES.map((img, index) => (
+                              <Image key={`gallert-image-${index}`} src={img} alt={`Small ${index}`} />
+                          ))}
+                    {hotel.images && hotel.images.length > 4 && (
                         <Button
                             className={cx('show-all-btn')}
                             leftIcon={<FontAwesomeIcon icon={faImages} />}
