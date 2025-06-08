@@ -35,8 +35,8 @@ const Search = () => {
     const getQueryParams = () => {
         return {
             city: params.get('city') || '',
-            check_in: params.get('check_in') || '',
-            check_out: params.get('check_out') || '',
+            checkIn: params.get('checkIn') || '',
+            checkOut: params.get('checkOut') || '',
             quantity: params.get('quantity') || '',
             people: params.get('people') || '',
             from: params.get('from') || '',

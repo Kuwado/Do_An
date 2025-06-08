@@ -61,15 +61,15 @@ def train_sarima(hotel_id: int):
     print(f"Model saved to {model_path}")
 
     # Vẽ biểu đồ so sánh Actual vs Predicted
-    # plt.figure(figsize=(10, 6))
-    # plt.plot(y_test.index, y_test.values, label="Actual", marker="o")
-    # plt.plot(y_pred.index, y_pred.values, label="Predicted", marker="x")
-    # plt.title("SARIMA: Actual vs Predicted Number of Guests")
-    # plt.xlabel("Date")
-    # plt.ylabel("Number of Guests")
-    # plt.legend()
-    # plt.grid(True)
-    # plt.show()
+    plt.figure(figsize=(10, 6))
+    plt.plot(y_test.index, y_test.values, label="Actual", marker="o")
+    plt.plot(y_pred.index, y_pred.values, label="Predicted", marker="x")
+    plt.title("SARIMA: Actual vs Predicted Number of Guests")
+    plt.xlabel("Date")
+    plt.ylabel("Number of Guests")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
     return {
         "model": "SARIMA",

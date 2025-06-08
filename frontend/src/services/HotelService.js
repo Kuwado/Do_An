@@ -38,8 +38,8 @@ export const getHotels = async ({
 
 export const searchHotels = async ({
     city,
-    check_in,
-    check_out,
+    checkIn,
+    checkOut,
     quantity,
     people,
     from,
@@ -52,8 +52,8 @@ export const searchHotels = async ({
     try {
         const query = new URLSearchParams();
         if (city) query.append('city', city);
-        if (check_in) query.append('check_in', check_in);
-        if (check_out) query.append('check_out', check_out);
+        if (checkIn) query.append('checkIn', checkIn);
+        if (checkOut) query.append('checkOut', checkOut);
         if (quantity) query.append('quantity', quantity.toString());
         if (people) query.append('people', people.toString());
         if (from) query.append('from', from.toString());

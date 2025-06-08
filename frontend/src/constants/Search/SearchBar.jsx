@@ -1,32 +1,53 @@
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import styles from './SearchBar.module.scss';
-import { AutoCompleteInput, DateInput, Input, QuantityInput } from '../../components/Input';
+import { AutoCompleteInput, DateInput, Input, QuantityInput } from '@/components/Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useHotels } from '@/hooks/hotels';
 import { useSearchForm } from '@/hooks/search';
-import { Button } from '../../components/Button';
-import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/Button';
+import config from '@/config';
+import { getDate } from '@/utils/dateUtil';
 
 const cx = classNames.bind(styles);
 
 const SearchBar = () => {
     const navigate = useNavigate();
-    const { search, setSearchField } = useSearchForm();
+    const location = useLocation();
+    const currentParams = new URLSearchParams(location.search);
+    const { search, setSearchField } = useSearchForm({
+        city: currentParams.get('city') || '',
+        check_in: currentParams.get('checkIn') || getDate(0),
+        check_out: currentParams.get('checkOut') || getDate(1),
+        quantity: currentParams.get('quantity') || 0,
+        people: currentParams.get('people') || 0,
+    });
     const { cities } = useHotels();
 
     const handleSearch = () => {
-        const params = new URLSearchParams();
+        if (search.city) {
+            currentParams.set('city', search.city);
+        } else {
+            currentParams.delete('city');
+        }
+        if (search.check_in) currentParams.set('checkIn', search.check_in);
+        if (search.check_out) currentParams.set('checkOut', search.check_out);
+        if (search.quantity) currentParams.set('quantity', search.quantity);
+        if (search.people) currentParams.set('people', search.people);
 
-        if (search.city) params.append('city', search.city);
-        if (search.check_in) params.append('check_in', search.check_in);
-        if (search.check_out) params.append('check_out', search.check_out);
-        if (search.quantity) params.append('quantity', search.quantity);
-        if (search.people) params.append('people', search.people);
-
-        navigate(`/hotels?${params.toString()}`);
+        navigate(`${config.routes.user.hotels}?${currentParams.toString()}`);
     };
+
+    useEffect(() => {
+        if (location.pathname === config.routes.user.hotels) {
+            if (search.check_in && !currentParams.get('checkIn')) currentParams.append('checkIn', search.check_in);
+            if (search.check_out && !currentParams.get('checkOut')) currentParams.append('checkOut', search.check_out);
+            navigate(`${config.routes.user.hotels}?${currentParams.toString()}`, { replace: true });
+        }
+    }, [location.pathname]);
 
     return (
         <div className={cx('search-bar')}>
