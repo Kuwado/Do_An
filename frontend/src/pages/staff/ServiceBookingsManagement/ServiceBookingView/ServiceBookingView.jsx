@@ -10,6 +10,7 @@ import { Button } from '@/components/Button';
 import { formatDate } from '@/utils/stringUtil';
 import { cancelServiceBooking, confirmServiceBooking } from '@/services/ServiceHotelService';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -29,10 +30,11 @@ const ServiceBookingView = ({ serviceBooking = {}, fetchserviceBookings }) => {
         if (confirmed) {
             const res = await confirmServiceBooking(serviceBooking.id);
             if (res.success) {
+                toast.success('Xác nhận đơn dịch vụ thành công');
                 fetchserviceBookings();
                 setShow(false);
             } else {
-                alert(res.message);
+                toast.error(res.message);
             }
         }
     };
@@ -42,10 +44,11 @@ const ServiceBookingView = ({ serviceBooking = {}, fetchserviceBookings }) => {
         if (confirmed) {
             const res = await cancelServiceBooking(serviceBooking.id);
             if (res.success) {
+                toast.success('Hủy đơn dịch vụ thành công');
                 fetchserviceBookings();
                 setShow(false);
             } else {
-                alert(res.message);
+                toast.error(res.message);
             }
         }
     };

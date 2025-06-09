@@ -11,6 +11,7 @@ import Dropdown from '@/components/Dropdown';
 import TextArea from '@/components/TextArea/TextArea';
 import UploadImages from '@/constants/UploadImages';
 import { createService } from '@/services/ServiceHotelService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -36,9 +37,9 @@ const ServiceCreate = ({ fetchServices }) => {
 
     const handleAddService = async () => {
         if (!service.name) {
-            alert('Vui lòng nhập tên dịch vụ');
+            toast.warning('Vui lòng nhập tên dịch vụ');
         } else if (!service.price) {
-            alert('Vui lòng nhập giá dịch vụ');
+            toast.warning('Vui lòng nhập giá dịch vụ');
         } else {
             const res = await createService({
                 name: service.name,
@@ -48,8 +49,8 @@ const ServiceCreate = ({ fetchServices }) => {
                 images: service.images,
             });
 
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 fetchServices();
                 setService({
                     name: '',
@@ -58,6 +59,8 @@ const ServiceCreate = ({ fetchServices }) => {
                     category: 'dining',
                     price: '',
                 });
+            } else {
+                toast.error(res.message);
             }
         }
     };

@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import styles from './BookingCompleted.module.scss';
 import { Button } from '@/components/Button';
 import { updateBooking } from '@/services/BookingService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -21,18 +22,22 @@ const BookingCompleted = () => {
         }
 
         const amount = localStorage.getItem('amount');
+        const status = localStorage.getItem('payment_status');
+
+        console.log(amount);
+
         const paidBooking = async () => {
             const res = await updateBooking(pendingId, { paid_amount: amount, status: 'confirmed' });
             if (!res.success) {
-                alert(res.message);
-            } else {
-                localStorage.removeItem('amount');
+                toast.error(res.message);
             }
         };
 
-        if (amount && pendingId) {
+        if (amount && pendingId && status === 'success') {
             paidBooking();
         }
+        localStorage.removeItem('amount');
+        localStorage.removeItem('payment_status');
     }, []);
 
     return (

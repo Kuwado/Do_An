@@ -13,6 +13,7 @@ import { getRoomTypes } from '@/services/RoomService';
 import { getVouchers } from '@/services/VoucherService';
 import { getReviews } from '@/services/ReviewService';
 import { getDate } from '@/utils/dateUtil';
+import Loading from '../../../constants/Loading/Loading';
 
 const cx = classNames.bind(styles);
 
@@ -20,8 +21,8 @@ const Hotel = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const { id } = useParams();
-    const [checkIn, setCheckIn] = useState(params.get('check_in') ?? getDate(0));
-    const [checkOut, setCheckOut] = useState(params.get('check_out') ?? getDate(1));
+    const [checkIn, setCheckIn] = useState(params.get('checkIn') ?? getDate(0));
+    const [checkOut, setCheckOut] = useState(params.get('checkOut') ?? getDate(1));
     const [hotel, setHotel] = useState({});
     const [rooms, setRooms] = useState([]);
     const [vouchers, setVouchers] = useState([]);
@@ -63,8 +64,8 @@ const Hotel = () => {
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
-        setCheckIn(params.get('check_in') ?? getDate(0));
-        setCheckOut(params.get('check_out') ?? getDate(1));
+        setCheckIn(params.get('checkIn') ?? getDate(0));
+        setCheckOut(params.get('checkOut') ?? getDate(1));
 
         const fetchAvailableRooms = async () => {
             setLoading(true);
@@ -99,12 +100,16 @@ const Hotel = () => {
                 setCheckOut={setCheckOut}
             />
 
-            <div className={cx('hotel-content')}>
-                <Overview forwardedRef={overviewRef} hotel={hotel} />
-                <Rooms forwardedRef={roomsRef} rooms={rooms} checkIn={checkIn} checkOut={checkOut} />
-                <Vouchers forwardedRef={vouchersRef} vouchers={vouchers} />
-                <Reviews forwardedRef={reviewsRef} reviews={reviews} />
-            </div>
+            {loading ? (
+                <Loading />
+            ) : (
+                <div className={cx('hotel-content')}>
+                    <Overview forwardedRef={overviewRef} hotel={hotel} />
+                    <Rooms forwardedRef={roomsRef} rooms={rooms} checkIn={checkIn} checkOut={checkOut} />
+                    <Vouchers forwardedRef={vouchersRef} vouchers={vouchers} />
+                    <Reviews forwardedRef={reviewsRef} reviews={reviews} />
+                </div>
+            )}
         </div>
     );
 };

@@ -8,6 +8,7 @@ import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import Vote from '@/constants/Rating/Vote';
 import { createReview } from '@/services/ReviewService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -17,14 +18,16 @@ const BookingReview = ({ forwardedRef, booking = {}, fetchBooking }) => {
 
     const handeComment = async () => {
         if (rate === 0) {
-            alert('Vui lòng chọn số sao');
+            toast.warning('Vui lòng chọn số sao');
         } else if (!comment) {
-            alert('Vui lòng nhập đánh giá');
+            toast.warning('Vui lòng nhập đánh giá');
         } else {
             const res = await createReview({ hotelId: booking.hotel.id, bookingId: booking.id, rate, comment });
             if (res.success) {
-                alert('Đánh giá thành công');
+                toast.success('Đánh giá thành công');
                 fetchBooking();
+            } else {
+                toast.error(res.message);
             }
         }
     };

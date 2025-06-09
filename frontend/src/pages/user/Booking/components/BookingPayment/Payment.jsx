@@ -7,6 +7,9 @@ import Timer from '@/constants/Timer/Timer';
 import { Button } from '@/components/Button';
 import { updateBooking } from '@/services/BookingService';
 import { handlePayment } from '@/services/PaymentService';
+import Image from '@/components/Image';
+import images from '@/assets/images';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +18,7 @@ const Payment = ({ countDownTime, setBookingId, total }) => {
     const { hotelId } = useParams();
     const [createdAt, setCreatedAt] = useState(localStorage.getItem('booking_created_at') || '');
     const [method, setMethod] = useState('offline');
-    const [amount, setAmount] = useState(total || 0);
+    const [amount, setAmount] = useState(localStorage.getItem('booking_total') || 0);
     const [canNext, setCanNext] = useState(false);
     const [showQR, setShowQR] = useState(false);
     const [expired, setExpired] = useState(false);
@@ -42,6 +45,7 @@ const Payment = ({ countDownTime, setBookingId, total }) => {
     const handleClearCountDown = () => {
         localStorage.removeItem('pending_booking_id');
         localStorage.removeItem('booking_created_at');
+        localStorage.removeItem('booking_total');
         setExpired(true);
     };
 
@@ -51,8 +55,9 @@ const Payment = ({ countDownTime, setBookingId, total }) => {
             const bookingId = localStorage.getItem('pending_booking_id');
             const res = await updateBooking(bookingId, { status: 'expired' });
             if (!res.success) {
-                alert(res.message);
+                toast.error(res.message);
             } else {
+                toast.success('Hủy đặt phòng thành công');
                 localStorage.removeItem('pending_booking_id');
                 localStorage.removeItem('booking_created_at');
                 navigate(-1);
@@ -64,10 +69,10 @@ const Payment = ({ countDownTime, setBookingId, total }) => {
         const bookingId = localStorage.getItem('pending_booking_id');
         const res = await updateBooking(bookingId, { expired_at: null });
         if (!res.success) {
-            alert(res.message);
+            toast.error(res.message);
         } else {
-            handleClearCountDown();
-            setBookingId(bookingId);
+            // handleClearCountDown();
+            // setBookingId(bookingId);
             navigate(`/hotels/${hotelId}/booking-completed`);
         }
     };
@@ -101,7 +106,7 @@ const Payment = ({ countDownTime, setBookingId, total }) => {
                     </div>
 
                     <span className={cx('description')}>
-                        Vui lòng chọn phương thức thanh toán. Với phương thức thanh toan trực tiếp quý khách sẽ được
+                        Vui lòng chọn phương thức thanh toán. Với phương thức thanh toán trực tiếp quý khách sẽ được
                         nhân viên gọi điện hoặc gửi mail để xác nhận. Cảm ơn quý khách đã sử dụng dịch vụ của chúng tôi.
                         Chúc quý khách một ngày tốt lành.
                     </span>
@@ -139,7 +144,11 @@ const Payment = ({ countDownTime, setBookingId, total }) => {
                         </label>
                     </div>
 
-                    {showQR && <div className={cx('qr')}>QR nè</div>}
+                    {showQR && (
+                        <div className={cx('vnpay')}>
+                            <Image src={images.vnpay} alt="vnpay" />
+                        </div>
+                    )}
 
                     <div className={cx('action-btns')}>
                         <Button transparent primaryBorder width="150px" onClick={handleCancel}>

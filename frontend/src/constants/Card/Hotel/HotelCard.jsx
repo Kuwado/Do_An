@@ -10,12 +10,13 @@ import { formatPrice } from '@/utils/stringUtil';
 import Rating from '@/constants/Rating';
 
 const cx = classNames.bind(styles);
+const IMAGE_URL = import.meta.env.VITE_BACKEND_URL;
 
 const HotelCard = ({ hotel = {}, className }) => {
     return (
         <div className={cx('hotel-card', { [className]: className })}>
             <div className={cx('avatar')}>
-                <img src={hotel.avatar ?? images.hotel} alt="hotel-avatar" />
+                <img src={hotel.avatar ? `${IMAGE_URL}${hotel.avatar}` : images.hotel} alt="hotel-avatar" />
                 <div className={cx('city')}>
                     <FontAwesomeIcon icon={faLocationDot} />
                     <span>{hotel.city}</span>

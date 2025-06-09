@@ -36,7 +36,7 @@ const AdminFunction = () => {
 
     return (
         <>
-            <NavLink
+            {/* <NavLink
                 to={config.routes.admin.dashboard}
                 className={({ isActive }) => cx('sidebar-item', { active: isActive })}
             >
@@ -44,7 +44,7 @@ const AdminFunction = () => {
                     <DashboardIcon />
                 </div>
                 <div className={cx('sidebar-title')}>Trang chủ</div>
-            </NavLink>
+            </NavLink> */}
 
             <NavLink
                 to={config.routes.admin.hotel}

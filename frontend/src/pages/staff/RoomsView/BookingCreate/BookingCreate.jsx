@@ -3,18 +3,15 @@ import classNames from 'classnames/bind';
 
 import styles from './BookingCreate.module.scss';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import useProfile from '@/hooks/profile/useProfile';
 import Popup from '@/components/Popup';
 import { Button } from '@/components/Button';
-import { Input, QuantityInput } from '@/components/Input';
-import TextArea from '@/components/TextArea/TextArea';
-import UploadImages from '@/constants/UploadImages';
-import { createRoomType } from '@/services/RoomService';
+import { Input } from '@/components/Input';
 import Loading from '@/constants/Loading';
-import { createUser, getUserByPhone } from '../../../../services/UserService';
-import { createBookingByAdmin } from '../../../../services/BookingService';
-import { getDaysBetween } from '../../../../utils/dateUtil';
-import { formatDate } from '../../../../utils/stringUtil';
+import { createUser, getUserByPhone } from '@/services/UserService';
+import { createBookingByAdmin } from '@/services/BookingService';
+import { getDaysBetween } from '@/utils/dateUtil';
+import { formatDate } from '@/utils/stringUtil';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -65,13 +62,15 @@ const BookingCreate = ({ room, roomType, fetchRooms, checkIn, checkOut }) => {
 
     const handleCreateBooking = async () => {
         if (!user) {
-            alert('Vui lòng chọn khách hàng');
+            toast.warning('Vui lòng chọn khách hàng');
         } else {
             const res = await createBookingByAdmin({ roomId: room.id, userId: user.id, checkIn, checkOut });
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 fetchRooms();
                 setShow(false);
+            } else {
+                toast.error(res.message);
             }
         }
     };

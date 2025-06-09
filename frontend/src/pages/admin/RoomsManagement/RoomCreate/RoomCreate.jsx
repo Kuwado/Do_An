@@ -12,6 +12,7 @@ import TextArea from '@/components/TextArea/TextArea';
 import UploadImages from '@/constants/UploadImages';
 import { createRoomType } from '@/services/RoomService';
 import { getAmenitiesByHotelId, updateRoomTypeAmenities } from '@/services/AmenityService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -35,13 +36,13 @@ const RoomCreate = ({ fetchRoomTypes }) => {
 
     const handleAddRoomType = async () => {
         if (!roomType.name) {
-            alert('Vui lòng nhập tên phòng');
+            toast.warning('Vui lòng nhập tên phòng');
         } else if (!roomType.price) {
-            alert('Vui lòng nhập giá phòng');
+            toast.warning('Vui lòng nhập giá phòng');
         } else if (!roomType.capacity) {
-            alert('Vui lòng nhập sức chứa');
+            toast.warning('Vui lòng nhập sức chứa');
         } else if (!roomType.area) {
-            alert('Vui lòng nhập diện tích phòng');
+            toast.warning('Vui lòng nhập diện tích phòng');
         } else {
             const res = await createRoomType({
                 name: roomType.name,
@@ -52,12 +53,14 @@ const RoomCreate = ({ fetchRoomTypes }) => {
                 images: roomType.images,
             });
 
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 if (amenityIds.length > 0) {
                     const aRes = await updateRoomTypeAmenities({ roomTypeId: res.room_type.id, amenityIds });
                     if (!aRes.success) {
-                        alert(aRes.message);
+                        toast.success(aRes.message);
+                    } else {
+                        toast.error(aRes.message);
                     }
                 }
                 fetchRoomTypes();
@@ -70,6 +73,8 @@ const RoomCreate = ({ fetchRoomTypes }) => {
                     area: '',
                 });
                 setAmenityIds([]);
+            } else {
+                toast.error(res.message);
             }
         }
     };

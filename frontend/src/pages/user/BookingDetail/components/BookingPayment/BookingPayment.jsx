@@ -1,16 +1,47 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import styles from './BookingPayment.module.scss';
+import { toast } from 'react-toastify';
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@/components/Button';
 import { formatPrice, formatDate } from '@/utils/stringUtil';
 import { getDaysBetween } from '@/utils/dateUtil';
+import { handlePayment } from '@/services/PaymentService';
+import { updateBooking } from '@/services/BookingService';
 
 const cx = classNames.bind(styles);
 
-const BookingPayment = ({ forwardedRef, booking = {}, services = [] }) => {
+const BookingPayment = ({ forwardedRef, booking = {}, services = [], fetchBooking }) => {
+    const location = useLocation();
+
+    useEffect(() => {
+        if (booking.id) {
+            const amount = localStorage.getItem('amount');
+            const status = localStorage.getItem('payment_status');
+
+            console.log(amount);
+            console.log(status);
+
+            const paidBooking = async () => {
+                const res = await updateBooking(booking.id, { paid_amount: booking.paid_amount + amount });
+                if (!res.success) {
+                    toast.error(res.message);
+                } else {
+                    fetchBooking();
+                }
+            };
+
+            if (amount && status === 'success') {
+                paidBooking();
+            }
+            localStorage.removeItem('amount');
+            localStorage.removeItem('payment_status');
+        }
+    }, [booking.id]);
+
     return (
         <div className={cx('booking-payment')} ref={forwardedRef}>
             <div className={cx('title')}>
@@ -143,7 +174,18 @@ const BookingPayment = ({ forwardedRef, booking = {}, services = [] }) => {
                     </div>
                 </div>
 
-                <Button secondaryBorder width="100%" large>
+                <Button
+                    secondaryBorder
+                    width="100%"
+                    large
+                    onClick={() =>
+                        handlePayment({
+                            amount: booking.total_amount - booking.paid_amount,
+                            next: location.pathname,
+                        })
+                    }
+                    noClick={booking.total_amount - booking.paid_amount === 0}
+                >
                     Thanh toán
                 </Button>
             </div>

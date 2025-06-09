@@ -12,6 +12,7 @@ import { formatPrice } from '@/utils/stringUtil';
 import { deleteVoucher, getVouchers } from '@/services/VoucherService';
 import { formatDate } from '@/utils/stringUtil';
 import VoucherView from './VoucherView/VoucherView';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -87,19 +88,8 @@ const VouchersManagement = () => {
     }, [location.search]);
 
     useEffect(() => {
-        if (error) alert(error);
+        if (error) toast.error(error);
     }, [error]);
-
-    const handleDeleteVoucher = async (voucher = {}) => {
-        const confirmed = confirm(`Bạn có chắc muốn xóa dịch vụ ${voucher.name} không`);
-        if (confirmed) {
-            const res = await deleteVoucher(voucher.id);
-            alert(res.message);
-            if (res.success) {
-                fetchVouchers();
-            }
-        }
-    };
 
     return (
         <div className={cx('vouchers-management-page')}>

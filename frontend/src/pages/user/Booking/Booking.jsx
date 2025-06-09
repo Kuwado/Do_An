@@ -18,7 +18,6 @@ const Booking = () => {
     const location = useLocation();
     const [currentStep, setCurrentStep] = useState('');
     const [bookingId, setBookingId] = useState('');
-    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         if (matchPath(config.routes.user.booking, location.pathname)) {
@@ -34,10 +33,8 @@ const Booking = () => {
         <div className={cx('booking-page')}>
             <BookingHeader step={currentStep} />
             <div className={cx('booking-body')}>
-                {currentStep === 1 && <BookingOrder countDownTime={COUNTDOWNTIME} setTotal={setTotal} />}
-                {currentStep === 2 && (
-                    <BookingPayment countDownTime={COUNTDOWNTIME} setBookingId={setBookingId} total={total} />
-                )}
+                {currentStep === 1 && <BookingOrder countDownTime={COUNTDOWNTIME} />}
+                {currentStep === 2 && <BookingPayment countDownTime={COUNTDOWNTIME} setBookingId={setBookingId} />}
                 {currentStep === 3 && <BookingCompleted />}
             </div>
         </div>

@@ -8,6 +8,7 @@ import FullScreenSlider from '@/constants/Slider/FullScreen/FullScreenSlider';
 import images from '@/assets/images';
 import { changeToDate } from '@/utils/dateUtil';
 import { checkVoucher } from '@/services/VoucherService';
+import { toast } from 'react-toastify';
 
 const IMAGES = [images.service, images.service, images.service, images.service, images.service];
 
@@ -42,11 +43,11 @@ const PreviewMain = ({
             setVoucher(res.voucher);
             setFinalTotal(res.final_amount);
             setCodeError(null);
-            alert('Áp dụng voucher thành công');
+            toast.success('Áp dụng voucher thành công');
         } else {
             setCodeError(res.message);
             setVoucher(null);
-            alert(res.message);
+            toast.error(res.message);
         }
     };
 

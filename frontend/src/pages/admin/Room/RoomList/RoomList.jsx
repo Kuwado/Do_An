@@ -13,6 +13,7 @@ import { deleteRoom, getRooms } from '@/services/RoomService';
 import { getDate, getNextDate, getPreviousDate } from '@/utils/dateUtil';
 import RoomCreate from '../RoomCreate/RoomCreate';
 import RoomEdit from '../RoomEdit/RoomEdit';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -60,9 +61,11 @@ const RoomList = () => {
         const confirmed = confirm(`Bạn có chắc muốn xóa phòng ${room.room_number} không`);
         if (confirmed) {
             const res = await deleteRoom(room.id);
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 fetchRooms();
+            } else {
+                toast.error(res.message);
             }
         }
     };

@@ -12,6 +12,7 @@ import Pagination from '@/constants/Pagination/Pagination';
 import StaffView from './StaffView/StaffView';
 import StaffCreate from './StaffCreate/StaffCreate';
 import { deleteStaff, getStaffsByHotelId } from '@/services/StaffService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -55,9 +56,11 @@ const StaffsManagement = () => {
         const confirmed = confirm(`Bạn có chắc muốn xóa nhân viên ${staff.first_name} ${staff.last_name} không`);
         if (confirmed) {
             const res = await deleteStaff(staff.id);
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 fetchStaffs();
+            } else {
+                toast.error(res.message);
             }
         }
     };

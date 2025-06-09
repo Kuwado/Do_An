@@ -6,6 +6,8 @@ import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Respons
 import useProfile from '@/hooks/profile/useProfile';
 import { getRevenue } from '@/services/RevenueService';
 import { formatPrice } from '@/utils/stringUtil';
+import Loading from '@/constants/Loading/Loading';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -28,8 +30,9 @@ const Revenue = () => {
             if (res.success) {
                 setRevenueData(res.revenues);
             } else {
-                alert(res.message);
+                toast.error(res.message);
             }
+            setLoading(false);
         };
 
         fetchRevenue();
@@ -89,36 +92,47 @@ const Revenue = () => {
 
     return (
         <div className={cx('revenue-page')}>
-            <div className={cx('wrapper')}>
-                <div className={cx('tabs')}>
-                    {tabOptions.map(({ key, label }) => (
-                        <button key={key} className={cx('tab', { active: tab === key })} onClick={() => setTab(key)}>
-                            {label}
-                        </button>
-                    ))}
+            {loading ? (
+                <Loading />
+            ) : (
+                <div className={cx('wrapper')}>
+                    <div className={cx('tabs')}>
+                        {tabOptions.map(({ key, label }) => (
+                            <button
+                                key={key}
+                                className={cx('tab', { active: tab === key })}
+                                onClick={() => setTab(key)}
+                            >
+                                {label}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className={cx('chart')}>
+                        <ResponsiveContainer width="100%" height="100%">
+                            <ComposedChart data={revenueData[tab]}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="report_date" tickFormatter={formatXAxisTick} />
+                                <YAxis
+                                    tickCount={7}
+                                    tickFormatter={(value) => `${value / 1_000_000}tr`}
+                                    domain={calculateYAxisDomain()} // Sử dụng hàm tính toán domain
+                                />
+                                <Tooltip
+                                    labelFormatter={customTooltipLabelFormatter}
+                                    formatter={customTooltipFormatter}
+                                />
+
+                                {/* Cột doanh thu */}
+                                <Bar dataKey="revenue" barSize={40} fill="#0194f3" />
+
+                                {/* Đường biểu diễn doanh thu */}
+                                <Line type="monotone" dataKey="revenue" stroke="#FFC107" strokeWidth={2} />
+                            </ComposedChart>
+                        </ResponsiveContainer>
+                    </div>
                 </div>
-
-                <div className={cx('chart')}>
-                    <ResponsiveContainer width="100%" height="100%">
-                        <ComposedChart data={revenueData[tab]}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="report_date" tickFormatter={formatXAxisTick} />
-                            <YAxis
-                                tickCount={7}
-                                tickFormatter={(value) => `${value / 1_000_000}tr`}
-                                domain={calculateYAxisDomain()} // Sử dụng hàm tính toán domain
-                            />
-                            <Tooltip labelFormatter={customTooltipLabelFormatter} formatter={customTooltipFormatter} />
-
-                            {/* Cột doanh thu */}
-                            <Bar dataKey="revenue" barSize={40} fill="#0194f3" />
-
-                            {/* Đường biểu diễn doanh thu */}
-                            <Line type="monotone" dataKey="revenue" stroke="#FFC107" strokeWidth={2} />
-                        </ComposedChart>
-                    </ResponsiveContainer>
-                </div>
-            </div>
+            )}
         </div>
     );
 };

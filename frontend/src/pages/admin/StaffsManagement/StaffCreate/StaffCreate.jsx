@@ -3,15 +3,13 @@ import classNames from 'classnames/bind';
 
 import styles from './StaffCreate.module.scss';
 import Popup from '@/components/Popup';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Button } from '@/components/Button';
-import images from '@/assets/images';
-import Image from '@/components/Image';
 import useProfile from '@/hooks/profile/useProfile';
 import { Input, PasswordInput } from '@/components/Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { createStaff } from '@/services/StaffService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -26,13 +24,13 @@ const StaffCreate = ({ fetchStaffs }) => {
 
     const handleAddStaff = async () => {
         if (!staff.username) {
-            alert('Vui lòng nhập tên đăng nhập của nhân viên');
+            toast.warning('Vui lòng nhập tên đăng nhập của nhân viên');
         } else if (!staff.password) {
-            alert('Vui lòng nhập mật khẩu của nhân viên');
+            toast.warning('Vui lòng nhập mật khẩu của nhân viên');
         } else if (!staff.first_name) {
-            alert('Vui lòng nhập họ của nhân viên');
+            toast.warning('Vui lòng nhập họ của nhân viên');
         } else if (!staff.last_name) {
-            alert('Vui lòng nhập tên của nhân viên');
+            toast.warning('Vui lòng nhập tên của nhân viên');
         } else {
             const res = await createStaff({
                 username: staff.username,
@@ -42,10 +40,12 @@ const StaffCreate = ({ fetchStaffs }) => {
                 hotelId: admin.hotel_id,
             });
 
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 fetchStaffs();
                 setStaff({ first_name: '', last_name: '', username: '', password: '' });
+            } else {
+                toast.error(res.message);
             }
         }
     };

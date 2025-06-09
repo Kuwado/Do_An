@@ -59,6 +59,7 @@ const BookingInfo = ({ hotel, room, voucher, setVoucher, checkIn, checkOut, vouc
                     images={room.images || IMAGES}
                     height="100%"
                     autoPlay={false}
+                    link={room.images ? true : false}
                 />
             </div>
             <div className={cx('room-info')}>

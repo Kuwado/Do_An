@@ -12,6 +12,7 @@ import SearchOneValue from '@/constants/SearchOneValue';
 import Pagination from '@/constants/Pagination';
 import { formatDate } from '@/utils/stringUtil';
 import { getBookingsByHotelId } from '@/services/BookingService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -72,7 +73,7 @@ const BookingsManagement = () => {
     }, [location.search]);
 
     useEffect(() => {
-        if (error) alert(error);
+        if (error) toast.error(error);
     }, [error]);
 
     return (

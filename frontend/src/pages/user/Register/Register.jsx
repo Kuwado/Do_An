@@ -13,6 +13,7 @@ import { PasswordInput } from '@components/Input';
 import { Button } from '@components/Button';
 import useProfile from '@/hooks/profile/useProfile';
 import { createUser } from '../../../services/UserService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -31,20 +32,22 @@ const Register = () => {
 
     const handleRegister = async () => {
         if (!username) {
-            alert('Vui lòng nhập tên đăng nhập');
+            toast.warning('Vui lòng nhập tên đăng nhập');
         } else if (!password) {
-            alert('Vui lòng nhập mật khẩu');
+            toast.warning('Vui lòng nhập mật khẩu');
         } else if (!firstName) {
-            alert('Vui lòng nhập họ');
+            toast.warning('Vui lòng nhập họ');
         } else if (!lastName) {
-            alert('Vui lòng nhập tên');
+            toast.warning('Vui lòng nhập tên');
         } else if (!phone) {
-            alert('Vui lòng nhập số điện thoại');
+            toast.warning('Vui lòng nhập số điện thoại');
         } else {
             const res = await createUser({ username, password, firstName, lastName, phone });
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 loginUser(username, password);
+            } else {
+                toast.error(res.message);
             }
         }
     };

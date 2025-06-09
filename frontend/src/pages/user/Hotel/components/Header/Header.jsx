@@ -63,8 +63,8 @@ const Header = ({ overviewRef, roomsRef, vouchersRef, reviewsRef, checkIn, check
 
     const handleSearchByDate = () => {
         const params = new URLSearchParams();
-        params.set('check_in', checkIn);
-        params.set('check_out', checkOut);
+        params.set('checkIn', checkIn);
+        params.set('checkOut', checkOut);
         navigate(`?${params.toString()}`);
     };
 

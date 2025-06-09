@@ -8,6 +8,7 @@ import { faBath, faMountainCity, faPersonBooth, faRulerCombined, faUsers } from 
 import { Button } from '@/components/Button';
 import { formatPrice } from '@/utils/stringUtil';
 import { getDate } from '@/utils/dateUtil';
+import RoomDetail from './RoomDetail/RoomDetail';
 
 const IMAGES = [images.room, images.room, images.room, images.room];
 
@@ -24,6 +25,7 @@ const RoomCard = ({ room, checkIn = getDate(0), checkOut = getDate(1) }) => {
                         images={room.images || IMAGES}
                         height="100%"
                         autoPlay={false}
+                        link={room.images ? true : false}
                     />
                 </div>
 
@@ -84,7 +86,7 @@ const RoomCard = ({ room, checkIn = getDate(0), checkOut = getDate(1) }) => {
                     </div>
 
                     <div className={cx('action-btns')}>
-                        <Button primaryBorder>Chi tiết</Button>
+                        <RoomDetail room={room} />
                         <Button
                             secondary
                             noClick={room.available_rooms === 0}

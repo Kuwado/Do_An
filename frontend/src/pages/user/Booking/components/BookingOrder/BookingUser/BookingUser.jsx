@@ -6,12 +6,14 @@ import styles from './BookingUser.module.scss';
 import useProfile from '@/hooks/profile/useProfile';
 import { Input } from '@/components/Input';
 import { Button } from '@/components/Button';
+import { toast } from 'react-toastify';
+import { updateUser } from '@/services/UserService';
 
 const cx = classNames.bind(styles);
 
 const BookingUser = ({ hotelId, handlePayment, countDownTime }) => {
     const navigate = useNavigate();
-    const { user } = useProfile();
+    const { user, fetchUser } = useProfile();
     const [first_name, setFirstName] = useState('');
     const [last_name, setLastName] = useState('');
     const [phone, setPhone] = useState('');
@@ -33,11 +35,29 @@ const BookingUser = ({ hotelId, handlePayment, countDownTime }) => {
         const now = new Date().getTime();
         const diff = expireAt - now;
         if (pendingBookingId && diff > 0) {
-            alert('Bạn đang có phòng được giữ');
+            toast.warning('Bạn đang có phòng được giữ');
         } else {
             await handlePayment();
         }
         navigate(`/hotels/${hotelId}/payment`);
+    };
+
+    const handleUpdateUser = async () => {
+        if (!first_name) {
+            toast.warning('Vui lòng nhập họ');
+        } else if (!last_name) {
+            toast.warning('Vui lòng nhập tên');
+        } else if (!phone) {
+            toast.warning('Vui lòng nhập số điện thoại');
+        } else {
+            const res = await updateUser(user.id, { first_name, last_name, phone, email });
+            if (res.success) {
+                fetchUser();
+                toast.success(res.message);
+            } else {
+                toast.error(res.message);
+            }
+        }
     };
 
     return (
@@ -48,7 +68,7 @@ const BookingUser = ({ hotelId, handlePayment, countDownTime }) => {
                 <Input value={last_name} setValue={setLastName} label="Tên" required />
                 <Input value={phone} setValue={setPhone} label="Số điện thoại" required />
                 <Input value={email} setValue={setEmail} label="Email" required />
-                <Button className={cx('update-btn')} secondary>
+                <Button className={cx('update-btn')} onClick={handleUpdateUser} secondary>
                     Cập nhật
                 </Button>
             </div>

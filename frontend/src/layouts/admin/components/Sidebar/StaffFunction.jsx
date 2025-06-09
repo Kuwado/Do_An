@@ -15,7 +15,7 @@ const cx = classNames.bind(styles);
 const StaffFunction = () => {
     return (
         <>
-            <NavLink
+            {/* <NavLink
                 to={config.routes.staff.dashboard}
                 className={({ isActive }) => cx('sidebar-item', { active: isActive })}
             >
@@ -23,7 +23,7 @@ const StaffFunction = () => {
                     <DashboardIcon />
                 </div>
                 <div className={cx('sidebar-title')}>Trang chủ</div>
-            </NavLink>
+            </NavLink> */}
 
             <NavLink
                 to={config.routes.staff.bookings}

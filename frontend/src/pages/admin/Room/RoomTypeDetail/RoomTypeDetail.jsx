@@ -9,6 +9,7 @@ import TextArea from '@/components/TextArea/TextArea';
 import UploadImages from '@/constants/UploadImages';
 import { updateRoomType } from '@/services/RoomService';
 import { getAmenitiesByHotelId, updateRoomTypeAmenities } from '@/services/AmenityService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -36,13 +37,13 @@ const RoomTypeDetail = ({ roomType, setRoomTypeValue, fetchRoomType }) => {
 
     const handleUpdateRoomType = async () => {
         if (!roomType.name) {
-            alert('Vui lòng nhập tên phòng');
+            toast.warning('Vui lòng nhập tên phòng');
         } else if (!roomType.price) {
-            alert('Vui lòng nhập giá phòng');
+            toast.warning('Vui lòng nhập giá phòng');
         } else if (!roomType.capacity) {
-            alert('Vui lòng nhập sức chứa');
+            toast.warning('Vui lòng nhập sức chứa');
         } else if (!roomType.area) {
-            alert('Vui lòng nhập diện tích phòng');
+            toast.warning('Vui lòng nhập diện tích phòng');
         } else {
             const res = await updateRoomType(roomType.id, {
                 name: roomType.name,
@@ -53,18 +54,22 @@ const RoomTypeDetail = ({ roomType, setRoomTypeValue, fetchRoomType }) => {
                 images: roomType.images,
             });
 
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 if (roomType.amenity_ids.length > 0) {
                     const aRes = await updateRoomTypeAmenities({
                         roomTypeId: res.room_type.id,
                         amenityIds: roomType.amenity_ids,
                     });
                     if (!aRes.success) {
-                        alert(aRes.message);
+                        toast.success(aRes.message);
+                    } else {
+                        toast.error(aRes.message);
                     }
                 }
                 fetchRoomType();
+            } else {
+                toast.error(res.message);
             }
         }
     };

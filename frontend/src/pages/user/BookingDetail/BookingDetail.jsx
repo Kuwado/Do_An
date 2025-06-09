@@ -118,7 +118,12 @@ const BookingDetail = () => {
                     fetchPendingServiceBooking={fetchPendingServiceBooking}
                 />
 
-                <BookingPayment forwardedRef={paymentRef} booking={booking} services={allBookedServices} />
+                <BookingPayment
+                    forwardedRef={paymentRef}
+                    booking={booking}
+                    services={allBookedServices}
+                    fetchBooking={fetchBooking}
+                />
 
                 {booking.status === 'completed' && (
                     <BookingReview forwardedRef={reviewRef} booking={booking} fetchBooking={fetchBooking} />

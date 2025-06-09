@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBath, faLocationDot, faMountainCity, faPersonBooth } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,13 +9,23 @@ import images from '@/assets/images';
 import Rating from '../../Rating/Rating';
 import { Button } from '@/components/Button';
 import { formatPrice } from '@/utils/stringUtil';
+import { useEffect, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 const IMAGES = [images.hotel, images.hotel, images.hotel, images.hotel];
 
 const HotelItem = ({ hotel, className }) => {
-    console.log(hotel.images);
+    const location = useLocation();
+    const [checkIn, setCheckIn] = useState(null);
+    const [checkOut, setCheckOut] = useState(null);
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        setCheckIn(params.get('checkIn'));
+        setCheckOut(params.get('checkOut'));
+    }, [location.search]);
+
     return (
         <div className={cx('hotel-item-card', { [className]: className })}>
             <div className={cx('left')}>
@@ -92,7 +103,7 @@ const HotelItem = ({ hotel, className }) => {
 
                 <div className={cx('price')}>{formatPrice(hotel.min_price)}</div>
 
-                <Button secondary small to={`/hotels/${hotel.id}`}>
+                <Button secondary small to={`/hotels/${hotel.id}?checkIn=${checkIn}&checkOut=${checkOut}`}>
                     Chọn phòng
                 </Button>
             </div>

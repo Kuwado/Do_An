@@ -5,6 +5,7 @@ import { Button } from '@/components/Button';
 import { formatDate, formatPrice } from '@/utils/stringUtil';
 import { getDaysBetween } from '@/utils/dateUtil';
 import { cancelBooking, completeBooking, confirmBooking } from '@/services/BookingService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -21,9 +22,10 @@ const BookingInfo = ({ booking, fetchBooking }) => {
         if (confirmed) {
             const res = await confirmBooking(booking.id);
             if (res.success) {
+                toast.success('Xác nhận đơn thành công');
                 fetchBooking();
             } else {
-                alert(res.message);
+                toast.error(res.message);
             }
         }
     };
@@ -33,9 +35,10 @@ const BookingInfo = ({ booking, fetchBooking }) => {
         if (confirmed) {
             const res = await cancelBooking(booking.id);
             if (res.success) {
+                toast.success('Hủy đơn thành công');
                 fetchBooking();
             } else {
-                alert(res.message);
+                toast.error(res.message);
             }
         }
     };
@@ -45,9 +48,10 @@ const BookingInfo = ({ booking, fetchBooking }) => {
         if (confirmed) {
             const res = await completeBooking(booking.id);
             if (res.success) {
+                toast.success('Xác nhận đơn hoàn thành thành công');
                 fetchBooking();
             } else {
-                alert(res.message);
+                toast.error(res.message);
             }
         }
     };

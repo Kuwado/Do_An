@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDoorOpen, faEnvelope, faImages, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 import Rating from '@/constants/Rating';
 import background from '@/assets/background';
+import ImagesGallery from './ImagesGallery/ImagesGallery';
 
 const cx = classNames.bind(styles);
 const IMAGE_URL = import.meta.env.VITE_BACKEND_URL;
@@ -81,14 +82,7 @@ const Overview = ({ hotel = {}, forwardedRef }) => {
                               <Image key={`gallert-image-${index}`} src={img} alt={`Small ${index}`} />
                           ))}
                     {hotel.images && hotel.images.length > 4 && (
-                        <Button
-                            className={cx('show-all-btn')}
-                            leftIcon={<FontAwesomeIcon icon={faImages} />}
-                            small
-                            primaryBorder
-                        >
-                            Hiển thị tất cả ảnh
-                        </Button>
+                        <ImagesGallery avatar={hotel.avatar} images={hotel.images} />
                     )}
                 </div>
             </div>
