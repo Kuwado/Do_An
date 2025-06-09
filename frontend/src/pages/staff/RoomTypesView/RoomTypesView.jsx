@@ -16,6 +16,7 @@ import { getRoomTypes } from '@/services/RoomService';
 import { formatPrice } from '@/utils/stringUtil';
 import { getDate, getNextDate, getPreviousDate } from '@/utils/dateUtil';
 import RoomTypeView from './RoomTypeView/RoomTypeView';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -71,7 +72,7 @@ const RoomTypesView = () => {
     }, [roomTypes]);
 
     useEffect(() => {
-        if (error) alert(error);
+        if (error) toast.error(error);
     }, [error]);
 
     const handleViewRooms = (id) => {

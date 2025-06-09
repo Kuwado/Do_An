@@ -30,7 +30,7 @@ const UserHeader = ({ className = '' }) => {
             <div className={cx('header-content')}>
                 <div className={cx('header-left')}>
                     <Link className={cx('logo')} to={config.routes.user.home}>
-                        KuwaHotel
+                        KuwaHotels
                     </Link>
                     <div className={cx('header-item-list')}>
                         <Link

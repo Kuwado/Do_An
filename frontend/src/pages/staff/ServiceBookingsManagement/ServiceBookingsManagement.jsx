@@ -17,6 +17,7 @@ import {
     getServiceBookingsByHotelId,
 } from '@/services/ServiceHotelService';
 import ServiceBookingView from './ServiceBookingView/ServiceBookingView';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -86,7 +87,7 @@ const ServiceBookingsManagement = () => {
     }, [location.search]);
 
     useEffect(() => {
-        if (error) alert(error);
+        if (error) toast.error(error);
     }, [error]);
 
     const handleConfirmServiceBooking = async (serviceBooking = {}) => {
@@ -94,9 +95,10 @@ const ServiceBookingsManagement = () => {
         if (confirmed) {
             const res = await confirmServiceBooking(serviceBooking.id);
             if (res.success) {
+                toast.success('Xác nhận đơn dịch vụ thành công');
                 fetchserviceBookings();
             } else {
-                alert(res.message);
+                toast.error(res.message);
             }
         }
     };
@@ -106,9 +108,10 @@ const ServiceBookingsManagement = () => {
         if (confirmed) {
             const res = await cancelServiceBooking(serviceBooking.id);
             if (res.success) {
+                toast.success('Hủy đơn dịch vụ thành công');
                 fetchserviceBookings();
             } else {
-                alert(res.message);
+                toast.error(res.message);
             }
         }
     };

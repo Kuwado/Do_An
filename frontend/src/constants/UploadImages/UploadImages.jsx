@@ -7,6 +7,7 @@ import { Button, IconButton } from '@/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { uploadImages } from '../../services/UploadService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 const IMAGE_URL = import.meta.env.VITE_BACKEND_URL;
@@ -19,7 +20,7 @@ const UploadImages = ({ images = [], setImages, id = 'images', limit = 9, submit
         const total = append ? images.length + files.length : files.length;
 
         if (total > limit) {
-            alert(`Chỉ được chọn tối đa ${limit} ảnh.`);
+            toast.warning(`Chỉ được chọn tối đa ${limit} ảnh.`);
             return;
         }
 
@@ -36,7 +37,7 @@ const UploadImages = ({ images = [], setImages, id = 'images', limit = 9, submit
         if (!res.success) {
             setMessage(res.message);
         } else {
-            alert(res.message);
+            toast.success(res.message);
         }
     };
 

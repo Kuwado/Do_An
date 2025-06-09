@@ -25,6 +25,7 @@ import { updateBooking } from '@/services/BookingService';
 import { checkVoucher } from '@/services/VoucherService';
 import { formatDate, getDaysBetween } from '@/utils/dateUtil';
 import { formatPrice } from '@/utils/stringUtil';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 const ROOMIMAGES = [images.room, images.room, images.room, images.room, images.room];
@@ -55,7 +56,7 @@ const BookingInfo = ({ forwardedRef, booking = {}, onUpdate }) => {
         if (res.success) {
             const updateRes = await updateBooking(booking.id, { voucher_id: res.voucher.id });
             if (updateRes.success) {
-                alert('Áp dụng voucher thành công');
+                toast.success('Áp dụng voucher thành công');
                 setCodeError(null);
                 onUpdate();
             } else {
@@ -85,6 +86,7 @@ const BookingInfo = ({ forwardedRef, booking = {}, onUpdate }) => {
                             images={booking.room?.room_type?.images || ROOMIMAGES}
                             height="100%"
                             autoPlay={false}
+                            link={booking.room?.room_type?.images ? true : false}
                         />
                     </div>
 

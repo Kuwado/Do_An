@@ -18,6 +18,7 @@ import { IconButton } from '../../../components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons';
 import BookingCreate from './BookingCreate/BookingCreate';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -92,7 +93,7 @@ const RoomsView = () => {
     }, [rooms]);
 
     useEffect(() => {
-        if (error) alert(error);
+        if (error) toast.error(error);
     }, [error]);
 
     const handleBack = () => {

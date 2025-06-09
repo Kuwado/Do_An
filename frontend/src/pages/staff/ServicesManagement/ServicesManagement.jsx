@@ -16,6 +16,7 @@ import { formatPrice } from '@/utils/stringUtil';
 import { deleteService, getAllServicesByHotelId } from '@/services/ServiceHotelService';
 import ServiceEdit from './ServiceView/ServiceView';
 import ServiceView from './ServiceView/ServiceView';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -70,19 +71,8 @@ const ServicesManagement = () => {
     }, [location.search]);
 
     useEffect(() => {
-        if (error) alert(error);
+        if (error) toast.error(error);
     }, [error]);
-
-    const handleDeleteService = async (service = {}) => {
-        const confirmed = confirm(`Bạn có chắc muốn xóa dịch vụ ${service.name} không`);
-        if (confirmed) {
-            const res = await deleteService(service.id);
-            alert(res.message);
-            if (res.success) {
-                fetchServices();
-            }
-        }
-    };
 
     return (
         <div className={cx('services-management-page')}>

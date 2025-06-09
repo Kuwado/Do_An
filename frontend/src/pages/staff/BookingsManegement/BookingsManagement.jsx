@@ -15,6 +15,7 @@ import SearchOneValue from '@/constants/SearchOneValue';
 import Pagination from '@/constants/Pagination';
 import { formatDate } from '@/utils/stringUtil';
 import { cancelBooking, confirmBooking, getBookingsByHotelId } from '@/services/BookingService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -30,6 +31,7 @@ const SORT_DATE = {
     '': 'Tất cả',
     asc: 'Gần nhất',
     desc: 'Xa nhất',
+    newest: 'Mới nhất',
 };
 
 const BookingsManagement = () => {
@@ -75,7 +77,7 @@ const BookingsManagement = () => {
     }, [location.search]);
 
     useEffect(() => {
-        if (error) alert(error);
+        if (error) toast.error(error);
     }, [error]);
 
     const handleConfirmBooking = async (booking = {}) => {
@@ -83,9 +85,10 @@ const BookingsManagement = () => {
         if (confirmed) {
             const res = await confirmBooking(booking.id);
             if (res.success) {
+                toast.success('Xác nhận đơn thành công');
                 fetchBookings();
             } else {
-                alert(res.message);
+                toast.error(res.message);
             }
         }
     };
@@ -95,9 +98,10 @@ const BookingsManagement = () => {
         if (confirmed) {
             const res = await cancelBooking(booking.id);
             if (res.success) {
+                toast.success('Hủy đơn thành công');
                 fetchBookings();
             } else {
-                alert(res.message);
+                toast.error(res.message);
             }
         }
     };
@@ -121,6 +125,7 @@ const BookingsManagement = () => {
                     <Dropdown label="Ngày nhận" selected={SORT_DATE[sortDate]} width="150px" outline>
                         <div onClick={() => setSortDate('asc')}>{SORT_DATE['asc']}</div>
                         <div onClick={() => setSortDate('desc')}>{SORT_DATE['desc']}</div>
+                        <div onClick={() => setSortDate('newest')}>{SORT_DATE['newest']}</div>
                         <div onClick={() => setSortDate('')}>{SORT_DATE['']}</div>
                     </Dropdown>
                 </div>

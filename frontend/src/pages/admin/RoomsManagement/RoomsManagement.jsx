@@ -15,6 +15,7 @@ import { getRoomTypes } from '@/services/RoomService';
 import { formatPrice } from '@/utils/stringUtil';
 import RoomCreate from './RoomCreate/RoomCreate';
 import { deleteRoomType } from '@/services/RoomService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -54,16 +55,18 @@ const RoomsManagement = () => {
     }, [location.search]);
 
     useEffect(() => {
-        if (error) alert(error);
+        if (error) toast.error(error);
     }, [error]);
 
     const handleDeleteRoomType = async (room = {}) => {
         const confirmed = confirm(`Bạn có chắc muốn xóa loại phòng ${room.name} không`);
         if (confirmed) {
             const res = await deleteRoomType(room.id);
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 fetchRoomTypes();
+            } else {
+                toast.error(res.message);
             }
         }
     };

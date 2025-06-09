@@ -10,6 +10,7 @@ import Dropdown from '@/components/Dropdown';
 import TextArea from '@/components/TextArea/TextArea';
 import { getDate } from '@/utils/dateUtil';
 import { getVoucher, updateVoucher } from '@/services/VoucherService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -47,7 +48,7 @@ const VoucherEdit = ({ voucherId, fetchVouchers }) => {
         if (res.success) {
             setVoucher(res.voucher);
         } else {
-            alert(res.message);
+            toast.error(res.message);
         }
     };
 
@@ -57,15 +58,15 @@ const VoucherEdit = ({ voucherId, fetchVouchers }) => {
 
     const handleUpdateVoucher = async () => {
         if (!voucher.name) {
-            alert('Vui lòng nhập tên voucher');
+            toast.warning('Vui lòng nhập tên voucher');
         } else if (!voucher.code) {
-            alert('Vui lòng nhập mã voucher');
+            toast.warning('Vui lòng nhập mã voucher');
         } else if (!voucher.discount) {
-            alert('Vui lòng nhập chiết khấu');
+            toast.warning('Vui lòng nhập chiết khấu');
         } else if (!voucher.end_date) {
-            alert('Vui lòng nhập ngày hết hạn');
+            toast.warning('Vui lòng nhập ngày hết hạn');
         } else if (!voucher.start_date) {
-            alert('Vui lòng nhập ngày bắt đầu');
+            toast.warning('Vui lòng nhập ngày bắt đầu');
         } else {
             const res = await updateVoucher(voucherId, {
                 code: voucher.code,
@@ -78,10 +79,12 @@ const VoucherEdit = ({ voucherId, fetchVouchers }) => {
                 end_date: voucher.end_date,
             });
 
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 fetchVouchers();
                 setShow(false);
+            } else {
+                toast.error(res.message);
             }
         }
     };

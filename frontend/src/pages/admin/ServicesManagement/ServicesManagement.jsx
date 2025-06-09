@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import styles from './ServicesManagement.module.scss';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import useProfile from '@/hooks/profile/useProfile';
@@ -16,6 +15,7 @@ import { formatPrice } from '@/utils/stringUtil';
 import { deleteService, getAllServicesByHotelId } from '@/services/ServiceHotelService';
 import ServiceCreate from './ServiceCreate/ServiceCreate';
 import ServiceEdit from './ServiceEdit/ServiceEdit';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -70,16 +70,18 @@ const ServicesManagement = () => {
     }, [location.search]);
 
     useEffect(() => {
-        if (error) alert(error);
+        if (error) toast.error(error);
     }, [error]);
 
     const handleDeleteService = async (service = {}) => {
         const confirmed = confirm(`Bạn có chắc muốn xóa dịch vụ ${service.name} không`);
         if (confirmed) {
             const res = await deleteService(service.id);
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 fetchServices();
+            } else {
+                toast.error(res.message);
             }
         }
     };

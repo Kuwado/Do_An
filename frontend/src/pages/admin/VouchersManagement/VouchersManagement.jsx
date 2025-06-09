@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import styles from './VouchersManagement.module.scss';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import useProfile from '@/hooks/profile/useProfile';
@@ -17,6 +16,7 @@ import { deleteVoucher, getVouchers } from '@/services/VoucherService';
 import { formatDate } from '@/utils/stringUtil';
 import VoucherCreate from './VoucherCreate/VoucherCreate';
 import VoucherEdit from './VoucherEdit/VoucherEdit';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -92,16 +92,18 @@ const VouchersManagement = () => {
     }, [location.search]);
 
     useEffect(() => {
-        if (error) alert(error);
+        if (error) toast.error(error);
     }, [error]);
 
     const handleDeleteVoucher = async (voucher = {}) => {
         const confirmed = confirm(`Bạn có chắc muốn xóa dịch vụ ${voucher.name} không`);
         if (confirmed) {
             const res = await deleteVoucher(voucher.id);
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 fetchVouchers();
+            } else {
+                toast.error(res.message);
             }
         }
     };

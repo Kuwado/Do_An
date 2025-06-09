@@ -60,7 +60,12 @@ const useProfile = () => {
                 localStorage.setItem('user_id', res.data.user.id);
                 localStorage.setItem('user_token', res.data.token);
                 const nextUrl = localStorage.getItem('next');
-                navigate(nextUrl ?? config.routes.user.home);
+                if (nextUrl) {
+                    navigate(nextUrl);
+                    localStorage.removeItem('next');
+                } else {
+                    navigate(config.routes.user.home);
+                }
             } else {
                 setError(res.message);
             }
@@ -85,9 +90,10 @@ const useProfile = () => {
                 const nextUrl = localStorage.getItem('next');
                 if (nextUrl) {
                     navigate(nextUrl);
+                    localStorage.removeItem('next');
                 } else {
                     navigate(
-                        res.data.admin.role === 'admin' ? config.routes.admin.dashboard : config.routes.staff.dashboard,
+                        res.data.admin.role === 'admin' ? config.routes.admin.hotel : config.routes.staff.bookings,
                     );
                 }
             } else {
@@ -106,7 +112,6 @@ const useProfile = () => {
         localStorage.removeItem('admin_id');
         localStorage.removeItem('admin_token');
         localStorage.removeItem('role');
-        localStorage.removeItem('next');
         localStorage.removeItem('pending_booking_id');
         localStorage.removeItem('booking_created_at');
         setUserId('');

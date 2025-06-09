@@ -13,6 +13,7 @@ import Image from '@/components/Image';
 import HotelAmenities from './HotelAmenities';
 import { getHotel, updateHotel } from '@/services/HotelService';
 import { updateHotelAmenities } from '@/services/AmenityService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 const IMAGE_URL = import.meta.env.VITE_BACKEND_URL;
@@ -35,7 +36,7 @@ const Hotel = () => {
         const total = files.length;
 
         if (total > limit) {
-            alert(`Chỉ được chọn tối đa ${limit} ảnh.`);
+            toast.warning(`Chỉ được chọn tối đa ${limit} ảnh.`);
             return;
         }
 
@@ -70,15 +71,15 @@ const Hotel = () => {
 
     const handleUpdateHotel = async () => {
         if (!hotel.name) {
-            alert('Vui lòng nhập tên khách sạn');
+            toast.warning('Vui lòng nhập tên khách sạn');
         } else if (!hotel.phone) {
-            alert('Vui lòng nhập số điện thoại');
+            toast.warning('Vui lòng nhập số điện thoại');
         } else if (!hotel.email) {
-            alert('Vui lòng nhập email');
+            toast.warning('Vui lòng nhập email');
         } else if (!hotel.city) {
-            alert('Vui lòng nhập tỉnh thành');
+            toast.warning('Vui lòng nhập tỉnh thành');
         } else if (!hotel.address) {
-            alert('Vui lòng nhập địa chỉ');
+            toast.warning('Vui lòng nhập địa chỉ');
         } else {
             const res = await updateHotel(hotel.id, {
                 name: hotel.name,
@@ -90,14 +91,19 @@ const Hotel = () => {
                 avatar: hotel.avatar,
                 images: hotel.images,
             });
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 const resA = await updateHotelAmenities({ hotelId: hotel.id, amenityIds: hotel.amenity_ids });
                 if (resA.success) {
+                    toast.success(resA.message);
                     setAvatar(null);
                     setImages([]);
                     fetchHotel();
+                } else {
+                    toast.error(resA.message);
                 }
+            } else {
+                toast.error(res.message);
             }
         }
     };

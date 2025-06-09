@@ -8,6 +8,7 @@ import { Input } from '@/components/Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { createRoom } from '@/services/RoomService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -17,16 +18,15 @@ const RoomCreate = ({ fetchRooms, roomTypeId }) => {
 
     const handleAddRoom = async () => {
         if (!roomNumber) {
-            alert('Vui lòng nhập số phòng');
+            toast.warning('Vui lòng nhập số phòng');
         } else {
-            console.log(roomTypeId);
             const res = await createRoom({ roomNumber, roomTypeId });
-            console.log(res);
-
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 fetchRooms();
                 setRoomNumber('');
+            } else {
+                toast.error(res.message);
             }
         }
     };

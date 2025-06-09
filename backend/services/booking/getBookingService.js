@@ -84,5 +84,11 @@ export const getBookingService = async ({
         booking.service_bookings = groupedServices;
     }
 
+    if (booking.room.room_type.images) {
+        booking.room.room_type.images = JSON.parse(
+            booking.room.room_type.images,
+        );
+    }
+
     return booking;
 };

@@ -11,6 +11,7 @@ import Dropdown from '@/components/Dropdown';
 import TextArea from '@/components/TextArea/TextArea';
 import { getDate } from '@/utils/dateUtil';
 import { createVoucher } from '@/services/VoucherService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -43,15 +44,15 @@ const VoucherCreate = ({ fetchVouchers }) => {
 
     const handleAddVoucher = async () => {
         if (!voucher.name) {
-            alert('Vui lòng nhập tên voucher');
+            toast.warning('Vui lòng nhập tên voucher');
         } else if (!voucher.code) {
-            alert('Vui lòng nhập mã voucher');
+            toast.warning('Vui lòng nhập mã voucher');
         } else if (!voucher.discount) {
-            alert('Vui lòng nhập chiết khấu');
+            toast.warning('Vui lòng nhập chiết khấu');
         } else if (!voucher.end_date) {
-            alert('Vui lòng nhập ngày hết hạn');
+            toast.warning('Vui lòng nhập ngày hết hạn');
         } else if (!voucher.start_date) {
-            alert('Vui lòng nhập ngày bắt đầu');
+            toast.warning('Vui lòng nhập ngày bắt đầu');
         } else {
             const res = await createVoucher({
                 code: voucher.code,
@@ -64,8 +65,8 @@ const VoucherCreate = ({ fetchVouchers }) => {
                 endDate: voucher.end_date,
             });
 
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 fetchVouchers();
                 setVoucher({
                     code: '',
@@ -77,6 +78,8 @@ const VoucherCreate = ({ fetchVouchers }) => {
                     start_date: getDate(0),
                     end_date: '',
                 });
+            } else {
+                toast.error(res.message);
             }
         }
     };

@@ -10,6 +10,7 @@ import PreviewExtra from './PreviewExtra';
 import ServiceList from './ServiceList';
 import { createServiceBooking } from '@/services/BookingService';
 import { getServiceBookingsHistory } from '@/services/ServiceHotelService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -119,7 +120,9 @@ const ServiceSelection = ({ booking, fetchServiceBookings }) => {
                     date,
                 });
                 if (res.success) {
-                    alert('Thêm dịch vụ thành công');
+                    toast.success('Thêm dịch vụ thành công');
+                } else {
+                    toast.error('Thêm dịch vụ thất bại');
                 }
             } else if (dateType === 'all') {
                 const checkIn = new Date(booking.check_in);
@@ -142,7 +145,7 @@ const ServiceSelection = ({ booking, fetchServiceBookings }) => {
                 );
 
                 const successCount = results.filter((r) => r.success).length;
-                alert(`Đã thêm dịch vụ cho ${successCount}/${days.length} ngày thành công`);
+                toast.success(`Đã thêm dịch vụ cho ${successCount}/${days.length} ngày thành công`);
             }
 
             fetchServiceBookings();

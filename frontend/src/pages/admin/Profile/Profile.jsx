@@ -13,6 +13,7 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import TextArea from '@/components/TextArea';
 import Starfall from '@/constants/Animations/Starfall/Starfall';
 import { updateStaff } from '@/services/StaffService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 const IMAGE_URL = import.meta.env.VITE_BACKEND_URL;
@@ -36,18 +37,19 @@ const Profile = () => {
 
     const handleUpdateUser = async () => {
         if (!currentUser.firstName) {
-            alert('Vui lòng nhập họ');
+            toast.warning('Vui lòng nhập họ');
         } else if (!currentUser.lastName) {
-            alert('Vui lòng nhập tên');
+            toast.warning('Vui lòng nhập tên');
         } else if (!currentUser.phone) {
-            alert('Vui lòng nhập số điện thoại');
+            toast.warning('Vui lòng nhập số điện thoại');
         } else {
             const res = await updateStaff(admin.id, currentAdmin);
-            console.log(res);
-            alert(res.message);
             if (res.success) {
+                toast.success(res.message);
                 setAvatar(null);
                 fetchAdmin();
+            } else {
+                toast.error(res.message);
             }
         }
     };

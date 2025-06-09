@@ -50,6 +50,8 @@ export const getBookingsByHotelIdService = async ({
 
     if (sortDate === 'asc' || sortDate === 'desc') {
         options.order = [['check_in', sortDate]];
+    } else if (sortDate === 'newest') {
+        options.order = [['created_at', 'DESC']];
     }
 
     if (limit && limit !== null && limit !== undefined) {

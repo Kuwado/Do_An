@@ -4,7 +4,7 @@ import { deleteImagesService } from '../upload/deleteImagesService.js';
 import { uploadImageService } from '../upload/uploadImageService.js';
 
 export const updateUserService = async (user, updateData) => {
-    if (updateData.username !== user.username) {
+    if (updateData.username && updateData.username !== user.username) {
         const checkUserName = await models.User.findOne({
             where: {
                 username: updateData.username,

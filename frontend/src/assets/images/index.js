@@ -9,6 +9,7 @@ import Home1 from './home1.webp';
 import Home2 from './home2.webp';
 import QR from './QR.jpg';
 import ProfileBackground from './profile-background.jpg';
+import Vnpay from './vnpay.png';
 
 const images = {
     avatar: Avatar,
@@ -22,6 +23,7 @@ const images = {
     home2: Home2,
     qr: QR,
     profileBackground: ProfileBackground,
+    vnpay: Vnpay,
 };
 
 export default images;
