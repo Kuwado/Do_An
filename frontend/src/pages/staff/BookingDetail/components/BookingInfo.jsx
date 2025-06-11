@@ -6,6 +6,7 @@ import { formatDate, formatPrice } from '@/utils/stringUtil';
 import { getDaysBetween } from '@/utils/dateUtil';
 import { cancelBooking, completeBooking, confirmBooking } from '@/services/BookingService';
 import { toast } from 'react-toastify';
+import { checkedInBooking } from '@/services/BookingService';
 
 const cx = classNames.bind(styles);
 
@@ -14,6 +15,7 @@ const FILTER_STATUS = {
     confirmed: 'Đã xác nhận',
     cancelled: 'Đã hủy',
     completed: 'Đã hoàn thành',
+    using: 'Đang dùng',
 };
 
 const BookingInfo = ({ booking, fetchBooking }) => {
@@ -49,6 +51,19 @@ const BookingInfo = ({ booking, fetchBooking }) => {
             const res = await completeBooking(booking.id);
             if (res.success) {
                 toast.success('Xác nhận đơn hoàn thành thành công');
+                fetchBooking();
+            } else {
+                toast.error(res.message);
+            }
+        }
+    };
+
+    const handleCheckedInBooking = async () => {
+        const confirmed = confirm(`Bạn có chắc muốn check-in phòng này không`);
+        if (confirmed) {
+            const res = await checkedInBooking(booking.id);
+            if (res.success) {
+                toast.success('Check-in thành công');
                 fetchBooking();
             } else {
                 toast.error(res.message);
@@ -131,12 +146,17 @@ const BookingInfo = ({ booking, fetchBooking }) => {
                             Từ chối
                         </Button>
                     )}
-                    {(booking.status === 'pending' || booking.status === 'canceled') && (
+                    {(booking.status === 'pending' || booking.status === 'cancelled') && (
                         <Button className={cx('confirm-btn')} onClick={handleConfirmBooking}>
                             Xác nhận
                         </Button>
                     )}
                     {booking.status === 'confirmed' && (
+                        <Button className={cx('confirm-btn')} onClick={handleCheckedInBooking}>
+                            Check-in
+                        </Button>
+                    )}
+                    {booking.status === 'using' && (
                         <Button className={cx('confirm-btn')} onClick={handleCompleteBooking}>
                             Hoàn thành
                         </Button>

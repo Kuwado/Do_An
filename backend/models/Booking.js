@@ -101,10 +101,15 @@ Booking.init(
                 'pending',
                 'expired',
                 'confirmed',
+                'using',
                 'cancelled',
                 'completed',
             ),
             defaultValue: 'pending',
+        },
+        checked_in_at: {
+            type: DataTypes.DATE,
+            allowNull: true,
         },
         expired_at: {
             type: DataTypes.DATE,

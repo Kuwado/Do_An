@@ -49,20 +49,29 @@ export async function up(queryInterface, Sequelize) {
                 const room_price = parseFloat(randomInfo.room_price);
                 const total_price = room_price * numNights;
 
-                const randomStatus =
-                    Math.random() < 0.5 ? 'pending' : 'confirmed';
+                const status = faker.helpers.arrayElement([
+                    'pending',
+                    'confirmed',
+                    'using',
+                ]);
 
-                bookings.push({
+                const booking = {
                     user_id: user.id,
                     hotel_id: hotel.id,
                     room_id: randomInfo.room_id,
                     room_price: randomInfo.room_price,
                     check_in: checkIn,
                     check_out: checkOut,
-                    status: randomStatus,
+                    status: status,
                     total_room_price: total_price,
                     room_amount: total_price,
-                });
+                };
+
+                if (status === 'using') {
+                    booking.checked_in_at = checkIn;
+                }
+
+                bookings.push(booking);
             }
         }
     }

@@ -117,6 +117,10 @@ tbody tr:nth-child(even) {
     &.completed {
         background-color: #34d399;
     }
+
+    &.using {
+        background-color: #a78bfa;
+    }
 }
 
 .action-btns {
@@ -141,8 +145,16 @@ tbody tr:nth-child(even) {
     }
 }
 
-.cancel-btn {
-    background-color: #f87171;
+.check-in-btn {
+    background-color: #a78bfa;
+    color: white;
+    svg {
+        font-size: 20px;
+    }
+}
+
+.complete-btn {
+    background-color: #34d399;
     color: white;
     svg {
         font-size: 20px;

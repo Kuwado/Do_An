@@ -68,5 +68,5 @@ app.listen(PORT, () => {
     console.log(`Server đang chạy tại http://localhost:${PORT}`);
 });
 
-// startCronJobs();
+startCronJobs();
 collectData();

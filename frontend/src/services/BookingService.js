@@ -255,6 +255,31 @@ export const confirmBooking = async (id) => {
     }
 };
 
+export const checkedInBooking = async (id) => {
+    const token = localStorage.getItem('admin_token');
+
+    try {
+        const res = await axios.post(
+            `${API_URL}/bookings/update/${id}`,
+            { status: 'using', checked_in_at: new Date() },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+
+        return res.data;
+    } catch (err) {
+        const errorMessage =
+            err.response && err.response.data && err.response.data.message
+                ? err.response.data.message
+                : 'Đã có lỗi xảy ra. Vui lòng thử lại';
+
+        return { success: false, message: errorMessage };
+    }
+};
+
 export const cancelBooking = async (id) => {
     const token = localStorage.getItem('admin_token');
 
