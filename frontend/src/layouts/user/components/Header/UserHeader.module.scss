@@ -29,11 +29,11 @@
 
 /* Left */
 .logo {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    font-size: 24px;
-    color: var(--secondary) !important;
+    height: 50px;
+
+    img {
+        height: 100%;
+    }
 }
 
 .header-item-list {

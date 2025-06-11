@@ -5,7 +5,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import useProfile from '@/hooks/profile/useProfile';
 import { predictGuests } from '@/services/PredictService';
 import Image from '@/components/Image';
-import Loading from '../../../constants/Loading/Loading';
+import Loading from '@/constants/Loading/Loading';
+import images from '@/assets/images';
 
 const cx = classNames.bind(styles);
 
@@ -39,7 +40,15 @@ const Predict = () => {
                 setTemp(res.temp);
                 setCity(res.city);
                 const sortedData = [...res.predictedData].sort((a, b) => new Date(a.date) - new Date(b.date));
-                setPredictedData(sortedData);
+                const formattedData = sortedData.map((item) => ({
+                    ...item,
+                    date: new Date(item.date).toLocaleDateString('vi-VN', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                    }),
+                }));
+                setPredictedData(formattedData);
             }
             setLoading(false);
         };
@@ -58,14 +67,10 @@ const Predict = () => {
                     <div className={cx('predict-header')}>
                         <div className={cx('date')}>{formattedDate}</div>
 
-                        <div className={cx('predict-result')}>
-                            <div className={cx('predict-title')}>Dự đoán lượng khách hôm nay</div>
-                            <div className={cx('predict-guests')}>
-                                {predicts.avg ? `${predicts.avg} khách` : 'Chưa thể dự đoán'}
-                            </div>
-                        </div>
-
                         <div className={cx('weather')}>
+                            <div className={cx('pin')}>
+                                <img src={images.pin} alt="pin" />
+                            </div>
                             <div className={cx('city')}>{city}</div>
                             <div className={cx('temp')}>{temp} ℃</div>
                             <div className={cx('weather-container')}>
@@ -76,6 +81,16 @@ const Predict = () => {
                                     />
                                 )}
                                 <div className={cx('weather-des')}>{weather.description}</div>
+                            </div>
+                        </div>
+
+                        <div className={cx('predict-result')}>
+                            <div className={cx('pin')}>
+                                <img src={images.pin} alt="pin" />
+                            </div>
+                            <div className={cx('predict-title')}>Dự đoán lượng khách hôm nay</div>
+                            <div className={cx('predict-guests')}>
+                                {predicts.avg ? `${predicts.avg} khách` : 'Chưa thể dự đoán'}
                             </div>
                         </div>
                     </div>
