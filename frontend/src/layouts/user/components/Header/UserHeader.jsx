@@ -6,6 +6,7 @@ import styles from './UserHeader.module.scss';
 import config from '@/config';
 import AvatarBar from './AvatarBar';
 import { Button } from '@/components/Button';
+import images from '@/assets/images';
 
 const cx = classNames.bind(styles);
 
@@ -30,7 +31,7 @@ const UserHeader = ({ className = '' }) => {
             <div className={cx('header-content')}>
                 <div className={cx('header-left')}>
                     <Link className={cx('logo')} to={config.routes.user.home}>
-                        KuwaHotels
+                        <img src={images.logo} alt="logo" />
                     </Link>
                     <div className={cx('header-item-list')}>
                         <Link
