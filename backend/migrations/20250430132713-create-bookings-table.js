@@ -83,11 +83,16 @@ export async function up(queryInterface, Sequelize) {
                 'pending',
                 'confirmed',
                 'expired',
+                'using',
                 'cancelled',
                 'completed',
             ),
             allowNull: false,
             defaultValue: 'pending',
+        },
+        checked_in_at: {
+            type: Sequelize.DATE,
+            allowNull: true,
         },
         expired_at: {
             type: Sequelize.DATE,

@@ -206,16 +206,17 @@ async function upsertRevenueRecord(hotelId, revenue, reportDate, type) {
 // =========================
 // Cron Job - chạy lúc 2h sáng mỗi ngày
 // =========================
-const job = cron.schedule(
-    '0 2 * * *',
-    () => {
-        console.log('🕑 Running revenue update job...');
-        updateRevenue();
-    },
-    {
-        scheduled: true,
-        timezone: 'Asia/Ho_Chi_Minh',
-    },
-);
-
-export default job;
+export const updateHotelRevenue = () => {
+    // Chạy mỗi ngày lúc 00:10 sáng
+    cron.schedule(
+        '0 2 * * *',
+        () => {
+            console.log('🕑 Running revenue update job...');
+            updateRevenue();
+        },
+        {
+            scheduled: true,
+            timezone: 'Asia/Ho_Chi_Minh',
+        },
+    );
+};

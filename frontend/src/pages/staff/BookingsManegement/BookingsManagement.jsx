@@ -6,7 +6,8 @@ import classNames from 'classnames/bind';
 import styles from './BookingsManagement.module.scss';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import WhereToVoteIcon from '@mui/icons-material/WhereToVote';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 import useProfile from '@/hooks/profile/useProfile';
 import { Button } from '@/components/Button';
@@ -14,8 +15,9 @@ import Dropdown from '@/components/Dropdown';
 import SearchOneValue from '@/constants/SearchOneValue';
 import Pagination from '@/constants/Pagination';
 import { formatDate } from '@/utils/stringUtil';
-import { cancelBooking, confirmBooking, getBookingsByHotelId } from '@/services/BookingService';
+import { confirmBooking, getBookingsByHotelId } from '@/services/BookingService';
 import { toast } from 'react-toastify';
+import { checkedInBooking, completeBooking } from '../../../services/BookingService';
 
 const cx = classNames.bind(styles);
 
@@ -23,6 +25,7 @@ const FILTER_STATUS = {
     '': 'Tất cả',
     pending: 'Đang chờ',
     confirmed: 'Đã xác nhận',
+    using: 'Đang dùng',
     cancelled: 'Đã hủy',
     completed: 'Đã hoàn thành',
 };
@@ -93,12 +96,25 @@ const BookingsManagement = () => {
         }
     };
 
-    const handleCancelBooking = async (booking = {}) => {
-        const confirmed = confirm(`Bạn có chắc muốn hủy đơn này không`);
+    const handleCheckedInBooking = async (booking = {}) => {
+        const confirmed = confirm(`Bạn có chắc muốn check-in phòng này không`);
         if (confirmed) {
-            const res = await cancelBooking(booking.id);
+            const res = await checkedInBooking(booking.id);
             if (res.success) {
-                toast.success('Hủy đơn thành công');
+                toast.success('Check-in thành công');
+                fetchBookings();
+            } else {
+                toast.error(res.message);
+            }
+        }
+    };
+
+    const handleCompleteBooking = async (booking = {}) => {
+        const confirmed = confirm(`Xác nhận đơn đặt đã hoàn thành`);
+        if (confirmed) {
+            const res = await completeBooking(booking.id);
+            if (res.success) {
+                toast.success('Xác nhận đơn hoàn thành thành công');
                 fetchBookings();
             } else {
                 toast.error(res.message);
@@ -117,6 +133,7 @@ const BookingsManagement = () => {
                     <Dropdown label="Trạng thái" selected={FILTER_STATUS[status]} width="170px" outline>
                         <div onClick={() => setStatus('pending')}>{FILTER_STATUS['pending']}</div>
                         <div onClick={() => setStatus('confirmed')}>{FILTER_STATUS['confirmed']}</div>
+                        <div onClick={() => setStatus('using')}>{FILTER_STATUS['using']}</div>
                         <div onClick={() => setStatus('cancelled')}>{FILTER_STATUS['cancelled']}</div>
                         <div onClick={() => setStatus('completed')}>{FILTER_STATUS['completed']}</div>
                         <div onClick={() => setStatus('')}>{FILTER_STATUS['']}</div>
@@ -180,11 +197,20 @@ const BookingsManagement = () => {
                                         )}
                                         {booking.status === 'confirmed' && (
                                             <Button
-                                                className={cx('cancel-btn')}
+                                                className={cx('check-in-btn')}
                                                 small
-                                                onClick={() => handleCancelBooking(booking)}
+                                                onClick={() => handleCheckedInBooking(booking)}
                                             >
-                                                <HighlightOffIcon />
+                                                <WhereToVoteIcon />
+                                            </Button>
+                                        )}
+                                        {booking.status === 'using' && (
+                                            <Button
+                                                className={cx('complete-btn')}
+                                                small
+                                                onClick={() => handleCompleteBooking(booking)}
+                                            >
+                                                <ExitToAppIcon />
                                             </Button>
                                         )}
                                     </div>
