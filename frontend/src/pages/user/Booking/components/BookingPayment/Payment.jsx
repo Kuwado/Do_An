@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import styles from './BookingPayment.module.scss';
@@ -15,6 +15,7 @@ const cx = classNames.bind(styles);
 
 const Payment = ({ countDownTime, setBookingId, total }) => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { hotelId } = useParams();
     const [createdAt, setCreatedAt] = useState(localStorage.getItem('booking_created_at') || '');
     const [method, setMethod] = useState('offline');
@@ -75,6 +76,10 @@ const Payment = ({ countDownTime, setBookingId, total }) => {
             // setBookingId(bookingId);
             navigate(`/hotels/${hotelId}/booking-completed`);
         }
+    };
+
+    const handleReBooking = () => {
+        navigate(`/hotels/${hotelId}`);
     };
 
     useEffect(() => {
@@ -163,7 +168,13 @@ const Payment = ({ countDownTime, setBookingId, total }) => {
                             <Button
                                 secondary
                                 width="150px"
-                                onClick={() => handlePayment({ amount, next: `/hotels/${hotelId}/booking-completed` })}
+                                onClick={() =>
+                                    handlePayment({
+                                        amount,
+                                        next: `/hotels/${hotelId}/booking-completed`,
+                                        prev: location.pathname,
+                                    })
+                                }
                             >
                                 Thanh toán
                             </Button>
@@ -173,7 +184,7 @@ const Payment = ({ countDownTime, setBookingId, total }) => {
             ) : (
                 <div className={cx('booking-left', 'expired')}>
                     <div>Đã hết thời gian giữ phòng. Vui lòng đặt lại</div>
-                    <Button transparent primaryBorder width="150px" onClick={handleCancel}>
+                    <Button transparent primaryBorder width="150px" onClick={handleReBooking}>
                         Đặt lại phòng
                     </Button>
                 </div>

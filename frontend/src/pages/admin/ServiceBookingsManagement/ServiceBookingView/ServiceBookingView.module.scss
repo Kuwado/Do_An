@@ -1,0 +1,103 @@
+.view-btn {
+    background-color: #1976d2;
+    color: white;
+    svg {
+        font-size: 20px;
+    }
+}
+
+.service-booking-view {
+    position: relative;
+    width: 360px;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background-color: var(--primary);
+    border-radius: 20px;
+}
+
+.status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: fit-content;
+    padding: 5px 15px;
+    border-radius: 999px;
+    font-weight: bold;
+    color: #333;
+
+    &.pending {
+        background-color: #facc15;
+    }
+
+    &.cancelled {
+        background-color: #f87171;
+    }
+
+    &.confirmed {
+        background-color: #38bdf8;
+    }
+
+    &.completed {
+        background-color: #34d399;
+    }
+}
+
+.title {
+    margin-top: 20px;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-header-2);
+    font-weight: bold;
+    color: var(--header-color);
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
+.item-title {
+    font-weight: bold;
+}
+
+.break {
+    height: 1px;
+    width: 100%;
+    border-bottom: 1px dashed var(--primary-text);
+}
+
+.booking-link {
+    text-decoration: underline;
+    color: blue;
+}
+
+.action-btns {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+.confirm-btn {
+    background-color: #38bdf8;
+    color: white;
+    svg {
+        font-size: 20px;
+    }
+}
+
+.cancel-btn {
+    background-color: #f87171;
+    color: white;
+    svg {
+        font-size: 20px;
+    }
+}

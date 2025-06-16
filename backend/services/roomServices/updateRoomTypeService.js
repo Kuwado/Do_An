@@ -1,5 +1,5 @@
-import { deleteImagesService } from '../upload/deleteImagesService.js';
-import { uploadImagesService } from '../upload/uploadImagesService.js';
+import { deleteImagesService } from '../uploadServices/deleteImagesService.js';
+import { uploadImagesService } from '../uploadServices/uploadImagesService.js';
 
 export const updateRoomTypeService = async (roomType, updateData) => {
     if (updateData.images && updateData.images.length > 0) {

@@ -1,8 +1,8 @@
 import models from '../models/index.js';
-import { createUserService } from '../services/user/createUserService.js';
-import { getUserByPhoneService } from '../services/user/getUserByPhoneService.js';
-import { getUserService } from '../services/user/getUserService.js';
-import { updateUserService } from '../services/user/updateUserService.js';
+import { createUserService } from '../services/userServices/createUserService.js';
+import { getUserByPhoneService } from '../services/userServices/getUserByPhoneService.js';
+import { getUserService } from '../services/userServices/getUserService.js';
+import { updateUserService } from '../services/userServices/updateUserService.js';
 
 export const getUserById = async (req, res) => {
     const id = req.params.id;

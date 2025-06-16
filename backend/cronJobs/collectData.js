@@ -7,19 +7,15 @@ import { appendFile } from 'fs/promises';
 
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import axios from 'axios';
 import dotenv from 'dotenv';
 import { Solar } from 'lunar-javascript';
 import fs from 'fs/promises';
 import path from 'path';
-import csv from 'csv-parser';
-import { createObjectCsvWriter } from 'csv-writer';
-import { trainModelService } from '../services/predict/trainModelService.js';
-import { getWeatherService } from '../services/predict/getWeatherService.js';
-import { predictGuestsService } from '../services/predict/predictGuestsService.js';
+import { trainModelService } from '../services/predictServices/trainModelService.js';
+import { getWeatherService } from '../services/predictServices/getWeatherService.js';
+import { predictGuestsService } from '../services/predictServices/predictGuestsService.js';
 
 dotenv.config();
-
 export const collectData = async () => {
     cron.schedule(
         '0 23 * * *',

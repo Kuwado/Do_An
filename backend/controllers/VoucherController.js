@@ -1,10 +1,10 @@
 import models from '../models/index.js';
-import { applyVoucherService } from '../services/voucher/applyVoucherService.js';
-import { createVoucherService } from '../services/voucher/createVoucherService.js';
-import { deleteVoucherService } from '../services/voucher/deleteVoucherService.js';
-import { getVoucherService } from '../services/voucher/getVoucherService.js';
-import { getVouchersService } from '../services/voucher/getVouchersService.js';
-import { updateVoucherService } from '../services/voucher/updateVoucherService.js';
+import { applyVoucherService } from '../services/voucherServices/applyVoucherService.js';
+import { createVoucherService } from '../services/voucherServices/createVoucherService.js';
+import { deleteVoucherService } from '../services/voucherServices/deleteVoucherService.js';
+import { getVoucherService } from '../services/voucherServices/getVoucherService.js';
+import { getVouchersService } from '../services/voucherServices/getVouchersService.js';
+import { updateVoucherService } from '../services/voucherServices/updateVoucherService.js';
 
 export const checkVoucher = async (req, res) => {
     const hotelId = req.query.hotelId;

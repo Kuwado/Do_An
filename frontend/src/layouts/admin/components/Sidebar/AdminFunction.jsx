@@ -9,6 +9,7 @@ import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import RoomServiceIcon from '@mui/icons-material/RoomService';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import OnlinePredictionIcon from '@mui/icons-material/OnlinePrediction';
 
@@ -104,6 +105,16 @@ const AdminFunction = () => {
                     <ReceiptLongIcon />
                 </div>
                 <div className={cx('sidebar-title')}>Quản lý đơn đặt</div>
+            </NavLink>
+
+            <NavLink
+                to={config.routes.admin.serviceBookings}
+                className={({ isActive }) => cx('sidebar-item', { active: isActive })}
+            >
+                <div className={cx('sidebar-icon')}>
+                    <ReceiptIcon />
+                </div>
+                <div className={cx('sidebar-title')}>Quản lý đơn dịch vụ</div>
             </NavLink>
 
             <NavLink

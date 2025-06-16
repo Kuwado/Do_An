@@ -1,19 +1,19 @@
 import models from '../models/index.js';
-import { createBookingService } from '../services/booking/createBookingService.js';
-import { createServiceBookingService } from '../services/booking/createServiceBookingService.js';
-import { getBookingByAdminService } from '../services/booking/getBookingByAdminService.js';
-import { getBookingsByHotelIdService } from '../services/booking/getBookingsByHotelIdService.js';
-import { getBookingsByUserIdService } from '../services/booking/getBookingsByUserIdService.js';
-import { getBookingService } from '../services/booking/getBookingService.js';
-import { updateBookingService } from '../services/booking/updateBookingService.js';
+import { createBookingService } from '../services/bookingServices/createBookingService.js';
+import { createServiceBookingService } from '../services/bookingServices/createServiceBookingService.js';
+import { getBookingByAdminService } from '../services/bookingServices/getBookingByAdminService.js';
+import { getBookingsByHotelIdService } from '../services/bookingServices/getBookingsByHotelIdService.js';
+import { getBookingsByUserIdService } from '../services/bookingServices/getBookingsByUserIdService.js';
+import { getBookingService } from '../services/bookingServices/getBookingService.js';
+import { updateBookingService } from '../services/bookingServices/updateBookingService.js';
 import {
     getRoomAvailableIds,
     isRoomAvailable,
-} from '../services/room/roomAvailable.js';
+} from '../services/roomServices/roomAvailable.js';
 import {
     canApplyVoucher,
     checkVoucher,
-} from '../services/voucher/applyVoucherService.js';
+} from '../services/voucherServices/applyVoucherService.js';
 import { formatCheckIn, formatCheckOut } from '../utils/formatDateTime.js';
 
 export const createBooking = async (req, res) => {

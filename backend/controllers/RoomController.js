@@ -1,14 +1,14 @@
 import models from '../models/index.js';
-import { createRoomService } from '../services/room/createRoomService.js';
-import { createRoomTypeService } from '../services/room/createRoomTypeService.js';
-import { deleteRoomService } from '../services/room/deleteRoomService.js';
-import { deleteRoomTypeService } from '../services/room/deleteRoomTypeService.js';
-import { getRoomService } from '../services/room/getRoomService.js';
-import { getRoomsService } from '../services/room/getRoomsService.js';
-import { getRoomTypeService } from '../services/room/getRoomTypeService.js';
-import { getRoomTypesService } from '../services/room/getRoomTypesService.js';
-import { updateRoomService } from '../services/room/updateRoomService.js';
-import { updateRoomTypeService } from '../services/room/updateRoomTypeService.js';
+import { createRoomService } from '../services/roomServices/createRoomService.js';
+import { createRoomTypeService } from '../services/roomServices/createRoomTypeService.js';
+import { deleteRoomService } from '../services/roomServices/deleteRoomService.js';
+import { deleteRoomTypeService } from '../services/roomServices/deleteRoomTypeService.js';
+import { getRoomService } from '../services/roomServices/getRoomService.js';
+import { getRoomsService } from '../services/roomServices/getRoomsService.js';
+import { getRoomTypeService } from '../services/roomServices/getRoomTypeService.js';
+import { getRoomTypesService } from '../services/roomServices/getRoomTypesService.js';
+import { updateRoomService } from '../services/roomServices/updateRoomService.js';
+import { updateRoomTypeService } from '../services/roomServices/updateRoomTypeService.js';
 
 export const getRoomTypes = async (req, res) => {
     const hotelId = req.query.hotelId;

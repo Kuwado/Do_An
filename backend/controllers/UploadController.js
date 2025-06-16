@@ -1,7 +1,5 @@
-import { createRoomService } from '../services/room/createRoomService.js';
-import { createRoomTypeService } from '../services/room/createRoomTypeService.js';
-import { uploadImageService } from '../services/upload/uploadImageService.js';
-import { uploadImagesService } from '../services/upload/uploadImagesService.js';
+import { uploadImageService } from '../services/uploadServices/uploadImageService.js';
+import { uploadImagesService } from '../services/uploadServices/uploadImagesService.js';
 
 export const uploadImage = async (req, res) => {
     try {

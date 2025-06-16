@@ -68,6 +68,102 @@ const hardCodedPredicts = [
         predicted_guests: 25,
         actual_guests: 28,
     },
+    {
+        hotel_id: 1,
+        date: '2025-06-01',
+        predicted_guests: 40,
+        actual_guests: 39,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-02',
+        predicted_guests: 39,
+        actual_guests: 35,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-03',
+        predicted_guests: 25,
+        actual_guests: 23,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-04',
+        predicted_guests: 38,
+        actual_guests: 35,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-05',
+        predicted_guests: 38,
+        actual_guests: 40,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-06',
+        predicted_guests: 39,
+        actual_guests: 43,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-07-06',
+        predicted_guests: 30,
+        actual_guests: 34,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-07',
+        predicted_guests: 40,
+        actual_guests: 39,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-08',
+        predicted_guests: 39,
+        actual_guests: 35,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-09',
+        predicted_guests: 25,
+        actual_guests: 23,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-10',
+        predicted_guests: 38,
+        actual_guests: 35,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-11',
+        predicted_guests: 34,
+        actual_guests: 35,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-12',
+        predicted_guests: 35,
+        actual_guests: 36,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-13',
+        predicted_guests: 39,
+        actual_guests: 37,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-14',
+        predicted_guests: 38,
+        actual_guests: 42,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-15',
+        predicted_guests: 39,
+        actual_guests: 43,
+    },
 ];
 
 /** @type {import('sequelize-cli').Migration} */

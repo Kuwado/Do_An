@@ -1,17 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-
 import classNames from 'classnames/bind';
 
-import styles from './BookingsManagement.module.scss';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import styles from './ServiceBookingsManagement.module.scss';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import useProfile from '@/hooks/profile/useProfile';
 import { Button } from '@/components/Button';
 import Dropdown from '@/components/Dropdown';
 import SearchOneValue from '@/constants/SearchOneValue';
 import Pagination from '@/constants/Pagination';
 import { formatDate } from '@/utils/stringUtil';
-import { getBookingsByHotelId } from '@/services/BookingService';
+import {
+    cancelServiceBooking,
+    confirmServiceBooking,
+    getServiceBookingsByHotelId,
+} from '@/services/ServiceHotelService';
+import ServiceBookingView from './ServiceBookingView/ServiceBookingView';
 import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
@@ -22,7 +27,13 @@ const FILTER_STATUS = {
     confirmed: 'Đã xác nhận',
     cancelled: 'Đã hủy',
     completed: 'Đã hoàn thành',
-    using: 'Đang sử dụng',
+};
+
+const FILTER_CATEGORY = {
+    '': 'Tất cả',
+    dining: 'Ăn uống',
+    entertainment: 'Giải trí',
+    facilities: 'Tiện ích',
 };
 
 const SORT_DATE = {
@@ -31,26 +42,28 @@ const SORT_DATE = {
     desc: 'Xa nhất',
 };
 
-const BookingsManagement = () => {
+const ServiceBookingsManagement = () => {
     const { admin } = useProfile();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    const [bookings, setBookings] = useState([]);
+    const [serviceBookings, setServiceBookings] = useState([]);
     const [name, setName] = useState('');
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState('pending');
+    const [category, setCategory] = useState('');
     const [sortDate, setSortDate] = useState('');
-    const limit = 8;
+    const limit = 7;
     const [page, setPage] = useState(params.get('page') || 1);
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const fetchBookings = async () => {
+    const fetchserviceBookings = async () => {
         setLoading(true);
-        const res = await getBookingsByHotelId({
+        const res = await getServiceBookingsByHotelId({
             hotelId: admin.hotel_id,
             name,
             status,
+            category,
             sortDate,
             page,
             limit,
@@ -58,7 +71,7 @@ const BookingsManagement = () => {
         if (!res.success) {
             setError(res.message);
         } else {
-            setBookings(res.bookings);
+            setServiceBookings(res.service_bookings);
             setTotalPages(res.totalPages);
             setError(null);
         }
@@ -66,8 +79,8 @@ const BookingsManagement = () => {
     };
 
     useEffect(() => {
-        if (admin.hotel_id) fetchBookings();
-    }, [admin, name, status, sortDate, page]);
+        if (admin.hotel_id) fetchserviceBookings();
+    }, [admin, name, status, category, sortDate, page]);
 
     useEffect(() => {
         setPage(params.get('page') || 1);
@@ -78,7 +91,7 @@ const BookingsManagement = () => {
     }, [error]);
 
     return (
-        <div className={cx('bookings-management-page')}>
+        <div className={cx('service-bookings-management-page')}>
             <div className={cx('header')}>
                 <div className={cx('left-header')}>
                     <div className={cx('search-bar')}>
@@ -88,13 +101,19 @@ const BookingsManagement = () => {
                     <Dropdown label="Trạng thái" selected={FILTER_STATUS[status]} width="170px" outline>
                         <div onClick={() => setStatus('pending')}>{FILTER_STATUS['pending']}</div>
                         <div onClick={() => setStatus('confirmed')}>{FILTER_STATUS['confirmed']}</div>
-                        <div onClick={() => setStatus('using')}>{FILTER_STATUS['using']}</div>
                         <div onClick={() => setStatus('cancelled')}>{FILTER_STATUS['cancelled']}</div>
                         <div onClick={() => setStatus('completed')}>{FILTER_STATUS['completed']}</div>
                         <div onClick={() => setStatus('')}>{FILTER_STATUS['']}</div>
                     </Dropdown>
 
-                    <Dropdown label="Ngày nhận" selected={SORT_DATE[sortDate]} width="150px" outline>
+                    <Dropdown label="Loại dịch vụ" selected={FILTER_CATEGORY[category]} width="150px" outline>
+                        <div onClick={() => setCategory('dining')}>{FILTER_CATEGORY['dining']}</div>
+                        <div onClick={() => setCategory('entertainment')}>{FILTER_CATEGORY['entertainment']}</div>
+                        <div onClick={() => setCategory('facilities')}>{FILTER_CATEGORY['facilities']}</div>
+                        <div onClick={() => setCategory('')}>{FILTER_CATEGORY['']}</div>
+                    </Dropdown>
+
+                    <Dropdown label="Ngày dùng" selected={SORT_DATE[sortDate]} width="150px" outline>
                         <div onClick={() => setSortDate('asc')}>{SORT_DATE['asc']}</div>
                         <div onClick={() => setSortDate('desc')}>{SORT_DATE['desc']}</div>
                         <div onClick={() => setSortDate('')}>{SORT_DATE['']}</div>
@@ -102,39 +121,46 @@ const BookingsManagement = () => {
                 </div>
             </div>
 
-            {bookings.length > 0 ? (
-                <table className={cx('bookings-table')}>
+            {serviceBookings.length > 0 ? (
+                <table className={cx('service-bookings-table')}>
                     <thead>
                         <tr>
                             <th>STT</th>
                             <th>Tên khách hàng</th>
-                            <th>Loại phòng</th>
-                            <th>Số phòng</th>
+                            <th>Tên dịch vụ</th>
+                            <th>Loại dịch vụ</th>
+                            <th>Số lượng</th>
+                            <th>Ngày dùng</th>
                             <th>Trạng thái</th>
-                            <th>Ngày nhận</th>
-                            <th>Ngày trả</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {bookings.map((booking, index) => (
-                            <tr key={`booking-${booking.id}`}>
+                        {serviceBookings.map((serviceBooking, index) => (
+                            <tr key={`service-booking-${serviceBooking.id}`}>
                                 <td>{index + 1 + (page - 1) * limit}</td>
                                 <td>
-                                    {booking.user.first_name} {booking.user.last_name}
+                                    {serviceBooking.booking.user.first_name} {serviceBooking.booking.user.last_name}
                                 </td>
-                                <td>{booking.room.room_type.name}</td>
-                                <td>{booking.room.room_number}</td>
+                                <td>{serviceBooking.service.name}</td>
                                 <td>
-                                    <div className={cx('status', booking.status)}>{FILTER_STATUS[booking.status]}</div>
+                                    <div className={cx('category', serviceBooking.service.category)}>
+                                        {FILTER_CATEGORY[serviceBooking.service.category]}
+                                    </div>
                                 </td>
-                                <td>{formatDate(booking.check_in)}</td>
-                                <td>{formatDate(booking.check_out)}</td>
+                                <td>{serviceBooking.quantity} suất</td>
+                                <td>{formatDate(serviceBooking.date)}</td>
+                                <td>
+                                    <div className={cx('status', serviceBooking.status)}>
+                                        {FILTER_STATUS[serviceBooking.status]}
+                                    </div>
+                                </td>
                                 <td>
                                     <div className={cx('action-btns')}>
-                                        <Button className={cx('view-btn')} small to={`/admin/bookings/${booking.id}`}>
-                                            <VisibilityIcon />
-                                        </Button>
+                                        <ServiceBookingView
+                                            serviceBooking={serviceBooking}
+                                            fetchserviceBookings={fetchserviceBookings}
+                                        />
                                     </div>
                                 </td>
                             </tr>
@@ -142,7 +168,7 @@ const BookingsManagement = () => {
                     </tbody>
                 </table>
             ) : (
-                <div>Không tìm thấy đơn đặt</div>
+                <div>Không tìm thấy đơn dịch vụ</div>
             )}
 
             {totalPages > 1 && (
@@ -154,4 +180,4 @@ const BookingsManagement = () => {
     );
 };
 
-export default BookingsManagement;
+export default ServiceBookingsManagement;

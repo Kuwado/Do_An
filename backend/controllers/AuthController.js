@@ -1,6 +1,6 @@
-import { loginAdminFirstStepService } from '../services/auth/loginAdminFirstStepService.js';
-import { loginAdminService } from '../services/auth/loginAdminService.js';
-import { loginUserService } from '../services/auth/loginUserService.js';
+import { loginAdminFirstStepService } from '../services/authServices/loginAdminFirstStepService.js';
+import { loginAdminService } from '../services/authServices/loginAdminService.js';
+import { loginUserService } from '../services/authServices/loginUserService.js';
 
 export const loginUser = async (req, res) => {
     const { username, password } = req.body;

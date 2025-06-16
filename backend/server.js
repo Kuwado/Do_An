@@ -23,7 +23,6 @@ import paymentRoute from './routes/PaymentRoute.js';
 import predictRoute from './routes/PredictRoute.js';
 import { startCronJobs } from './cronJobs/index.js';
 import { collectData } from './cronJobs/collectData.js';
-import { trainModelService } from './services/predict/trainModelService.js';
 
 dotenv.config();
 const app = express();

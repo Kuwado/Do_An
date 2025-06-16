@@ -6,6 +6,7 @@ import RoomTypesView from './RoomTypesView';
 import RoomsView from './RoomsView';
 import ServicesManagement from './ServicesManagement';
 import VouchersManagement from './VouchersManagement';
+import Profile from './Profile/Profile';
 
 const staff = {
     dashboard: Dashboard,
@@ -16,6 +17,7 @@ const staff = {
     roomList: RoomsView,
     services: ServicesManagement,
     vouchers: VouchersManagement,
+    profile: Profile,
 };
 
 export default staff;

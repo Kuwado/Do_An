@@ -1,14 +1,14 @@
 import models from '../../models/index.js';
 import { Op } from 'sequelize';
-import { deleteImagesService } from '../upload/deleteImagesService.js';
-import { uploadImageService } from '../upload/uploadImageService.js';
+import { deleteImagesService } from '../uploadServices/deleteImagesService.js';
+import { uploadImageService } from '../uploadServices/uploadImageService.js';
 
-export const updateUserService = async (user, updateData) => {
-    if (updateData.username && updateData.username !== user.username) {
-        const checkUserName = await models.User.findOne({
+export const updateStaffService = async (staff, updateData) => {
+    if (updateData.username) {
+        const checkUserName = await models.Staff.findOne({
             where: {
                 username: updateData.username,
-                id: { [Op.ne]: user.id },
+                id: { [Op.ne]: staff.id },
             },
         });
 
@@ -17,8 +17,8 @@ export const updateUserService = async (user, updateData) => {
         }
     }
 
-    if (updateData.avatar && updateData.avatar !== user.avatar) {
-        const oldImages = user.avatar;
+    if (updateData.avatar && updateData.avatar !== staff.avatar) {
+        const oldImages = staff.avatar;
         if (oldImages) {
             deleteImagesService([oldImages]);
         }
@@ -28,16 +28,16 @@ export const updateUserService = async (user, updateData) => {
         }
         updateData.avatar = imageUrl;
     } else {
-        updateData.avatar = user.avatar;
+        updateData.avatar = staff.avatar;
     }
 
     Object.entries(updateData).forEach(([key, value]) => {
-        if (user[key] !== undefined) {
-            user[key] = value;
+        if (staff[key] !== undefined) {
+            staff[key] = value;
         }
     });
 
-    await user.save();
+    await staff.save();
 
-    return user;
+    return staff;
 };

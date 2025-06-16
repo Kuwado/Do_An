@@ -1,9 +1,9 @@
 import models from '../models/index.js';
-import { getCitiesService } from '../services/city/getCitiesService.js';
-import { getHotelService } from '../services/hotel/getHotelService.js';
-import { getHotelsService } from '../services/hotel/getHotelsService.js';
-import { searchHotelsService } from '../services/hotel/searchHotelsService.js';
-import { updateHotelService } from '../services/hotel/updateHotelService.js';
+import { getCitiesService } from '../services/cityServices/getCitiesService.js';
+import { getHotelService } from '../services/hotelServices/getHotelService.js';
+import { getHotelsService } from '../services/hotelServices/getHotelsService.js';
+import { searchHotelsService } from '../services/hotelServices/searchHotelsService.js';
+import { updateHotelService } from '../services/hotelServices/updateHotelService.js';
 
 export const getHotelById = async (req, res) => {
     const id = req.params.id;
