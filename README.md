@@ -8,7 +8,7 @@
 
 ## 🛠️ Công nghệ sử dụng
 
-- **Frontend:** React + Vite + TailwindCSS
+- **Frontend:** React + Vite
 - **Backend:** Node.js + Express
 - **Database:** MySQL
 - **Machine Learning:** Python (Flask API)
