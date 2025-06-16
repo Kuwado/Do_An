@@ -1,4 +1,4 @@
-import { predictGuestsService } from '../services/predict/predictGuestsService.js';
+import { predictGuestsService } from '../services/predictServices/predictGuestsService.js';
 import models from '../models/index.js';
 
 export const predictGuests = async (req, res) => {

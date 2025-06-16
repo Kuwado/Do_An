@@ -11,6 +11,7 @@ import Revenue from './Revenue';
 import BookingsManagement from './BookingsManegement';
 import BookingDetail from './BookingDetail';
 import Predict from './Predict';
+import ServiceBookingsManagement from './ServiceBookingsManagement/ServiceBookingsManagement';
 
 const admin = {
     login: Login,
@@ -24,6 +25,7 @@ const admin = {
     vouchers: VouchersManagement,
     bookings: BookingsManagement,
     booking: BookingDetail,
+    serviceBookings: ServiceBookingsManagement,
     revenue: Revenue,
     predict: Predict,
 };

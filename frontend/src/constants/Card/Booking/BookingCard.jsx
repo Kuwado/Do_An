@@ -24,6 +24,8 @@ const BookingCard = ({ booking = {} }) => {
             setStatus('Đã xác nhận');
         } else if (booking.status === 'completed') {
             setStatus('Hoàn thành');
+        } else if (booking.status === 'using') {
+            setStatus('Đang sử dụng');
         }
     }, [booking.status]);
 

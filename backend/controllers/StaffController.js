@@ -1,9 +1,9 @@
 import models from '../models/index.js';
-import { createStaffService } from '../services/staffs/createStaffService.js';
-import { deleteStaffService } from '../services/staffs/deleteStaffService.js';
-import { getStaffsByHotelIdService } from '../services/staffs/getStaffsByHotelIdService.js';
-import { getStaffService } from '../services/staffs/getStaffService.js';
-import { updateStaffService } from '../services/staffs/updateStaffService.js';
+import { createStaffService } from '../services/staffServices/createStaffService.js';
+import { deleteStaffService } from '../services/staffServices/deleteStaffService.js';
+import { getStaffsByHotelIdService } from '../services/staffServices/getStaffsByHotelIdService.js';
+import { getStaffService } from '../services/staffServices/getStaffService.js';
+import { updateStaffService } from '../services/staffServices/updateStaffService.js';
 
 export const createStaff = async (req, res) => {
     try {

@@ -1,8 +1,8 @@
 import models from '../../models/index.js';
 import { Op } from 'sequelize';
-import { deleteImagesService } from '../upload/deleteImagesService.js';
-import { uploadImagesService } from '../upload/uploadImagesService.js';
-import { uploadImageService } from '../upload/uploadImageService.js';
+import { deleteImagesService } from '../uploadServices/deleteImagesService.js';
+import { uploadImagesService } from '../uploadServices/uploadImagesService.js';
+import { uploadImageService } from '../uploadServices/uploadImageService.js';
 
 export const updateHotelService = async (hotel, updateData) => {
     if (updateData.images && updateData.images.length > 0) {

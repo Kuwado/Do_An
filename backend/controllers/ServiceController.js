@@ -1,16 +1,16 @@
 import models from '../models/index.js';
-import { createServiceService } from '../services/service/createServiceService.js';
-import { deleteServiceService } from '../services/service/deleteServiceService.js';
-import { getAllServicesByHotelIdService } from '../services/service/getAllServicesByHotelIdService.js';
+import { createServiceService } from '../services/serviceServices/createServiceService.js';
+import { deleteServiceService } from '../services/serviceServices/deleteServiceService.js';
+import { getAllServicesByHotelIdService } from '../services/serviceServices/getAllServicesByHotelIdService.js';
 
-import { getServiceBookingsByBookingIdService } from '../services/service/getServiceBookingsByBookingIdService.js';
-import { getServiceBookingsByHotelIdService } from '../services/service/getServiceBookingsByHotelIdService.js';
-import { getServiceBookingsHistoryService } from '../services/service/getServiceBookingsHistoryService.js';
-import { getServiceByIdService } from '../services/service/getServiceByIdService.js';
-import { getServicesByHotelIdService } from '../services/service/getServicesByHotelIdService.js';
-import { updateServiceBookingService } from '../services/service/updateServiceBookingService.js';
-import { updateServiceService } from '../services/service/updateServiceService.js';
-import { canApplyVoucher } from '../services/voucher/applyVoucherService.js';
+import { getServiceBookingsByBookingIdService } from '../services/serviceServices/getServiceBookingsByBookingIdService.js';
+import { getServiceBookingsByHotelIdService } from '../services/serviceServices/getServiceBookingsByHotelIdService.js';
+import { getServiceBookingsHistoryService } from '../services/serviceServices/getServiceBookingsHistoryService.js';
+import { getServiceByIdService } from '../services/serviceServices/getServiceByIdService.js';
+import { getServicesByHotelIdService } from '../services/serviceServices/getServicesByHotelIdService.js';
+import { updateServiceBookingService } from '../services/serviceServices/updateServiceBookingService.js';
+import { updateServiceService } from '../services/serviceServices/updateServiceService.js';
+import { canApplyVoucher } from '../services/voucherServices/applyVoucherService.js';
 
 export const getServicesByHotelId = async (req, res) => {
     const hotelId = req.params.hotelId;

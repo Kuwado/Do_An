@@ -1,4 +1,4 @@
-import { getAdminService } from '../services/admin/getAdminService.js';
+import { getAdminService } from '../services/adminServices/getAdminService.js';
 
 export const getAdminById = async (req, res) => {
     const id = req.params.id;

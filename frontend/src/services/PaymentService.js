@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const handlePayment = async ({ amount, next }) => {
+export const handlePayment = async ({ amount, next, prev }) => {
     try {
         const res = await axios.post(`${API_URL}/vnpay/create-payment`, {
             amount,
@@ -12,6 +12,9 @@ export const handlePayment = async ({ amount, next }) => {
             localStorage.setItem('amount', amount);
             if (next) {
                 localStorage.setItem('after_payment_url', next);
+            }
+            if (prev) {
+                localStorage.setItem('before_payment_url', prev);
             }
             window.location.href = res.data.paymentUrl;
         }

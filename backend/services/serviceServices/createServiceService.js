@@ -1,5 +1,5 @@
 import models from '../../models/index.js';
-import { uploadImagesService } from '../upload/uploadImagesService.js';
+import { uploadImagesService } from '../uploadServices/uploadImagesService.js';
 
 export const createServiceService = async (data) => {
     if (data.images) {

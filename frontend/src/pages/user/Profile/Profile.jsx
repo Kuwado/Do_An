@@ -25,7 +25,7 @@ const Profile = () => {
         setCurrentUser((prev) => ({ ...prev, [field]: value }));
     };
 
-    console.log(avatar ? URL.createObjectURL(avatar) : `${IMAGE_URL}${user.avatar}`);
+    console.log(currentUser);
 
     useEffect(() => {
         setCurrentUser(user);
@@ -36,9 +36,9 @@ const Profile = () => {
     }, [avatar]);
 
     const handleUpdateUser = async () => {
-        if (!currentUser.firstName) {
+        if (!currentUser.first_name) {
             toast.warning('Vui lòng nhập họ');
-        } else if (!currentUser.lastName) {
+        } else if (!currentUser.last_name) {
             toast.warning('Vui lòng nhập tên');
         } else if (!currentUser.phone) {
             toast.warning('Vui lòng nhập số điện thoại');

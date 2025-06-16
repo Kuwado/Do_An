@@ -67,7 +67,7 @@ const RoomDetail = ({ room }) => {
                                 <FontAwesomeIcon icon={faChevronLeft} />
                             </button>
                             <img
-                                src={`${IMAGE_URL}${images[currentIndex]}`}
+                                src={room.images ? `${IMAGE_URL}${images[currentIndex]}` : images[currentIndex]}
                                 alt={`Ảnh ${currentIndex + 1}`}
                                 className={cx('main-image')}
                             />
@@ -82,7 +82,7 @@ const RoomDetail = ({ room }) => {
                                 <img
                                     key={index}
                                     ref={(el) => (thumbnailRefs.current[index] = el)}
-                                    src={`${IMAGE_URL}${img}`}
+                                    src={room.images ? `${IMAGE_URL}${img}` : img}
                                     alt={`Thumbnail ${index + 1}`}
                                     className={cx('thumbnail', {
                                         active: index === currentIndex,

@@ -1,5 +1,5 @@
-import { createReviewService } from '../services/review/createReviewService.js';
-import { getReviewsService } from '../services/review/getReviewsService.js';
+import { createReviewService } from '../services/reviewServices/createReviewService.js';
+import { getReviewsService } from '../services/reviewServices/getReviewsService.js';
 
 export const getReviews = async (req, res) => {
     const hotelId = req.query.hotel_id;

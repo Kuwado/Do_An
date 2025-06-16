@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -38,12 +38,15 @@ const Sidebar = () => {
             </div>
 
             <div className={cx('sidebar-footer')}>
-                <Link className={cx('sidebar-item')} to={config.routes.admin.profile}>
+                <NavLink
+                    to={admin.role === 'admin' ? config.routes.admin.profile : config.routes.staff.profile}
+                    className={({ isActive }) => cx('sidebar-item', { active: isActive })}
+                >
                     <div className={cx('sidebar-icon')}>
                         <PersonIcon />
                     </div>
                     <div className={cx('sidebar-title')}>Thông tin cá nhân</div>
-                </Link>
+                </NavLink>
                 <Link className={cx('sidebar-item')} to={config.routes.admin.login}>
                     <div className={cx('sidebar-icon')}>
                         <LogoutIcon />

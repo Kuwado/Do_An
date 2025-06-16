@@ -1,4 +1,4 @@
-.bookings-management-page {
+.service-bookings-management-page {
     height: 100%;
     background-color: var(--primary);
     padding: 10px 20px;
@@ -60,34 +60,40 @@ tbody tr:nth-child(even) {
     background-color: #f7f6fe;
 }
 
-.bookings-table td:nth-child(1) {
+.service-bookings-table td:nth-child(1) {
     width: 50px;
     text-align: center;
 }
 
-.bookings-table td:nth-child(2),
-.bookings-table th:nth-child(2) {
+.service-bookings-table td:nth-child(2),
+.service-bookings-table th:nth-child(2) {
     width: 200px;
 }
 
-.bookings-table td:nth-child(4),
-.bookings-table th:nth-child(4) {
-    width: 100px;
+.service-bookings-table td:nth-child(4),
+.service-bookings-table th:nth-child(4) {
+    width: 130px;
+    text-align: center;
 }
 
-.bookings-table th:nth-child(5),
-.bookings-table td:nth-child(5) {
+.service-bookings-table th:nth-child(5),
+.service-bookings-table td:nth-child(5) {
+    width: 100px;
+    text-align: center;
+}
+
+.service-bookings-table td:nth-child(6) {
+    width: 130px;
+}
+
+.service-bookings-table td:nth-child(7),
+.service-bookings-table th:nth-child(7) {
     width: 180px;
     text-align: center;
 }
 
-.bookings-table td:nth-child(6),
-.bookings-table td:nth-child(7) {
-    width: 130px;
-}
-
-.bookings-table td:nth-child(8),
-.bookings-table th:nth-child(8) {
+.service-bookings-table td:nth-child(8),
+.service-bookings-table th:nth-child(8) {
     width: 150px;
     text-align: center;
 }
@@ -115,9 +121,26 @@ tbody tr:nth-child(even) {
     &.completed {
         background-color: #34d399;
     }
+}
 
-    &.using {
-        background-color: #a78bfa;
+.category {
+    width: fit-content;
+    margin: auto;
+    padding: 5px 15px;
+    border-radius: 999px;
+    font-weight: bold;
+    color: #333;
+
+    &.facilities {
+        background-color: #facc15;
+    }
+
+    &.entertainment {
+        background-color: #f87171;
+    }
+
+    &.dining {
+        background-color: #38bdf8;
     }
 }
 

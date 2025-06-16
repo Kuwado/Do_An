@@ -99,21 +99,22 @@ const Header = ({ booking, bookingRef, servicesRef, paymentRef, reviewRef, fetch
                 )}
             </div>
 
-            {booking.id && (booking.status === 'pending' || booking.status === 'confirmed') && (
-                <div className={cx('service-btn')}>
-                    <Button
-                        secondary
-                        leftIcon={<FontAwesomeIcon icon={faBellConcierge} />}
-                        onClick={() => setShowServices(true)}
-                    >
-                        Thêm dịch vụ
-                    </Button>
+            {booking.id &&
+                (booking.status === 'pending' || booking.status === 'confirmed' || booking.status === 'using') && (
+                    <div className={cx('service-btn')}>
+                        <Button
+                            secondary
+                            leftIcon={<FontAwesomeIcon icon={faBellConcierge} />}
+                            onClick={() => setShowServices(true)}
+                        >
+                            Thêm dịch vụ
+                        </Button>
 
-                    <Popup show={showServices} setShow={setShowServices}>
-                        <ServiceSelection booking={booking} fetchServiceBookings={fetchServiceBookings} />
-                    </Popup>
-                </div>
-            )}
+                        <Popup show={showServices} setShow={setShowServices}>
+                            <ServiceSelection booking={booking} fetchServiceBookings={fetchServiceBookings} />
+                        </Popup>
+                    </div>
+                )}
 
             <div className={cx('top-btn')} onClick={scrollToTop}>
                 <div className={cx('content')}>

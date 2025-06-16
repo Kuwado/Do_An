@@ -19,6 +19,7 @@ const routes = {
 
     staff: {
         dashboard: '/staff/dashboard',
+        profile: '/staff/profile',
         bookings: '/staff/bookings',
         booking: '/staff/bookings/:id',
         serviceBookings: '/staff/service-bookings',
@@ -32,7 +33,7 @@ const routes = {
     admin: {
         login: '/admin/login',
         login2: '/admin/login/second-step',
-        profile: '/admin-staff/profile',
+        profile: '/admin/profile',
         dashboard: '/admin/dashboard',
         hotel: '/admin/hotel-management',
         staffs: '/admin/staffs-management',
@@ -43,6 +44,7 @@ const routes = {
         vouchers: '/admin/vouchers',
         bookings: '/admin/bookings',
         booking: '/admin/bookings/:id',
+        serviceBookings: '/admin/service-bookings',
         revenue: '/admin/revenue',
         predict: '/admin/predict',
     },

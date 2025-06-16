@@ -1,8 +1,8 @@
-import { createOrUpdateHotelAmenitiesService } from '../services/amenity/createOrUpdateHotelAmenitiesService.js';
-import { createOrUpdateRoomTypeAmenitiesService } from '../services/amenity/createOrUpdateRoomTypeAmenitiesService.js';
-import { getAmenitiesByHotelIdService } from '../services/amenity/getAmenitiesByHotelIdService.js';
-import { getAmenitiesByRoomTypeIdService } from '../services/amenity/getAmenitiesByRoomTypeIdService.js';
-import { getAmenitiesService } from '../services/amenity/getAmenitiesService.js';
+import { createOrUpdateHotelAmenitiesService } from '../services/amenityServices/createOrUpdateHotelAmenitiesService.js';
+import { createOrUpdateRoomTypeAmenitiesService } from '../services/amenityServices/createOrUpdateRoomTypeAmenitiesService.js';
+import { getAmenitiesByHotelIdService } from '../services/amenityServices/getAmenitiesByHotelIdService.js';
+import { getAmenitiesByRoomTypeIdService } from '../services/amenityServices/getAmenitiesByRoomTypeIdService.js';
+import { getAmenitiesService } from '../services/amenityServices/getAmenitiesService.js';
 
 export const getAmenities = async (req, res) => {
     try {

@@ -1,4 +1,4 @@
-import { getRevenueByHotelService } from '../services/revenue/getRevenueByHotelService.js';
+import { getRevenueByHotelService } from '../services/revenueServices/getRevenueByHotelService.js';
 
 export const getRevenuesByHotel = async (req, res) => {
     const hotelId = req.params.hotelId;

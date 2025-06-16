@@ -43,10 +43,17 @@ const privateRoutes = [
     { path: config.routes.admin.vouchers, element: pages.admin.vouchers, layout: layouts.admin.default, role: 'admin' },
     { path: config.routes.admin.bookings, element: pages.admin.bookings, layout: layouts.admin.default, role: 'admin' },
     { path: config.routes.admin.booking, element: pages.admin.booking, layout: layouts.admin.default, role: 'admin' },
+    {
+        path: config.routes.admin.serviceBookings,
+        element: pages.admin.serviceBookings,
+        layout: layouts.admin.default,
+        role: 'admin',
+    },
     { path: config.routes.admin.revenue, element: pages.admin.revenue, layout: layouts.admin.default, role: 'admin' },
     { path: config.routes.admin.predict, element: pages.admin.predict, layout: layouts.admin.default, role: 'admin' },
 
     // Staff
+    { path: config.routes.staff.profile, element: pages.staff.profile, layout: layouts.admin.default, role: 'staff' },
     {
         path: config.routes.staff.dashboard,
         element: pages.staff.dashboard,

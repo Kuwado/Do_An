@@ -1,6 +1,6 @@
 import models from '../../models/index.js';
-import { createOrUpdateRoomTypeAmenitiesService } from '../amenity/createOrUpdateRoomTypeAmenitiesService.js';
-import { uploadImagesService } from '../upload/uploadImagesService.js';
+import { createOrUpdateRoomTypeAmenitiesService } from '../amenityServices/createOrUpdateRoomTypeAmenitiesService.js';
+import { uploadImagesService } from '../uploadServices/uploadImagesService.js';
 
 export const createRoomTypeService = async (data) => {
     if (data.images) {
