@@ -69,7 +69,7 @@ def train_sarima(hotel_id: int):
     plt.ylabel("Number of Guests")
     plt.legend()
     plt.grid(True)
-    plt.show()
+    # plt.show()
 
     return {
         "model": "SARIMA",

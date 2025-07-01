@@ -55,6 +55,9 @@ def predict_guests(hotel_id: int, input_data: dict):
     else:
         results["sarima"] = "Model not found"
 
+    print("Ket qua du doan: ")
+    print(results)
+
     ### --- Trung bình của Random Forest và XGBoost ---
     if (
         results["random_forest"] != "Model not found"

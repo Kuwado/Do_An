@@ -10,6 +10,7 @@ predict_bp = Blueprint("predict_api", __name__, url_prefix="/api")
 def predict(hotel_id):
     try:
         input_data = request.get_json()["input"]
+        print(input_data)
         result = predict_guests(hotel_id, input_data)
         return jsonify(result)
     except Exception as e:

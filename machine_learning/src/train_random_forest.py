@@ -77,14 +77,14 @@ def train_random_forest(hotel_id: int):
     print(f"Model saved to {model_path}")
 
     # Vẽ biểu đồ so sánh giá trị thực và dự đoán
-    # plt.figure(figsize=(10, 6))
-    # plt.plot(y_test.values, label="Actual", marker="o")
-    # plt.plot(y_pred, label="Predicted", marker="x")
-    # plt.title("Comparison of Actual vs Predicted Number of Guests")
-    # plt.xlabel("Sample index")
-    # plt.ylabel("Number of Guests")
-    # plt.legend()
-    # plt.grid(True)
+    plt.figure(figsize=(10, 6))
+    plt.plot(y_test.values, label="Actual", marker="o")
+    plt.plot(y_pred, label="Predicted", marker="x")
+    plt.title("Comparison of Actual vs Predicted Number of Guests")
+    plt.xlabel("Sample index")
+    plt.ylabel("Number of Guests")
+    plt.legend()
+    plt.grid(True)
     # plt.show()
 
     return {

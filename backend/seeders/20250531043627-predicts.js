@@ -4,165 +4,57 @@ import models from '../models/index.js';
 const hardCodedPredicts = [
     {
         hotel_id: 1,
-        date: '2025-05-20',
-        predicted_guests: 30,
+        date: '2025-06-23',
+        predicted_guests: 26,
         actual_guests: 28,
     },
     {
         hotel_id: 1,
-        date: '2025-05-21',
+        date: '2025-06-24',
+        predicted_guests: 28,
+        actual_guests: 32,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-25',
         predicted_guests: 32,
         actual_guests: 34,
     },
     {
         hotel_id: 1,
-        date: '2025-05-22',
-        predicted_guests: 25,
-        actual_guests: 22,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-05-23',
-        predicted_guests: 31,
-        actual_guests: 25,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-05-24',
-        predicted_guests: 40,
-        actual_guests: 39,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-05-25',
-        predicted_guests: 39,
-        actual_guests: 39,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-05-26',
-        predicted_guests: 25,
-        actual_guests: 23,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-05-27',
-        predicted_guests: 18,
-        actual_guests: 20,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-05-28',
-        predicted_guests: 22,
-        actual_guests: 23,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-05-29',
-        predicted_guests: 30,
-        actual_guests: 29,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-05-30',
-        predicted_guests: 25,
-        actual_guests: 28,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-06-01',
-        predicted_guests: 40,
-        actual_guests: 39,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-06-02',
-        predicted_guests: 39,
+        date: '2025-06-26',
+        predicted_guests: 32,
         actual_guests: 35,
     },
     {
         hotel_id: 1,
-        date: '2025-06-03',
-        predicted_guests: 25,
-        actual_guests: 23,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-06-04',
-        predicted_guests: 38,
-        actual_guests: 35,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-06-05',
-        predicted_guests: 38,
-        actual_guests: 40,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-06-06',
-        predicted_guests: 39,
-        actual_guests: 43,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-07-06',
-        predicted_guests: 30,
-        actual_guests: 34,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-06-07',
-        predicted_guests: 40,
-        actual_guests: 39,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-06-08',
-        predicted_guests: 39,
-        actual_guests: 35,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-06-09',
-        predicted_guests: 25,
-        actual_guests: 23,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-06-10',
-        predicted_guests: 38,
-        actual_guests: 35,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-06-11',
-        predicted_guests: 34,
-        actual_guests: 35,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-06-12',
+        date: '2025-06-27',
         predicted_guests: 35,
         actual_guests: 36,
     },
     {
         hotel_id: 1,
-        date: '2025-06-13',
-        predicted_guests: 39,
-        actual_guests: 37,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-06-14',
-        predicted_guests: 38,
-        actual_guests: 42,
-    },
-    {
-        hotel_id: 1,
-        date: '2025-06-15',
-        predicted_guests: 39,
+        date: '2025-06-28',
+        predicted_guests: 45,
         actual_guests: 43,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-29',
+        predicted_guests: 44,
+        actual_guests: 41,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-06-30',
+        predicted_guests: 26,
+        actual_guests: 24,
+    },
+    {
+        hotel_id: 1,
+        date: '2025-07-01',
+        predicted_guests: 27,
+        actual_guests: 28,
     },
 ];
 
@@ -172,8 +64,8 @@ export async function up(queryInterface, Sequelize) {
         where: { predict: true },
     });
 
-    const startDate = new Date('2025-05-20');
-    const endDate = new Date('2025-05-30');
+    const startDate = new Date('2025-06-23');
+    const endDate = new Date('2025-07-01');
 
     const predicts = [];
 
