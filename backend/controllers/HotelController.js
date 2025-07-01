@@ -106,8 +106,10 @@ export const updateHotel = async (req, res) => {
         const hotelId = req.params.id;
         const updateData = req.body;
 
-        if (req.files?.images) {
+        if (req.files?.images && req.files.images.length > 0) {
             updateData.images = req.files.images;
+        } else {
+            updateData.images = undefined;
         }
 
         if (req.files?.avatar && req.files.avatar.length > 0) {

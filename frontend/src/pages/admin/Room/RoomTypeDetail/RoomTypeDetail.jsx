@@ -61,7 +61,7 @@ const RoomTypeDetail = ({ roomType, setRoomTypeValue, fetchRoomType }) => {
                         roomTypeId: res.room_type.id,
                         amenityIds: roomType.amenity_ids,
                     });
-                    if (!aRes.success) {
+                    if (aRes.success) {
                         toast.success(aRes.message);
                     } else {
                         toast.error(aRes.message);

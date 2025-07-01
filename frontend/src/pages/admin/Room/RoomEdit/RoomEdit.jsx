@@ -33,7 +33,7 @@ const RoomEdit = ({ room, fetchRooms }) => {
                 fetchRooms();
                 setShow(false);
             } else {
-                toast.success(res.message);
+                toast.error(res.message);
             }
         }
     };
