@@ -70,4 +70,4 @@ app.listen(PORT, () => {
 
 startCronJobs();
 collectData();
-trainModelService({});
+// trainModelService({});
